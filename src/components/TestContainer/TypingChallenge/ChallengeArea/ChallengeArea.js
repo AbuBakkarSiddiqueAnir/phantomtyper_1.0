@@ -8,8 +8,8 @@ const ChallengeArea = () => {
     <div>
       <div>
         <paragraphContext.Consumer>
-          {({ selectedPara }) => (
-            <TypingParagraphTextArea selectedPara={selectedPara} />
+          {({ displayedPara }) => (
+            <TypingParagraphTextArea displayedPara={displayedPara} />
            )}
         </paragraphContext.Consumer>
       </div>

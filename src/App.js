@@ -8,6 +8,7 @@ import TypingChallenge from "./components/TestContainer/TypingChallenge/TypingCh
 import  randomSelector  from "./helper/randomSelector";
 import  typingTestData  from "./data/exampleText";
 import ParagraphContext from "./contexts/paragraphContext";
+import paraSlicer from "./helper/slicer";
 import "./App.css";
 
 const App = () => {
@@ -18,11 +19,17 @@ const App = () => {
     correct: 0,
     misspelled: 0,
   };
+  const copiedDisplayedPara = displayedPara;
 
   const [timerStarted, setTimerStarted] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [detailsData, setDetailsData] = useState(defaultDetails);
-  const [selectedPara, setSelectedPara] = useState("intial paragraph huin mein");
+  const [selectedPara, setSelectedPara] = useState(randomSelector(typingTestData));
+  const [paraArray, setParaArray] = useState(selectedPara.split(" "));
+
+  const [para, setPara] = useState(paraSlicer(copiedDisplayedPara));
+  const [wordIndex, setWordIndex] = useState(0)
+
 
   
 
@@ -41,7 +48,7 @@ const App = () => {
           <DetailsBar />
         </div>
         <div className="col-span-5 min-width border-4 pt-8 ">
-          <ParagraphContext.Provider value={{selectedPara}}>
+          <ParagraphContext.Provider value={{displayedPara}}>
 
             <TypingChallenge />
             
