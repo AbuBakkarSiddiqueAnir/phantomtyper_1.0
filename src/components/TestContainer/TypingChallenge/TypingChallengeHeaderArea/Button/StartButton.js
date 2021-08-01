@@ -3,8 +3,8 @@ import React from 'react';
 const StartButton = () => {
     return (
         <div>
-        <button class="ui basic button">
-            <i class="icon user"></i>
+        <button className="ui basic button">
+            <i className="icon user"></i>
             Start
         </button>
     </div>

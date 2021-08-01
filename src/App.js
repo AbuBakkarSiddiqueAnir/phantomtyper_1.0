@@ -5,11 +5,30 @@ import DetailsBar from "./components/SideBar/Bar/DetailBar/DetailBar";
 import HistoryBar from "./components/SideBar/Bar/HistoryBar/HistoryBar";
 import TryAgain from "./components/TestContainer/TryAgain/TryAgain";
 import TypingChallenge from "./components/TestContainer/TypingChallenge/TypingChallenge";
-import randomElementSelector from "./helper/randomSelector";
-import typingTestData from "./data/exampleText"
-import "./App.css"
+import  randomSelector  from "./helper/randomSelector";
+import  typingTestData  from "./data/exampleText";
+import ParagraphContext from "./contexts/paragraphContext";
+import "./App.css";
 
 const App = () => {
+  const defaultDetails = {
+    wpm: 0,
+    keystrokes: 0,
+    accuracy: 0,
+    correct: 0,
+    misspelled: 0,
+  };
+
+  const [timerStarted, setTimerStarted] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(60);
+  const [detailsData, setDetailsData] = useState(defaultDetails);
+  const [selectedPara, setSelectedPara] = useState("intial paragraph huin mein");
+
+  
+
+  useEffect(() => {
+    setSelectedPara(randomSelector(typingTestData));
+  }, []);
 
 
   return (
@@ -22,7 +41,11 @@ const App = () => {
           <DetailsBar />
         </div>
         <div className="col-span-5 min-width border-4 pt-8 ">
-          <TypingChallenge />
+          <ParagraphContext.Provider value={{selectedPara}}>
+
+            <TypingChallenge />
+            
+          </ParagraphContext.Provider>
         </div>
         <div className="col-span-2 p-8 border-4 ">
           <HistoryBar />

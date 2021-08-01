@@ -9,12 +9,12 @@ class Context {
         return children;
     }
     //consumer
-    Consumer = ({children, value}) => {
-        return children(value)
+    Consumer = ({children}) => {
+        return children(this.value)
     }
 }
 
-const createContext = (value=null) => {
+const createContext = (value = null) => {
     const context = new Context(value);
     return {
         Provider : context.Provider,

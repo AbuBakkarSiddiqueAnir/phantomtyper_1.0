@@ -5,6 +5,7 @@ import TypingChalengeHeaderArea from './TypingChallengeHeaderArea/TypingChalleng
 
 
 const TypingChallenge = ({}) => {
+    
     return (
       <div>
         <TypingChalengeHeaderArea />
