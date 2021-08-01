@@ -1,8 +1,12 @@
 .challengeArea{
-    height:700px;
+    height:600px;
 }
 /* .min-width{
     min-width:800px;
     
   
 } */
+
+.input-field{
+    background:rgb(226, 226, 226)
+}

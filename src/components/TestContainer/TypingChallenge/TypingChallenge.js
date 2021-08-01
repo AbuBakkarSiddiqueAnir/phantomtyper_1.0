@@ -1,14 +1,16 @@
 import React from 'react';
+import ChallengeArea from './ChallengeArea/ChallengeArea';
+import TypingChalengeHeaderArea from './TypingChallengeHeaderArea/TypingChallengeHeaderArea'
+
 
 
 const TypingChallenge = ({}) => {
-
-
     return (
-        <div>
-            <h1>Challege area</h1>
-        </div>
-    )
+      <div>
+        <TypingChalengeHeaderArea />
+        <ChallengeArea />
+      </div>
+    );
 }
 
 export default TypingChallenge;

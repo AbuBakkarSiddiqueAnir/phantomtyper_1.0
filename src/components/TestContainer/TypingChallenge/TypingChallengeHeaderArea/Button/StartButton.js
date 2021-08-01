@@ -2,7 +2,12 @@ import React from 'react';
 
 const StartButton = () => {
     return (
-        <div></div>
+        <div>
+        <button class="ui basic button">
+            <i class="icon user"></i>
+            Start
+        </button>
+    </div>
     )
 }
 
