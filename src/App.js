@@ -5,10 +5,12 @@ import DetailsBar from "./components/SideBar/Bar/DetailBar/DetailBar";
 import HistoryBar from "./components/SideBar/Bar/HistoryBar/HistoryBar";
 import TryAgain from "./components/TestContainer/TryAgain/TryAgain";
 import TypingChallenge from "./components/TestContainer/TypingChallenge/TypingChallenge";
-import  randomSelector  from "./helper/randomSelector";
-import  typingTestData  from "./data/exampleText";
+import randomSelector from "./helper/randomSelector";
+import typingTestData from "./data/exampleText";
 import ParagraphContext from "./contexts/paragraphContext";
+import restartButtonContext from "./contexts/restartButtonContext";
 import paraSlicer from "./helper/slicer";
+import wordMatchChecker from "./helper/wordMatchChecker";
 import "./App.css";
 
 const App = () => {
@@ -19,23 +21,73 @@ const App = () => {
     correct: 0,
     misspelled: 0,
   };
-  const copiedDisplayedPara = displayedPara;
 
   const [timerStarted, setTimerStarted] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [detailsData, setDetailsData] = useState(defaultDetails);
-  const [selectedPara, setSelectedPara] = useState(randomSelector(typingTestData));
-  const [paraArray, setParaArray] = useState(selectedPara.split(" "));
-
-  const [para, setPara] = useState(paraSlicer(copiedDisplayedPara));
-  const [wordIndex, setWordIndex] = useState(0)
 
 
-  
+  const [paragraphArray, setParagraphArray] = useState([]);
+  const [activeParaArray, setActiveParaArray] = useState([]);
+  const [activeParagraph, setActiveParagraph] = useState("");
+
+
+  const [typingWord, setTypingWord] = useState("");
+
+  const [wordIndex, setWordIndex] = useState(0);
+  const [selectedWord, setSelectedWord] = useState("")
+
+
+  const activeParaHandler = () => {
+
+    setActiveParaArray(paraSlicer(paragraphArray));
+    setActiveParagraph(activeParaArray.join(" "));
+
+  };
+
+  const wordMatchHandler = (event) => {
+    setTypingWord(event.target.value);
+  };
+
+
+
+  const onKeyPressWordMatch = (event) => {
+    if (event.charCode === 32) {
+
+      setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
+      setTypingWord("");
+   
+    }
+  };
+
+
 
   useEffect(() => {
-    setSelectedPara(randomSelector(typingTestData));
-  }, []);
+
+    setParagraphArray(randomSelector(typingTestData).split(" "));
+  
+  },[]);
+
+  useEffect(()=>{
+
+    let spannedWords = paragraphArray.map((word, index) => (
+      <span key={index}>{word}</span>
+    ));
+
+    let spannedPara = spannedWords.reduce(
+      (spannedparagraph, currentWord, index) => {
+        if (spannedparagraph === "") return currentWord.props.children;
+        return spannedparagraph + " " + currentWord.props.children;
+      },
+      ""
+    );
+
+    setActiveParaArray(paraSlicer(paragraphArray));
+    setActiveParagraph(activeParaArray.join(" "));
+
+    console.log(activeParagraph)
+
+  },[])
 
 
   return (
@@ -48,10 +100,16 @@ const App = () => {
           <DetailsBar />
         </div>
         <div className="col-span-5 min-width border-4 pt-8 ">
-          <ParagraphContext.Provider value={{displayedPara}}>
-
+          <ParagraphContext.Provider
+            value={{
+              onKeyPressWordMatch,
+              typingWord,
+              wordMatchHandler,
+              activeParagraph,
+              activeParaHandler,
+            }}
+          >
             <TypingChallenge />
-            
           </ParagraphContext.Provider>
         </div>
         <div className="col-span-2 p-8 border-4 ">

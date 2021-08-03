@@ -1,8 +1,7 @@
 
 const paraSlicer = (paragraph) => {
-    return {
-        paragraph: paragraph.splice(0,24)
-    } 
+    return paragraph.splice(0,15)
+
 }
 
 

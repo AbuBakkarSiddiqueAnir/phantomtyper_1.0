@@ -6,16 +6,26 @@ import paragraphContext from "../../../../contexts/paragraphContext";
 const ChallengeArea = () => {
   return (
     <div>
+     
       <div>
-        <paragraphContext.Consumer>
-          {({ displayedPara }) => (
-            <TypingParagraphTextArea displayedPara={displayedPara} />
+       <paragraphContext.Consumer>
+          {({ activeParagraph }) => (
+            <TypingParagraphTextArea activeParagraph={activeParagraph} />
            )}
-        </paragraphContext.Consumer>
+       </paragraphContext.Consumer>
       </div>
       <div>
-        <TypingInputArea />
+      <paragraphContext.Consumer>
+        {
+          ({wordMatchHandler,typingWord,onKeyPressWordMatch}) => (
+            <TypingInputArea wordMatchHandler={wordMatchHandler} typingWord={typingWord} onKeyPressWordMatch={onKeyPressWordMatch}/>
+          )
+
+          
+        }
+           </paragraphContext.Consumer>
       </div>
+     
     </div>
   );
 };
