@@ -23,6 +23,7 @@ const App = () => {
   // };
 
   const [timerStarted, setTimerStarted] = useState(false);
+  const [firstWordIndexChecker, setFirstWordIndexChecker] = useState(false)
   const [timeRemaining, setTimeRemaining] = useState(60);
 
   const [wpm, setWpm] = useState(0);
@@ -56,7 +57,7 @@ const App = () => {
     setActiveParagraph(slicedParagraph.join(" "));
     setSlicerIndex(index);
     
-    console.log(slicedParagraph)
+  
   }
 
   const wordMatchHandler = (event) => {
@@ -70,22 +71,30 @@ const App = () => {
     if (event.charCode === 32) {
 
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
-      setTypingWord("");
-      setSelectedWord(paragraphArray[wordIndex])
 
-      console.log(typingWord, selectedWord)
+      setTypingWord("");
+
+      setSelectedWord(paragraphArray[wordIndex+1])
+
+    
+
       let matchingIssues = wordMatchChecker(selectedWord, typingWord);
+
       if(matchingIssues) setCorrect((prevCorrect, nextCorrect) => nextCorrect = prevCorrect+1)
+      
+    
     }
 
   };
 
-  
+
   useEffect(() => {
-  
-    if(wordIndex % 14 === 0){
-      console.log(wordIndex)
+    
+    if(wordIndex % 15 === 0 && wordIndex > 0){
+      
+      
       activeParagraphLoader();
+
     } 
   },[wordIndex])
   
@@ -95,32 +104,41 @@ const App = () => {
     
     setParagraphArray( randomSelector(typingTestData).split(" "));
     
+    
+    
   },[])
 
 
   useEffect(()=>{
 
-    let spannedWords = paragraphArray.map((word, index) => (
-      <span key={index}>{word}</span>
-    ));
-
-    let spannedPara = spannedWords.reduce(
-      (spannedparagraph, currentWord, index) => {
-        if (spannedparagraph === "") return currentWord.props.children;
-        return spannedparagraph + " " + currentWord.props.children;
-      },
-      ""
-    );
 
 
   },[])
 
 
   useEffect(() => {
-    console.log(paragraphArray)
-    console.log("for checking the first time")
+
+    let spannedWords = paragraphArray.map((word, index) => (
+      <span key={index} className="text-2xl">{word}{" "}</span>
+    ));
+
+    // let spannedPara = spannedWords.reduce(
+    //   (spannedparagraph, currentWord, index) => {
+    //     if (spannedparagraph === "") return currentWord.props.children;
+    //     return spannedparagraph + " " + currentWord.props.children;
+    //   },
+    //   ""
+    // );
+    
+    console.log(spannedWords)
+    
+  setActiveParagraphArray(spannedWords);
+
    setTimeout(() => {
+
+      setSelectedWord(paragraphArray[0])
       activeParagraphLoader();
+
     },1000)
   },[paragraphArray])
 
@@ -155,7 +173,7 @@ const App = () => {
         </div>
       </div>
       <div className=" mx-4 p-4">
-        <Footer />
+        <Footer>{activeParagraphArray}</Footer>
       </div>
     </div>
   );
