@@ -1,10 +1,11 @@
 import React from 'react';
 
 
-const DetailCard = ({}) => {
+const DetailCard = ({correct}) => {
+
     return (
         <div>
-            <h3 className="text-2xl">DetailCard</h3>
+            <h3 className="text-4xl">{correct}</h3>
         </div>
     )
 }

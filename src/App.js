@@ -8,42 +8,56 @@ import TypingChallenge from "./components/TestContainer/TypingChallenge/TypingCh
 import randomSelector from "./helper/randomSelector";
 import typingTestData from "./data/exampleText";
 import ParagraphContext from "./contexts/paragraphContext";
-import restartButtonContext from "./contexts/restartButtonContext";
+import Detailscontext from "./contexts/detailscontext";
 import paraSlicer from "./helper/slicer";
 import wordMatchChecker from "./helper/wordMatchChecker";
 import "./App.css";
 
 const App = () => {
-  const defaultDetails = {
-    wpm: 0,
-    keystrokes: 0,
-    accuracy: 0,
-    correct: 0,
-    misspelled: 0,
-  };
+  // const defaultDetails = {
+  //   wpm: 0,
+  //   keystrokes: 0,
+  //   accuracy: 0,
+  //   correct: 0,
+  //   misspelled: 0,
+  // };
 
   const [timerStarted, setTimerStarted] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(60);
-  const [detailsData, setDetailsData] = useState(defaultDetails);
+
+  const [wpm, setWpm] = useState(0);
+  const [keystrokes, setKeystrokes] = useState(0);
+  const [accuracy, setAccuracy] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [misspelled, setMisspelled] = useState(0);
+  
 
 
   const [paragraphArray, setParagraphArray] = useState([]);
-  const [activeParaArray, setActiveParaArray] = useState([]);
+  const [activeParagraphArray, setActiveParagraphArray] = useState([]);
   const [activeParagraph, setActiveParagraph] = useState("");
 
 
   const [typingWord, setTypingWord] = useState("");
 
   const [wordIndex, setWordIndex] = useState(0);
+  const [slicerIndex, setSlicerIndex] = useState(0)
   const [selectedWord, setSelectedWord] = useState("")
 
 
   const activeParaHandler = () => {
 
-    setActiveParaArray(paraSlicer(paragraphArray));
-    setActiveParagraph(activeParaArray.join(" "));
+    
 
-  };
+  }
+
+  const activeParagraphLoader = () => {
+    let [slicedParagraph, index] = paraSlicer(paragraphArray,slicerIndex);
+    setActiveParagraph(slicedParagraph.join(" "));
+    setSlicerIndex(index);
+    
+    console.log(slicedParagraph)
+  }
 
   const wordMatchHandler = (event) => {
     setTypingWord(event.target.value);
@@ -52,21 +66,37 @@ const App = () => {
 
 
   const onKeyPressWordMatch = (event) => {
+
     if (event.charCode === 32) {
 
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
       setTypingWord("");
-   
+      setSelectedWord(paragraphArray[wordIndex])
+
+      console.log(typingWord, selectedWord)
+      let matchingIssues = wordMatchChecker(selectedWord, typingWord);
+      if(matchingIssues) setCorrect((prevCorrect, nextCorrect) => nextCorrect = prevCorrect+1)
     }
+
   };
 
+  
+  useEffect(() => {
+  
+    if(wordIndex % 14 === 0){
+      console.log(wordIndex)
+      activeParagraphLoader();
+    } 
+  },[wordIndex])
+  
 
 
   useEffect(() => {
+    
+    setParagraphArray( randomSelector(typingTestData).split(" "));
+    
+  },[])
 
-    setParagraphArray(randomSelector(typingTestData).split(" "));
-  
-  },[]);
 
   useEffect(()=>{
 
@@ -82,12 +112,17 @@ const App = () => {
       ""
     );
 
-    setActiveParaArray(paraSlicer(paragraphArray));
-    setActiveParagraph(activeParaArray.join(" "));
-
-    console.log(activeParagraph)
 
   },[])
+
+
+  useEffect(() => {
+    console.log(paragraphArray)
+    console.log("for checking the first time")
+   setTimeout(() => {
+      activeParagraphLoader();
+    },1000)
+  },[paragraphArray])
 
 
   return (
@@ -97,7 +132,10 @@ const App = () => {
       </div>
       <div className="grid grid-cols-9 gap-2  mx-4 p-4 mt-4 challengeArea">
         <div className="col-span-2 p-8 border-4 ">
-          <DetailsBar />
+          <Detailscontext.Provider value={correct}>
+            <DetailsBar />
+          </Detailscontext.Provider>
+         
         </div>
         <div className="col-span-5 min-width border-4 pt-8 ">
           <ParagraphContext.Provider

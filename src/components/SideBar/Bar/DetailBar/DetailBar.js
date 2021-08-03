@@ -1,11 +1,18 @@
 import React from 'react';
-import DetailCard from "../../Card/DetailCard/DetailCard"
+import DetailCard from "../../Card/DetailCard/DetailCard";
+import Detailscontext from "../../../../contexts/detailscontext"
 
 
 const DetailsBar = ({}) => {
     return (
         <div>
-            <DetailCard/>
+            <Detailscontext.Consumer>
+            {
+                (correct) => (
+                    <DetailCard correct={correct}/>
+                )
+            }
+          </Detailscontext.Consumer>
            
         </div>
     )
