@@ -15,7 +15,7 @@ import "./App.css";
 
 
 const App = () => {
-
+  
   const [timerStarted, setTimerStarted] = useState(false);
   const [firstWordIndexChecker, setFirstWordIndexChecker] = useState(false)
   const [timeRemaining, setTimeRemaining] = useState(60);
@@ -27,6 +27,8 @@ const App = () => {
   const [misspelled, setMisspelled] = useState(0);
   const [paragraphArray, setParagraphArray] = useState([]);
   const [activeParagraph, setActiveParagraph] = useState([]);
+  const [character, setCharacter] = useState("");
+  const [characterBoolean, setCharacterBoolean] = useState(true)
 
 
   const [typingWord, setTypingWord] = useState("");
@@ -34,12 +36,14 @@ const App = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [slicerIndex, setSlicerIndex] = useState(0)
   const [selectedWord, setSelectedWord] = useState("");
+  const [selectedWordCharacterizations, setSelectedWordCharacterizations] = useState([])
 
 
   const paragraphArraySetter = () => {
     setParagraphArray( randomSelector(typingTestData).split(" ").map((word,index)=>{
       return <span key={index}>{word} {""}</span>
     }));
+    
   }
 
   const restartButtonHandler = () => {
@@ -52,32 +56,44 @@ const App = () => {
     setWordIndex(0);
     setTimerStarted(false);
     setTimeRemaining(60);
+    setSelectedWordCharacterizations([]);
     paragraphArraySetter()
   }
 
   const StatingParaLaoder = () => {
+
     paragraphArraySetter()
+    
   }
 
   const onKeyPressWordMatch = (event) => {
+
     if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
 
       if (timeRemaining <= 61) {
-        console.log(timeRemaining)
-        console.log("typing period has been finished");
+        
       }
-      console.log(wordIndex,paragraphArray, paragraphArray.length)
+     
       setTimerStarted(true)
       setTypingWord("");
       setSelectedWord(paragraphArray[wordIndex + 1]);
+      setSelectedWordCharacterizations(selectedWord.props.children[0].split(""))
       let matchingIssues = wordMatchChecker(selectedWord, typingWord);
 
       if (matchingIssues)
         setCorrect(
           (prevCorrect, nextCorrect) => (nextCorrect = prevCorrect + 1)
         );
+      
+      if(paragraphArray.length-2 < wordIndex){
+        restartButtonHandler()
+      }
     }
+
+   
+   
+
   };
 
   const activeParaHandler = () => {
@@ -92,7 +108,17 @@ const App = () => {
 
 
   const wordMatchHandler = (event) => {
+
     setTypingWord(event.target.value);
+    let aa = selectedWord.props.children[0];
+    let aaa= event.target.value.replace(/\s+/g,"");
+    if(aaa !== aa.substring(0, aaa.length)){
+       setCharacterBoolean(false)
+       console.log(aa, aaa, aaa.length)
+    }else{
+      setCharacterBoolean(true)
+    }
+   
   };
 
 
@@ -120,6 +146,7 @@ const App = () => {
 
   useEffect(() => {
     StatingParaLaoder()
+    
   },[])
 
 
@@ -138,7 +165,6 @@ const App = () => {
 
     if(timeRemaining < 1){
       setTimerStarted(false);
-      alert(`Correct typing : ${correct}`)
       restartButtonHandler()
     }
   },[timeRemaining])
@@ -148,6 +174,7 @@ const App = () => {
    setTimeout(() => {
       setSelectedWord(paragraphArray[0])
       activeParagraphLoader();
+      
     },1000)
   },[paragraphArray])
 
@@ -157,14 +184,14 @@ const App = () => {
       <div>
         <Header />
       </div>
-      <div className="grid grid-cols-9 gap-2  mx-4 p-4 mt-4 challengeArea">
-        <div className="col-span-2 p-8 border-2 ">
+      <div className="grid grid-cols-12 gap-2  mx-4 p-4 mt-4 challengeArea">
+        <div className="col-span-2 p-8 border-1 bg-green-400 opacity-80 shadow-xl">
           <Detailscontext.Provider value={correct}>
             <DetailsBar />
           </Detailscontext.Provider>
          
         </div>
-        <div className="col-span-5 min-width border-1 pt-8 ">
+        <div className="col-span-8 min-width bg-green-500 border-1 pt-8 shadow-xl">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
@@ -174,13 +201,14 @@ const App = () => {
               activeParaHandler,
               wordIndex,
               timeRemaining,
-              timeRemainingInputHandler
+              timeRemainingInputHandler,
+              characterBoolean
             }}
           >
             <TypingChallenge />
           </ParagraphContext.Provider>
         </div>
-        <div className="col-span-2 p-8 border-2 ">
+        <div className="col-span-2 p-8 border-1 bg-green-400 opacity-80 shadow-xl">
           <HistoryBar />
         </div>
       </div>

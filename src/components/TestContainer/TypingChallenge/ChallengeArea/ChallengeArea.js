@@ -9,8 +9,8 @@ const ChallengeArea = () => {
      
       <div>
        <paragraphContext.Consumer>
-          {({ activeParagraph, wordIndex }) => (
-            <TypingParagraphTextArea wordIndex={wordIndex} activeParagraph={activeParagraph} />
+          {({ activeParagraph, wordIndex, characterBoolean }) => (
+            <TypingParagraphTextArea characterBoolean={characterBoolean} wordIndex={wordIndex} activeParagraph={activeParagraph} />
            )}
        </paragraphContext.Consumer>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, fragment } from "react";
 
-const TypingParagraphTextArea = ({ activeParagraph, wordIndex }) => {
+const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean }) => {
   const [apOnTextArea, setApOnTextArea] = useState("");
 
   useEffect(() => {
@@ -9,10 +9,7 @@ const TypingParagraphTextArea = ({ activeParagraph, wordIndex }) => {
         if (parseInt(word.key) === wordIndex) {
   
           return (
-            <span
-              key={index}
-              className="bg-gray-400 bg-opacity-50 px-1 rounded-md"
-            >
+            <span key={index} className={characterBoolean ? "bg-gray-400 bg-opacity-50 px-1 rounded-md" : "bg-red-400 bg-opacity-80 px-1 rounded-md"}>
               {word}
             </span>
           );
@@ -25,7 +22,7 @@ const TypingParagraphTextArea = ({ activeParagraph, wordIndex }) => {
       })
     );
     
-  }, [activeParagraph, wordIndex]);
+  }, [activeParagraph, wordIndex, characterBoolean]);
 
   return (
     <div className="mt-8">
