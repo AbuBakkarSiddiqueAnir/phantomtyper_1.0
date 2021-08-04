@@ -14,17 +14,10 @@ import wordMatchChecker from "./helper/wordMatchChecker";
 import "./App.css";
 
 const App = () => {
-  // const defaultDetails = {
-  //   wpm: 0,
-  //   keystrokes: 0,
-  //   accuracy: 0,
-  //   correct: 0,
-  //   misspelled: 0,
-  // };
 
   const [timerStarted, setTimerStarted] = useState(false);
   const [firstWordIndexChecker, setFirstWordIndexChecker] = useState(false)
-  const [timeRemaining, setTimeRemaining] = useState(60);
+  const [timeRemaining, setTimeRemaining] = useState(0);
 
   const [wpm, setWpm] = useState(0);
   const [keystrokes, setKeystrokes] = useState(0);
@@ -35,8 +28,7 @@ const App = () => {
 
 
   const [paragraphArray, setParagraphArray] = useState([]);
-  const [activeParagraphArray, setActiveParagraphArray] = useState([]);
-  const [activeParagraph, setActiveParagraph] = useState("");
+  const [activeParagraph, setActiveParagraph] = useState([]);
 
 
   const [typingWord, setTypingWord] = useState("");
@@ -45,94 +37,88 @@ const App = () => {
   const [slicerIndex, setSlicerIndex] = useState(0)
   const [selectedWord, setSelectedWord] = useState("")
 
+  const onKeyPressWordMatch = (event) => {
+    if (event.charCode === 32) {
+      setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
+
+      if (timeRemaining >= 60) {
+        console.log("typing period has been finished");
+      }
+
+      setTypingWord("");
+
+      setSelectedWord(paragraphArray[wordIndex + 1]);
+
+      let matchingIssues = wordMatchChecker(selectedWord, typingWord);
+
+      if (matchingIssues)
+        setCorrect(
+          (prevCorrect, nextCorrect) => (nextCorrect = prevCorrect + 1)
+        );
+    }
+  };
 
   const activeParaHandler = () => {
 
-    
+    restartButtonHandler()
 
   }
 
   const activeParagraphLoader = () => {
     let [slicedParagraph, index] = paraSlicer(paragraphArray,slicerIndex);
-    setActiveParagraph(slicedParagraph.join(" "));
-    setSlicerIndex(index);
     
-  
+    setActiveParagraph(slicedParagraph);
+    setSlicerIndex(index);
   }
+
 
   const wordMatchHandler = (event) => {
     setTypingWord(event.target.value);
   };
 
 
+  const timeRemainingInputHandler = (event) => {
+    console.log(typeof parseInt(event.target.value))
 
-  const onKeyPressWordMatch = (event) => {
-
-    if (event.charCode === 32) {
-
-      setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
-
-      setTypingWord("");
-
-      setSelectedWord(paragraphArray[wordIndex+1])
-
-    
-
-      let matchingIssues = wordMatchChecker(selectedWord, typingWord);
-
-      if(matchingIssues) setCorrect((prevCorrect, nextCorrect) => nextCorrect = prevCorrect+1)
-      
-    
+    if(typeof parseInt(event.target.value) === "number"){
+      setTimeRemaining(event.target.value);
     }
+  
+  }
+  
+  const counter = () => {
+    setTimeRemaining((prevtime, nexttime) => {
+      return prevtime - 1
+      
+    })
+  }
+  const restartButtonHandler = () => {
+    setParagraphArray( randomSelector(typingTestData).split(" ").map((word,index)=>{
+      return <span key={index}>{word} {""}</span>
+    }));
+  }
 
-  };
+
 
 
   useEffect(() => {
     
     if(wordIndex % 15 === 0 && wordIndex > 0){
-      
-      
       activeParagraphLoader();
-
     } 
+
   },[wordIndex])
   
 
 
   useEffect(() => {
-    
-    setParagraphArray( randomSelector(typingTestData).split(" "));
-    
-    
+    restartButtonHandler()
+ 
     
   },[])
-
-
-  useEffect(()=>{
-
-
-
-  },[])
-
 
   useEffect(() => {
 
-    let spannedWords = paragraphArray.map((word, index) => (
-      <span key={index} className="text-2xl">{word}{" "}</span>
-    ));
-
-    // let spannedPara = spannedWords.reduce(
-    //   (spannedparagraph, currentWord, index) => {
-    //     if (spannedparagraph === "") return currentWord.props.children;
-    //     return spannedparagraph + " " + currentWord.props.children;
-    //   },
-    //   ""
-    // );
-    
-    console.log(spannedWords)
-    
-  setActiveParagraphArray(spannedWords);
 
    setTimeout(() => {
 
@@ -163,6 +149,9 @@ const App = () => {
               wordMatchHandler,
               activeParagraph,
               activeParaHandler,
+              wordIndex,
+              timeRemaining,
+              timeRemainingInputHandler
             }}
           >
             <TypingChallenge />
@@ -173,7 +162,7 @@ const App = () => {
         </div>
       </div>
       <div className=" mx-4 p-4">
-        <Footer>{activeParagraphArray}</Footer>
+        <Footer></Footer>
       </div>
     </div>
   );

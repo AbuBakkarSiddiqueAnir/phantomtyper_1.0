@@ -1,5 +1,7 @@
 const wordMatchChecker = (a,b) => {
-    return a.replace(/\s+/g,"")===b.replace(/\s+/g,"")
+
+    return a.props.children[0].replace(/\s+/g,"")===b.replace(/\s+/g,"")
+
 }
 
 export default wordMatchChecker;
