@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const TimeRemainingInput = ({timeRemaining,timeRemainingInputHandler}) => {
     return (
         <div>
