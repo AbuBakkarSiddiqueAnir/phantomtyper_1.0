@@ -16,6 +16,8 @@ import "./App.css";
 const App = () => {
   const [timerStarted, setTimerStarted] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(60);
+  const [countingTime, setCountingTime] = useState(0);
+  const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0)
   const [wpm, setWpm] = useState(0);
   const [keystrokes, setKeystrokes] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
@@ -57,6 +59,10 @@ const App = () => {
     setTimeRemaining(60);
     setWordBooleans([]);
     setKeystrokes(0);
+    setMisspelled(0);
+    setWpm(0);
+    setCountingTime(0);
+    setIncreasingTimeRecording(0)
 
     paragraphArraySetter();
   };
@@ -66,9 +72,14 @@ const App = () => {
   };
 
   const onKeyPressWordMatch = (event) => {
+  
+
     setKeystrokes((prevStroke, currStroke) => {
       return prevStroke + 1;
     });
+
+    setTimerStarted(true);
+    
 
     if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
@@ -88,6 +99,13 @@ const App = () => {
         setCorrect(
           (prevCorrect, nextCorrect) => (nextCorrect = prevCorrect + 1)
         );
+          
+      else
+          setMisspelled((prevMisspelled, nextMisspelled) => {
+            return prevMisspelled + 1;
+          })
+      
+     
 
       if (paragraphArray.length - 2 < wordIndex) {
         restartButtonHandler();
@@ -99,6 +117,8 @@ const App = () => {
     restartButtonHandler();
   };
 
+
+
   const activeParagraphLoader = () => {
     setWordBooleans([]);
     let [slicedParagraph, index] = paraSlicer(paragraphArray, slicerIndex);
@@ -107,15 +127,22 @@ const App = () => {
   };
 
   const wordMatchHandler = (event) => {
+
     setTypingWord(event.target.value);
-    let aa = selectedWord.props.children[0];
-    let aaa = event.target.value.replace(/\s+/g, "");
-    if (aaa !== aa.substring(0, aaa.length)) {
-      setCharacterBoolean(false);
-      console.log(aa, aaa, aaa.length);
-    } else {
-      setCharacterBoolean(true);
+    
+    if(selectedWord){
+      let aa = selectedWord.props.children[0];
+      let aaa = event.target.value.replace(/\s+/g, "");
+      if (aaa !== aa.substring(0, aaa.length)) {
+        setCharacterBoolean(false);
+        console.log(aa, aaa, aaa.length);
+      } else {
+        setCharacterBoolean(true);
+      }
     }
+  
+   
+
   };
 
   const timeRemainingInputHandler = (event) => {
@@ -125,10 +152,28 @@ const App = () => {
   };
 
   const counter = () => {
+    setIncreasingTimeRecording((prevTime, nextTime) => {
+      return prevTime + 1;
+    })
     setTimeRemaining((prevtime, nexttime) => {
       return prevtime - 1;
     });
+
+
+  
   };
+
+  useEffect(() => {
+    setWpm((prev, next) => {
+      console.log(increasingTimeRecording,countingTime)
+      if(countingTime > 1 || increasingTimeRecording > 1){
+        let timeRemainingMinFraction = parseInt(increasingTimeRecording) / parseInt(countingTime);
+        console.log(parseInt(correct ? correct / timeRemainingMinFraction : 0), correct, timeRemainingMinFraction)
+        return parseInt(correct ? correct / timeRemainingMinFraction : 0)
+      }
+      return 0
+    })
+  },[increasingTimeRecording])
 
   useEffect(() => {
     if (wordIndex % 20 === 0 && wordIndex > 0) {
@@ -143,15 +188,31 @@ const App = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
+        setCountingTime(timeRemaining)
         counter();
+        
+        
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [timerStarted]);
+  
+
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timerStarted) {
+        
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timerStarted, timeRemaining]);
+
 
   useEffect(() => {
-    if (timeRemaining < 1) {
+    if (timeRemaining < 1 && timeRemaining !== "") {
       setTimerStarted(false);
       restartButtonHandler();
     }
@@ -170,12 +231,12 @@ const App = () => {
         <Header />
       </div>
       <div className="grid grid-cols-12 gap-2  mx-4 p-4 mt-4 challengeArea">
-        <div className="col-span-2 p-8 border-1 bg-green-400 opacity-80 shadow-xl">
-          <Detailscontext.Provider value={{ correct, keystrokes }}>
+        <div className="col-span-2 p-8 bg-green-400 opacity-80 ">
+          <Detailscontext.Provider value={{ correct, keystrokes, misspelled , wpm}}>
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
-        <div className="col-span-8 min-width bg-green-500 border-1 pt-8 shadow-2xl">
+        <div className="col-span-8 min-width bg-green-500  pt-8 shadow-2xl">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
@@ -194,7 +255,7 @@ const App = () => {
             <TypingChallenge />
           </ParagraphContext.Provider>
         </div>
-        <div className="col-span-2 p-8 border-1 bg-green-400 opacity-80 shadow-xl">
+        <div className="col-span-2 p-8  bg-green-400 opacity-80">
           <HistoryBar />
         </div>
       </div>

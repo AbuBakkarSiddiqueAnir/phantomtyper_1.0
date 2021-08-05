@@ -8,15 +8,29 @@ const DetailsBar = ({}) => {
         <div>
             <Detailscontext.Consumer>
             {
-                ({correct,keystrokes}) => (
+                ({correct}) => (
                     <DetailCard scoreUpdatingValue={correct}/>
                 )
             }
           </Detailscontext.Consumer>
           <Detailscontext.Consumer>
             {
-                ({correct,keystrokes}) => (
+                ({keystrokes}) => (
                     <DetailCard scoreUpdatingValue={keystrokes}/>
+                )
+            }
+          </Detailscontext.Consumer>
+          <Detailscontext.Consumer>
+            {
+                ({misspelled}) => (
+                    <DetailCard scoreUpdatingValue={misspelled}/>
+                )
+            }
+          </Detailscontext.Consumer>
+          <Detailscontext.Consumer>
+            {
+                ({wpm}) => (
+                    <DetailCard scoreUpdatingValue={wpm}/>
                 )
             }
           </Detailscontext.Consumer>
