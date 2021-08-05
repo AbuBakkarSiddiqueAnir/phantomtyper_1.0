@@ -1,5 +1,5 @@
 import React, { useState, useEffect, fragment } from "react";
-import {Spring} from "react-spring";
+import {Spring,Transition} from "react-spring";
 
 const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean, wordBooleans, challengeAreaBool }) => {
   const [apOnTextArea, setApOnTextArea] = useState("");

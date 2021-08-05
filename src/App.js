@@ -15,12 +15,13 @@ import wordMatchChecker from "./helper/wordMatchChecker";
 import "./App.css";
 
 const App = () => {
+
   const [timerStarted, setTimerStarted] = useState(false);
   const [challengeAreaBool, setChallengeAreaBool] = useState(true);
   const [inputTypingRestricted, setInputTypingRestricted] = useState(false);
 
   const [timeRemaining, setTimeRemaining] = useState(60);
-  const [countingTime, setCountingTime] = useState(0);
+  
   const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0);
   const [wpm, setWpm] = useState(0);
   const [keystrokes, setKeystrokes] = useState(0);
@@ -65,7 +66,8 @@ const App = () => {
     setKeystrokes(0);
     setMisspelled(0);
     setWpm(0);
-    setCountingTime(0);
+    setAccuracy(0)
+  
     setIncreasingTimeRecording(0);
     setChallengeAreaBool(true);
     setInputTypingRestricted(false);
@@ -77,15 +79,18 @@ const App = () => {
     paragraphArraySetter();
   };
 
+
+
   const onKeyPressWordMatch = (event) => {
     setKeystrokes((prevStroke, currStroke) => {
       return prevStroke + 1;
     });
 
     setTimerStarted(true);
-    if (event.charCode === 8) setInputTypingRestricted(true);
+    if (event.charCode === 8) setInputTypingRestricted(false);
 
-    if (event.charCode === 32 && inputTypingRestricted && typingWord !== "") {
+
+    if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
 
       if (timeRemaining <= 61) {
@@ -94,6 +99,18 @@ const App = () => {
       setTimerStarted(true);
       setTypingWord("");
       setSelectedWord(paragraphArray[wordIndex + 1]);
+
+      setAccuracy((prevAcc, nextAcc)=>{
+        console.log(correct, misspelled)
+        if(correct>0){
+          let total = parseInt(misspelled)+parseInt(correct)
+          console.log(parseInt(correct)/total)
+          return Math.ceil((parseInt(correct)/total)*100)
+        }else
+            return 0
+           
+
+      })
 
       let matchingIssues = wordMatchChecker(selectedWord, typingWord);
 
@@ -114,9 +131,11 @@ const App = () => {
     }
   };
 
+
   const activeParaHandler = () => {
     restartButtonHandler();
   };
+
 
   const activeParagraphLoader = () => {
     setWordBooleans([]);
@@ -125,8 +144,9 @@ const App = () => {
     setSlicerIndex(index);
   };
 
+
   const wordMatchHandler = (event) => {
-    if (inputTypingRestricted) setTypingWord(event.target.value);
+    setTypingWord(event.target.value);
 
     if (selectedWord) {
       let aa = selectedWord.props.children[0];
@@ -134,7 +154,7 @@ const App = () => {
       if (aaa !== aa.substring(0, aaa.length)) {
         setCharacterBoolean(false);
         setInputTypingRestricted(false);
-        console.log(aa, aaa, aaa.length);
+        
       } else {
         setCharacterBoolean(true);
         setInputTypingRestricted(true);
@@ -142,11 +162,13 @@ const App = () => {
     }
   };
 
+
   const timeRemainingInputHandler = (event) => {
     if (!isNaN(event.target.value) && event.target.value[0] !== "0") {
       setTimeRemaining(event.target.value);
     }
   };
+
 
   const counter = () => {
     setIncreasingTimeRecording((prevTime, nextTime) => {
@@ -157,16 +179,18 @@ const App = () => {
     });
   };
 
+
   useEffect(() => {
     setWpm((prev, next) => {
-      if (countingTime > 1 || increasingTimeRecording > 1) {
+      if (increasingTimeRecording > 1) {
         let timeRemainingMinFraction =
-          parseInt(increasingTimeRecording) / parseInt(countingTime);
+          parseInt(increasingTimeRecording) / 60;
         return parseInt(correct ? correct / timeRemainingMinFraction : 0);
       }
       return 0;
     });
   }, [increasingTimeRecording]);
+
 
   useEffect(() => {
     if (wordIndex % 20 === 0 && wordIndex > 0) {
@@ -174,20 +198,22 @@ const App = () => {
     }
   }, [wordIndex]);
 
+
   useEffect(() => {
     StatingParaLaoder();
   }, []);
 
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
-        setCountingTime(timeRemaining);
         counter();
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [timerStarted]);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -198,12 +224,14 @@ const App = () => {
     return () => clearInterval(interval);
   }, [timerStarted, timeRemaining]);
 
+
   useEffect(() => {
     if (timeRemaining < 1 && timeRemaining !== "") {
       setTimerStarted(false);
       restartButtonHandler();
     }
   }, [timeRemaining]);
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -213,6 +241,7 @@ const App = () => {
     }, 700);
   }, [paragraphArray]);
 
+  
   return (
     <div className="h-screen">
       <div>
@@ -221,7 +250,7 @@ const App = () => {
       <div className="grid grid-cols-12 gap-2  mx-4 p-4 mt-4 challengeArea">
         <div className="col-span-2 p-8 bg-green-400 opacity-80 ">
           <Detailscontext.Provider
-            value={{ correct, keystrokes, misspelled, wpm }}
+            value={{ correct, keystrokes, misspelled, wpm,accuracy }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
@@ -242,6 +271,7 @@ const App = () => {
               selectedWord,
               challengeAreaBool,
               inputTypingRestricted,
+              accuracy
             }}
           >
             <TypingChallenge />
