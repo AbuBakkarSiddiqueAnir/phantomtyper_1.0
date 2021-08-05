@@ -193,7 +193,7 @@ const App = () => {
 
 
   useEffect(() => {
-    if (wordIndex % 20 === 0 && wordIndex > 0) {
+    if (wordIndex % 27 === 0 && wordIndex > 0) {
       activeParagraphLoader();
     }
   }, [wordIndex]);

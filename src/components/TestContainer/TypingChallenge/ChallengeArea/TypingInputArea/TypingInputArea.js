@@ -12,7 +12,7 @@ const TypingInputArea = ({
   const styles = useSpring({
     from: { opacity: 0, marginTop: 190 },
     to: { opacity: 0.9, marginTop: 0 },
-    delay: 1900,
+    delay: 1300,
   });
   return (
     <animated.div>

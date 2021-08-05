@@ -1,9 +1,14 @@
 import React, { useState, useEffect, fragment } from "react";
-import {Spring,Transition} from "react-spring";
+import {Spring,useSpring, animated} from "react-spring";
 
 const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean, wordBooleans, challengeAreaBool }) => {
   const [apOnTextArea, setApOnTextArea] = useState("");
 
+  const styles = useSpring({
+    from: { opacity: 0, marginTop: 190 },
+    to: { opacity: 1, marginTop: 0 },
+    delay: 1000,
+  });
 
   useEffect(() => {
     setApOnTextArea(
@@ -28,9 +33,18 @@ const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean,
 
   return (
     <div className="mt-8">
-      <div className="w-full h-auto p-4 shadow-inner text-3xl resize-none bg-gray-100 leading-normal">
-        {apOnTextArea}
-      </div>
+      <animated.div style={{ ...styles,minHeight:"145px" }} className="w-full h-auto p-4 shadow-inner text-3xl resize-none bg-gray-100 leading-normal">
+        {apOnTextArea.length > 1? apOnTextArea: (
+          <div>
+            <h1 className="text-6xl font-bold">
+            Loading...
+            </h1>
+          
+          </div>
+        )}
+   
+      </animated.div>
+     
     </div>
   );
 };
