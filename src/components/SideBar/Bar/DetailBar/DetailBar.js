@@ -8,8 +8,15 @@ const DetailsBar = ({}) => {
         <div>
             <Detailscontext.Consumer>
             {
-                (correct) => (
-                    <DetailCard correct={correct}/>
+                ({correct,keystrokes}) => (
+                    <DetailCard scoreUpdatingValue={correct}/>
+                )
+            }
+          </Detailscontext.Consumer>
+          <Detailscontext.Consumer>
+            {
+                ({correct,keystrokes}) => (
+                    <DetailCard scoreUpdatingValue={keystrokes}/>
                 )
             }
           </Detailscontext.Consumer>
