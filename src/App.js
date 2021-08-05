@@ -27,8 +27,8 @@ const App = () => {
   const [misspelled, setMisspelled] = useState(0);
   const [paragraphArray, setParagraphArray] = useState([]);
   const [activeParagraph, setActiveParagraph] = useState([]);
-  const [character, setCharacter] = useState("");
-  const [characterBoolean, setCharacterBoolean] = useState(true)
+  const [wordBooleans, setWordBooleans] = useState([]);
+  const [characterBoolean, setCharacterBoolean] = useState(true);
 
 
   const [typingWord, setTypingWord] = useState("");
@@ -57,6 +57,7 @@ const App = () => {
     setTimerStarted(false);
     setTimeRemaining(60);
     setSelectedWordCharacterizations([]);
+    setWordBooleans([])
     paragraphArraySetter()
   }
 
@@ -78,9 +79,12 @@ const App = () => {
       setTimerStarted(true)
       setTypingWord("");
       setSelectedWord(paragraphArray[wordIndex + 1]);
-      setSelectedWordCharacterizations(selectedWord.props.children[0].split(""))
+   
       let matchingIssues = wordMatchChecker(selectedWord, typingWord);
 
+      setWordBooleans([...wordBooleans,matchingIssues])
+
+      
       if (matchingIssues)
         setCorrect(
           (prevCorrect, nextCorrect) => (nextCorrect = prevCorrect + 1)
@@ -91,9 +95,6 @@ const App = () => {
       }
     }
 
-   
-   
-
   };
 
   const activeParaHandler = () => {
@@ -101,6 +102,7 @@ const App = () => {
   }
 
   const activeParagraphLoader = () => {
+    setWordBooleans([])
     let [slicedParagraph, index] = paraSlicer(paragraphArray,slicerIndex);
     setActiveParagraph(slicedParagraph);
     setSlicerIndex(index);
@@ -138,7 +140,7 @@ const App = () => {
 
 
   useEffect(() => {
-    if(wordIndex % 15 === 0 && wordIndex > 0){
+    if(wordIndex % 20 === 0 && wordIndex > 0){
       activeParagraphLoader();
     } 
   },[wordIndex])
@@ -175,7 +177,7 @@ const App = () => {
       setSelectedWord(paragraphArray[0])
       activeParagraphLoader();
       
-    },1000)
+    },500)
   },[paragraphArray])
 
 
@@ -191,7 +193,7 @@ const App = () => {
           </Detailscontext.Provider>
          
         </div>
-        <div className="col-span-8 min-width bg-green-500 border-1 pt-8 shadow-xl">
+        <div className="col-span-8 min-width bg-green-500 border-1 pt-8 shadow-2xl">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
@@ -202,7 +204,9 @@ const App = () => {
               wordIndex,
               timeRemaining,
               timeRemainingInputHandler,
-              characterBoolean
+              characterBoolean,
+              wordBooleans,
+              selectedWord
             }}
           >
             <TypingChallenge />

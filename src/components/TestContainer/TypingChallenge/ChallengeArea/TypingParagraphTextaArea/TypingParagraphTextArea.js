@@ -1,7 +1,8 @@
 import React, { useState, useEffect, fragment } from "react";
 
-const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean }) => {
+const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean, wordBooleans }) => {
   const [apOnTextArea, setApOnTextArea] = useState("");
+  console.log(wordIndex, wordBooleans)
 
   useEffect(() => {
     setApOnTextArea(
@@ -9,20 +10,20 @@ const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean 
         if (parseInt(word.key) === wordIndex) {
   
           return (
-            <span key={index} className={characterBoolean ? "bg-gray-400 bg-opacity-50 px-1 rounded-md" : "bg-red-400 bg-opacity-80 px-1 rounded-md"}>
+            <span key={index} className={characterBoolean ? "font-semibold bg-gray-400 bg-opacity-50 px-1 rounded-md" : "font-semibold bg-red-500 bg-opacity-50 px-1 rounded-md"}>
               {word}
             </span>
           );
         }
         return (
-          <span key={index} className="px-1">
+          <span key={index} className={wordBooleans[index] === false ? "font-semibold px-1 rounded-lg opacity-90  text-red-500" : "px-1 bg-transparent font-semibold"}>
             {word}
           </span>
         );
       })
     );
     
-  }, [activeParagraph, wordIndex, characterBoolean]);
+  }, [activeParagraph, wordIndex, characterBoolean, wordBooleans]);
 
   return (
     <div className="mt-8">

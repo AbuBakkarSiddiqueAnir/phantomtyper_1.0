@@ -9,8 +9,8 @@ const ChallengeArea = () => {
      
       <div>
        <paragraphContext.Consumer>
-          {({ activeParagraph, wordIndex, characterBoolean }) => (
-            <TypingParagraphTextArea characterBoolean={characterBoolean} wordIndex={wordIndex} activeParagraph={activeParagraph} />
+          {({ activeParagraph, wordIndex, characterBoolean, wordBooleans }) => (
+            <TypingParagraphTextArea wordBooleans={wordBooleans} characterBoolean={characterBoolean} wordIndex={wordIndex} activeParagraph={activeParagraph} />
            )}
        </paragraphContext.Consumer>
       </div>
@@ -18,7 +18,7 @@ const ChallengeArea = () => {
       <paragraphContext.Consumer>
         {
           ({wordMatchHandler,typingWord,onKeyPressWordMatch}) => (
-            <TypingInputArea wordMatchHandler={wordMatchHandler} typingWord={typingWord} onKeyPressWordMatch={onKeyPressWordMatch}/>
+            <TypingInputArea  wordMatchHandler={wordMatchHandler} typingWord={typingWord} onKeyPressWordMatch={onKeyPressWordMatch}/>
           )
 
           
