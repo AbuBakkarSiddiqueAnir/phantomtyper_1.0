@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Spring, { useSpring, animated } from "react-spring";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import DetailsBar from "./components/SideBar/Bar/DetailBar/DetailBar";
@@ -15,9 +16,12 @@ import "./App.css";
 
 const App = () => {
   const [timerStarted, setTimerStarted] = useState(false);
+  const [challengeAreaBool, setChallengeAreaBool] = useState(true);
+  const [inputTypingRestricted, setInputTypingRestricted] = useState(false);
+
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [countingTime, setCountingTime] = useState(0);
-  const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0)
+  const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0);
   const [wpm, setWpm] = useState(0);
   const [keystrokes, setKeystrokes] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
@@ -62,7 +66,9 @@ const App = () => {
     setMisspelled(0);
     setWpm(0);
     setCountingTime(0);
-    setIncreasingTimeRecording(0)
+    setIncreasingTimeRecording(0);
+    setChallengeAreaBool(true);
+    setInputTypingRestricted(false);
 
     paragraphArraySetter();
   };
@@ -72,16 +78,14 @@ const App = () => {
   };
 
   const onKeyPressWordMatch = (event) => {
-  
-
     setKeystrokes((prevStroke, currStroke) => {
       return prevStroke + 1;
     });
 
     setTimerStarted(true);
-    
+    if (event.charCode === 8) setInputTypingRestricted(true);
 
-    if (event.charCode === 32) {
+    if (event.charCode === 32 && inputTypingRestricted && typingWord !== "") {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
 
       if (timeRemaining <= 61) {
@@ -99,13 +103,10 @@ const App = () => {
         setCorrect(
           (prevCorrect, nextCorrect) => (nextCorrect = prevCorrect + 1)
         );
-          
       else
-          setMisspelled((prevMisspelled, nextMisspelled) => {
-            return prevMisspelled + 1;
-          })
-      
-     
+        setMisspelled((prevMisspelled, nextMisspelled) => {
+          return prevMisspelled + 1;
+        });
 
       if (paragraphArray.length - 2 < wordIndex) {
         restartButtonHandler();
@@ -117,8 +118,6 @@ const App = () => {
     restartButtonHandler();
   };
 
-
-
   const activeParagraphLoader = () => {
     setWordBooleans([]);
     let [slicedParagraph, index] = paraSlicer(paragraphArray, slicerIndex);
@@ -127,22 +126,20 @@ const App = () => {
   };
 
   const wordMatchHandler = (event) => {
+    if (inputTypingRestricted) setTypingWord(event.target.value);
 
-    setTypingWord(event.target.value);
-    
-    if(selectedWord){
+    if (selectedWord) {
       let aa = selectedWord.props.children[0];
       let aaa = event.target.value.replace(/\s+/g, "");
       if (aaa !== aa.substring(0, aaa.length)) {
         setCharacterBoolean(false);
+        setInputTypingRestricted(false);
         console.log(aa, aaa, aaa.length);
       } else {
         setCharacterBoolean(true);
+        setInputTypingRestricted(true);
       }
     }
-  
-   
-
   };
 
   const timeRemainingInputHandler = (event) => {
@@ -154,26 +151,22 @@ const App = () => {
   const counter = () => {
     setIncreasingTimeRecording((prevTime, nextTime) => {
       return prevTime + 1;
-    })
+    });
     setTimeRemaining((prevtime, nexttime) => {
       return prevtime - 1;
     });
-
-
-  
   };
 
   useEffect(() => {
     setWpm((prev, next) => {
-      console.log(increasingTimeRecording,countingTime)
-      if(countingTime > 1 || increasingTimeRecording > 1){
-        let timeRemainingMinFraction = parseInt(increasingTimeRecording) / parseInt(countingTime);
-        console.log(parseInt(correct ? correct / timeRemainingMinFraction : 0), correct, timeRemainingMinFraction)
-        return parseInt(correct ? correct / timeRemainingMinFraction : 0)
+      if (countingTime > 1 || increasingTimeRecording > 1) {
+        let timeRemainingMinFraction =
+          parseInt(increasingTimeRecording) / parseInt(countingTime);
+        return parseInt(correct ? correct / timeRemainingMinFraction : 0);
       }
-      return 0
-    })
-  },[increasingTimeRecording])
+      return 0;
+    });
+  }, [increasingTimeRecording]);
 
   useEffect(() => {
     if (wordIndex % 20 === 0 && wordIndex > 0) {
@@ -188,28 +181,22 @@ const App = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
-        setCountingTime(timeRemaining)
+        setCountingTime(timeRemaining);
         counter();
-        
-        
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [timerStarted]);
-  
 
-  
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
-        
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [timerStarted, timeRemaining]);
-
 
   useEffect(() => {
     if (timeRemaining < 1 && timeRemaining !== "") {
@@ -220,9 +207,10 @@ const App = () => {
 
   useEffect(() => {
     setTimeout(() => {
+      setChallengeAreaBool(false);
       setSelectedWord(paragraphArray[0]);
       activeParagraphLoader();
-    }, 500);
+    }, 700);
   }, [paragraphArray]);
 
   return (
@@ -232,7 +220,9 @@ const App = () => {
       </div>
       <div className="grid grid-cols-12 gap-2  mx-4 p-4 mt-4 challengeArea">
         <div className="col-span-2 p-8 bg-green-400 opacity-80 ">
-          <Detailscontext.Provider value={{ correct, keystrokes, misspelled , wpm}}>
+          <Detailscontext.Provider
+            value={{ correct, keystrokes, misspelled, wpm }}
+          >
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
@@ -250,6 +240,8 @@ const App = () => {
               characterBoolean,
               wordBooleans,
               selectedWord,
+              challengeAreaBool,
+              inputTypingRestricted,
             }}
           >
             <TypingChallenge />
@@ -260,7 +252,7 @@ const App = () => {
         </div>
       </div>
       <div className=" mx-4 p-4">
-        <Footer></Footer>
+        <Footer>{}</Footer>
       </div>
     </div>
   );
