@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Spring, { useSpring, animated } from "react-spring";
+import InitialModal from "./components/Modal/Modal";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import DetailsBar from "./components/SideBar/Bar/DetailBar/DetailBar";
@@ -20,8 +21,7 @@ const App = () => {
   const [inputTypingRestricted, setInputTypingRestricted] = useState(false);
   const [flameAnimationBoolean, setFlameAnimationBoolean] = useState(false);
   const [characterBoolean, setCharacterBoolean] = useState(true);
-
-
+  const [modalIsOpen, setModalIsOpen] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0);
   const [wpm, setWpm] = useState(0);
@@ -36,6 +36,7 @@ const App = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [slicerIndex, setSlicerIndex] = useState(0);
   const [selectedWord, setSelectedWord] = useState("");
+  const [userData, setUserData] = useState({})
 
 
   const paragraphArraySetter = () => {
@@ -145,7 +146,10 @@ const App = () => {
     setActiveParagraph(slicedParagraph);
     setSlicerIndex(index);
   };
-
+  
+  const modalHandler = () => {
+    setModalIsOpen(false)
+  }
 
 
 
@@ -167,17 +171,11 @@ const App = () => {
   };
 
 
-
-
-
   const timeRemainingInputHandler = (event) => {
     if (!isNaN(event.target.value) && event.target.value[0] !== "0") {
       setTimeRemaining(event.target.value);
     }
   };
-
-
-
 
 
   const counter = () => {
@@ -190,14 +188,7 @@ const App = () => {
   };
 
 
-
-
-
   const detailsAnimation = () => {};
-
-
-
-
 
 
   useEffect(() => {
@@ -283,7 +274,11 @@ const App = () => {
 
   return (
     <div className="h-screen">
-      <div>
+     
+       
+     <InitialModal modalIsOpen={modalIsOpen} modalHandler={modalHandler}/>
+       
+     <div><div>
         <Header />
       </div>
       <div className="grid grid-cols-12 gap-2  mx-4 p-4 mt-4 challengeArea">
@@ -323,7 +318,7 @@ const App = () => {
       </div>
       <div className=" mx-4 p-4">
         <Footer>{}</Footer>
-      </div>
+      </div></div>
     </div>
   );
 };
