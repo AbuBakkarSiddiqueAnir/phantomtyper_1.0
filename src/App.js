@@ -205,7 +205,7 @@ const App = () => {
       if (increasingTimeRecording > 1) {
         let timeRemainingMinFraction = parseInt(increasingTimeRecording) / 60;
 
-        if (accuracy > 94 && wpm > 44) setFlameAnimationBoolean(true);
+        if (accuracy > 94 && wpm > 40) setFlameAnimationBoolean(true);
         else setFlameAnimationBoolean(false);
 
         return parseInt(correct ? correct / timeRemainingMinFraction : 0);
