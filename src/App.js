@@ -278,7 +278,7 @@ const App = () => {
        
      <InitialModal modalIsOpen={modalIsOpen} modalHandler={modalHandler}/>
        
-     <div><div>
+    <div>
         <Header />
       </div>
       <div className="grid grid-cols-12 gap-2  mx-4 p-4 mt-4 challengeArea">
@@ -319,7 +319,7 @@ const App = () => {
       <div className=" mx-4 p-4">
         <Footer>{}</Footer>
       </div></div>
-    </div>
+  
   );
 };
 
