@@ -15,13 +15,14 @@ import wordMatchChecker from "./helper/wordMatchChecker";
 import "./App.css";
 
 const App = () => {
-
   const [timerStarted, setTimerStarted] = useState(false);
   const [challengeAreaBool, setChallengeAreaBool] = useState(true);
   const [inputTypingRestricted, setInputTypingRestricted] = useState(false);
+  const [flameAnimationBoolean, setFlameAnimationBoolean] = useState(false);
+  const [characterBoolean, setCharacterBoolean] = useState(true);
+
 
   const [timeRemaining, setTimeRemaining] = useState(60);
-  
   const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0);
   const [wpm, setWpm] = useState(0);
   const [keystrokes, setKeystrokes] = useState(0);
@@ -31,12 +32,11 @@ const App = () => {
   const [paragraphArray, setParagraphArray] = useState([]);
   const [activeParagraph, setActiveParagraph] = useState([]);
   const [wordBooleans, setWordBooleans] = useState([]);
-  const [characterBoolean, setCharacterBoolean] = useState(true);
-
   const [typingWord, setTypingWord] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [slicerIndex, setSlicerIndex] = useState(0);
   const [selectedWord, setSelectedWord] = useState("");
+
 
   const paragraphArraySetter = () => {
     setParagraphArray(
@@ -52,6 +52,9 @@ const App = () => {
     );
   };
 
+
+
+
   const restartButtonHandler = () => {
     setCorrect(0);
     setActiveParagraph([]);
@@ -66,8 +69,9 @@ const App = () => {
     setKeystrokes(0);
     setMisspelled(0);
     setWpm(0);
-    setAccuracy(0)
-  
+    setAccuracy(0);
+    setFlameAnimationBoolean(false);
+
     setIncreasingTimeRecording(0);
     setChallengeAreaBool(true);
     setInputTypingRestricted(false);
@@ -75,9 +79,13 @@ const App = () => {
     paragraphArraySetter();
   };
 
+
+
+
   const StatingParaLaoder = () => {
     paragraphArraySetter();
   };
+
 
 
 
@@ -89,7 +97,6 @@ const App = () => {
     setTimerStarted(true);
     if (event.charCode === 8) setInputTypingRestricted(false);
 
-
     if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
 
@@ -100,17 +107,14 @@ const App = () => {
       setTypingWord("");
       setSelectedWord(paragraphArray[wordIndex + 1]);
 
-      setAccuracy((prevAcc, nextAcc)=>{
-        console.log(correct, misspelled)
-        if(correct>0){
-          let total = parseInt(misspelled)+parseInt(correct)
-          console.log(parseInt(correct)/total)
-          return Math.ceil((parseInt(correct)/total)*100)
-        }else
-            return 0
-           
-
-      })
+      setAccuracy((prevAcc, nextAcc) => {
+        console.log(correct, misspelled);
+        if (correct > 0) {
+          let total = parseInt(misspelled) + parseInt(correct);
+          console.log(parseInt(correct) / total);
+          return Math.ceil((parseInt(correct) / total) * 100);
+        } else return 0;
+      });
 
       let matchingIssues = wordMatchChecker(selectedWord, typingWord);
 
@@ -131,11 +135,9 @@ const App = () => {
     }
   };
 
-
   const activeParaHandler = () => {
     restartButtonHandler();
   };
-
 
   const activeParagraphLoader = () => {
     setWordBooleans([]);
@@ -143,6 +145,9 @@ const App = () => {
     setActiveParagraph(slicedParagraph);
     setSlicerIndex(index);
   };
+
+
+
 
 
   const wordMatchHandler = (event) => {
@@ -154,7 +159,6 @@ const App = () => {
       if (aaa !== aa.substring(0, aaa.length)) {
         setCharacterBoolean(false);
         setInputTypingRestricted(false);
-        
       } else {
         setCharacterBoolean(true);
         setInputTypingRestricted(true);
@@ -163,11 +167,17 @@ const App = () => {
   };
 
 
+
+
+
   const timeRemainingInputHandler = (event) => {
     if (!isNaN(event.target.value) && event.target.value[0] !== "0") {
       setTimeRemaining(event.target.value);
     }
   };
+
+
+
 
 
   const counter = () => {
@@ -180,16 +190,32 @@ const App = () => {
   };
 
 
+
+
+
+  const detailsAnimation = () => {};
+
+
+
+
+
+
   useEffect(() => {
     setWpm((prev, next) => {
       if (increasingTimeRecording > 1) {
-        let timeRemainingMinFraction =
-          parseInt(increasingTimeRecording) / 60;
+        let timeRemainingMinFraction = parseInt(increasingTimeRecording) / 60;
+
+        if (accuracy > 94 && wpm > 44) setFlameAnimationBoolean(true);
+        else setFlameAnimationBoolean(false);
+
         return parseInt(correct ? correct / timeRemainingMinFraction : 0);
       }
       return 0;
     });
   }, [increasingTimeRecording]);
+
+
+
 
 
   useEffect(() => {
@@ -199,9 +225,13 @@ const App = () => {
   }, [wordIndex]);
 
 
+
+
   useEffect(() => {
     StatingParaLaoder();
   }, []);
+
+
 
 
   useEffect(() => {
@@ -215,6 +245,8 @@ const App = () => {
   }, [timerStarted]);
 
 
+
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
@@ -225,12 +257,16 @@ const App = () => {
   }, [timerStarted, timeRemaining]);
 
 
+
+
   useEffect(() => {
     if (timeRemaining < 1 && timeRemaining !== "") {
       setTimerStarted(false);
       restartButtonHandler();
     }
   }, [timeRemaining]);
+
+
 
 
   useEffect(() => {
@@ -241,7 +277,10 @@ const App = () => {
     }, 700);
   }, [paragraphArray]);
 
-  
+
+
+
+
   return (
     <div className="h-screen">
       <div>
@@ -250,7 +289,7 @@ const App = () => {
       <div className="grid grid-cols-12 gap-2  mx-4 p-4 mt-4 challengeArea">
         <div className="col-span-2 p-8 bg-green-400 opacity-80 ">
           <Detailscontext.Provider
-            value={{ correct, keystrokes, misspelled, wpm,accuracy }}
+            value={{ correct, keystrokes, misspelled, wpm, accuracy }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
@@ -271,7 +310,8 @@ const App = () => {
               selectedWord,
               challengeAreaBool,
               inputTypingRestricted,
-              accuracy
+              accuracy,
+              flameAnimationBoolean,
             }}
           >
             <TypingChallenge />

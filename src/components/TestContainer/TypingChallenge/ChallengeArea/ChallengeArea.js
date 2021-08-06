@@ -17,8 +17,8 @@ const ChallengeArea = () => {
       <div>
       <paragraphContext.Consumer>
         {
-          ({wordMatchHandler,typingWord,onKeyPressWordMatch, inputTypingRestricted, characterBoolean}) => (
-            <TypingInputArea inputTypingRestricted={inputTypingRestricted}  wordMatchHandler={wordMatchHandler} typingWord={typingWord} onKeyPressWordMatch={onKeyPressWordMatch}/>
+          ({wordMatchHandler,typingWord,onKeyPressWordMatch, inputTypingRestricted, characterBoolean,flameAnimationBoolean}) => (
+            <TypingInputArea flameAnimationBoolean={flameAnimationBoolean} inputTypingRestricted={inputTypingRestricted}  wordMatchHandler={wordMatchHandler} typingWord={typingWord} onKeyPressWordMatch={onKeyPressWordMatch}/>
           )
 
           
