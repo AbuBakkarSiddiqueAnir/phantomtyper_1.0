@@ -23,10 +23,10 @@ return transitions((styles, resultCardBool) => {
           <div className="flex gap-2">
             <div className="h-48 w-40 bg-blue-400 flex justify-center flex-col items-center">
               <span className="text-6xl">{userData.wpm}</span>
-              <span>wpm</span>
+              <span className="text-lg">wpm</span>
             </div>
 
-            <div className="w-60 h-48 flex bg-green-500 flex-col justify-around pl-8 text-white ">
+            <div className="w-60 h-48 flex bg-green-500 flex-col justify-around pl-8 text-white text-lg ">
               <div>
                 <span>
                   {userData.keystrokes} <span>keyStrokes</span>

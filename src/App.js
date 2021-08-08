@@ -315,7 +315,7 @@ useEffect(() => {
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
-        <div className="col-span-5 min-width bg-green-500  pt-8 box-shadow">
+        <div className="col-span-5 min-width bg-green-500  pt-8 box-shadow ">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,

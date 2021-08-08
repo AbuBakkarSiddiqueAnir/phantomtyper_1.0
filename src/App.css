@@ -45,7 +45,7 @@
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     box-sizing: border-box;
-    z-index: 1;
+    z-index: 0;
     max-width: 230px;
     display: flex;
     flex-direction: column;

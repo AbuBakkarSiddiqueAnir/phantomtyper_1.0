@@ -1,5 +1,5 @@
 import React from "react";
-import { Spring, animated, useSpring } from "react-spring";
+import { Spring, animated, useSpring,useTransition } from "react-spring";
 
 const TypingInputArea = ({
   wordMatchHandler,
@@ -10,12 +10,12 @@ const TypingInputArea = ({
   flameAnimationBoolean,
   modalIsOpen
 }) => {
-  const styles = useSpring({
-    
-      from: { opacity: 0, marginTop: 190 },
-      to: { opacity: 0.9, marginTop: 0 },
-      delay: 1300,
-    });
+  const transitions = useTransition(modalIsOpen, {
+    from: { opacity: 0, marginTop: 190},
+    enter: { opacity: 1, marginTop: 0},
+   
+    delay: 700,
+  })
 
   const flameAnimation = (
     <span className="p-8 animation-container bg-green-500">
@@ -23,32 +23,34 @@ const TypingInputArea = ({
       <span className="flame"> </span>
     </span>
   );
-  return (
-    <div>
+  return transitions((styles, modalIsOpen) => {
+    return !modalIsOpen && (
+      <div>
    
 
-        <animated.div>
-          <div className="flex justify-center mt-12">
+      <animated.div>
+        <div className="flex justify-center mt-12">
 
-            {flameAnimationBoolean ? flameAnimation : null}
+          {flameAnimationBoolean ? flameAnimation : null}
 
-            <animated.input
-              style={{ ...styles }}
-              value={typingWord}
-              onKeyPress={(e) => onKeyPressWordMatch(e)}
-              onChange={wordMatchHandler}
-              className="shadow-3xl w-3/5 h-12 outline-none p-4 text-center text-3xl font-semibold"
-            />
+          <animated.input
+            style={styles}
+            value={typingWord}
+            onKeyPress={(e) => onKeyPressWordMatch(e)}
+            onChange={wordMatchHandler}
+            className="shadow-3xl w-3/5 h-12 outline-none p-4 text-center text-3xl font-semibold"
+          />
 
-            {flameAnimationBoolean ? flameAnimation : null}
+          {flameAnimationBoolean ? flameAnimation : null}
 
-          </div>
-      </animated.div>
-     
-      
+        </div>
+    </animated.div>
+   
     
-   </div>
-  );
+  
+ </div>
+    )
+  })
 };
 
 export default TypingInputArea;
