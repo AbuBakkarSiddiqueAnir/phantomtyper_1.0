@@ -1,11 +1,14 @@
 import React from 'react';
-import HistoryCard from "../../Card/HistoryCard/HistoryCard"
+import Statistics from "../../Card/HistoryCard/Statistics"
 
 
 const HistoryBar = ({}) => {
     return (
-        <div>
-            <HistoryCard/>
+        <div style={{maxHeight:"33rem"}} className="bg-local overflow-y-scroll">
+            <Statistics/>
+            <Statistics/>
+            <Statistics/>
+            <Statistics/>
       
         </div>
     )

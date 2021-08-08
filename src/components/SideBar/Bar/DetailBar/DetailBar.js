@@ -1,5 +1,6 @@
 import React from 'react';
 import DetailCard from "../../Card/DetailCard/DetailCard";
+
 import Detailscontext from "../../../../contexts/detailscontext"
 
 

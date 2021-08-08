@@ -281,15 +281,15 @@ const App = () => {
     <div>
         <Header />
       </div>
-      <div className="grid grid-cols-12 gap-2  mx-4 p-4 mt-4 challengeArea">
-        <div className="col-span-2 p-8 bg-green-400 opacity-80 ">
+      <div className="grid grid-cols-8 gap-2  mx-4 p-4 mt-4 challengeArea">
+        <div className="col-span-1 p-0 bg-green-400 opacity-80 ">
           <Detailscontext.Provider
             value={{ correct, keystrokes, misspelled, wpm, accuracy }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
-        <div className="col-span-8 min-width bg-green-500  pt-8 shadow-2xl">
+        <div className="col-span-5 min-width bg-green-500  pt-8 shadow-2xl">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
