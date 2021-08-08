@@ -37,7 +37,7 @@ const TypingInputArea = ({
               value={typingWord}
               onKeyPress={(e) => onKeyPressWordMatch(e)}
               onChange={wordMatchHandler}
-              className="shadow-3xl w-3/4 h-12 outline-none p-4 text-center text-3xl font-semibold"
+              className="shadow-3xl w-3/5 h-12 outline-none p-4 text-center text-3xl font-semibold"
             />
 
             {flameAnimationBoolean ? flameAnimation : null}
