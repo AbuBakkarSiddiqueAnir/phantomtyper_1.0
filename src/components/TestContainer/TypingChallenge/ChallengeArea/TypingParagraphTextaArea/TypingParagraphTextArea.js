@@ -1,7 +1,7 @@
 import React, { useState, useEffect, fragment } from "react";
 import {Spring,useSpring, animated} from "react-spring";
 
-const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean, wordBooleans, challengeAreaBool }) => {
+const TypingParagraphTextArea = ({modalIsOpen, activeParagraph, wordIndex, characterBoolean, wordBooleans, challengeAreaBool }) => {
   const [apOnTextArea, setApOnTextArea] = useState("");
 
   const styles = useSpring({
@@ -9,7 +9,9 @@ const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean,
     to: { opacity: 1, marginTop: 0 ,minHeight:"145px" },
     delay: 1000,
   });
-
+  useEffect(() => {
+   console.log(modalIsOpen)
+  },[modalIsOpen]);
   useEffect(() => {
     setApOnTextArea(
       activeParagraph.map((word, index) => {
@@ -33,17 +35,18 @@ const TypingParagraphTextArea = ({ activeParagraph, wordIndex, characterBoolean,
 
   return (
     <div className="mt-8">
-      <animated.div style={{ ...styles}} className="w-full p-4 shadow-inner text-3xl resize-none bg-gray-100 leading-normal">
-        {apOnTextArea.length > 1? apOnTextArea: (
-          <div>
-            <h1 className="text-6xl font-bold">
-            Loading...
-            </h1>
-          
-          </div>
-        )}
-   
-      </animated.div>
+       
+          <animated.div style={{ ...styles}} className="w-full p-4 shadow-inner text-3xl resize-none bg-gray-100 leading-normal">
+          {apOnTextArea.length > 1? apOnTextArea: (
+            <div>
+              <h1 className="text-6xl font-bold">
+              Loading...
+              </h1>
+            
+            </div>
+          )}
+     
+        </animated.div>
      
     </div>
   );

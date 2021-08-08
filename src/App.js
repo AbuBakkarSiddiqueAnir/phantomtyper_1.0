@@ -22,6 +22,8 @@ const App = () => {
   const [flameAnimationBoolean, setFlameAnimationBoolean] = useState(false);
   const [characterBoolean, setCharacterBoolean] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [resultCardBool, setResultCardBool] = useState(false)
+
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0);
   const [wpm, setWpm] = useState(0);
@@ -36,6 +38,7 @@ const App = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [slicerIndex, setSlicerIndex] = useState(0);
   const [selectedWord, setSelectedWord] = useState("");
+  const [usersData, setUsersData] = useState([])
   const [userData, setUserData] = useState({})
 
 
@@ -190,6 +193,12 @@ const App = () => {
 
   const detailsAnimation = () => {};
 
+  const userResultCardCreator = () => {
+    setResultCardBool(true)
+    return setUserData({
+      correct,keystrokes,wpm,accuracy,misspelled
+    })
+  };
 
   useEffect(() => {
     setWpm((prev, next) => {
@@ -253,7 +262,9 @@ const App = () => {
   useEffect(() => {
     if (timeRemaining < 1 && timeRemaining !== "") {
       setTimerStarted(false);
-      restartButtonHandler();
+      userResultCardCreator();
+      if(!resultCardBool)
+          restartButtonHandler();
     }
   }, [timeRemaining]);
 
@@ -282,14 +293,14 @@ const App = () => {
         <Header />
       </div>
       <div className="grid grid-cols-8 gap-2  mx-4 p-4 mt-4 challengeArea">
-        <div className="col-span-1 p-0 bg-green-400 opacity-80 ">
+        <div className="col-span-1 p-0 bg-green-400 opacity-80 box-shadow">
           <Detailscontext.Provider
-            value={{ correct, keystrokes, misspelled, wpm, accuracy }}
+            value={{ correct, keystrokes, misspelled, wpm, accuracy, userData }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
-        <div className="col-span-5 min-width bg-green-500  pt-8 shadow-2xl">
+        <div className="col-span-5 min-width bg-green-500  pt-8 box-shadow">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
@@ -307,12 +318,15 @@ const App = () => {
               inputTypingRestricted,
               accuracy,
               flameAnimationBoolean,
+              modalIsOpen,
+              userData,
+              resultCardBool
             }}
           >
             <TypingChallenge />
           </ParagraphContext.Provider>
         </div>
-        <div className="col-span-2 p-8  bg-green-400 opacity-80">
+        <div className="col-span-2 p-8 box-shadow  bg-green-400 opacity-80">
           <HistoryBar />
         </div>
       </div>
