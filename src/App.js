@@ -39,7 +39,8 @@ const App = () => {
   const [slicerIndex, setSlicerIndex] = useState(0);
   const [selectedWord, setSelectedWord] = useState("");
   const [usersData, setUsersData] = useState([])
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
+  const [userNameFromInput, setUserNameFromInput] = useState("")
 
 
   const paragraphArraySetter = () => {
@@ -150,8 +151,16 @@ const App = () => {
     setSlicerIndex(index);
   };
   
+
+
+
+
   const modalHandler = () => {
-    setModalIsOpen(false)
+    
+    
+
+    if(userNameFromInput !== "")
+      setModalIsOpen(false)
   }
 
 
@@ -198,7 +207,19 @@ const App = () => {
 
 
   const userResultCardCreator = () => {
+    console.log(localStorage.getItem('usersData'), usersData)
     setResultCardBool(true)
+    
+    localStorage.setItem("usersData", JSON.stringify(
+      [...usersData, {
+        "user" : {
+          "username" : userNameFromInput,
+           "userdata" : [{
+            correct,keystrokes,wpm,accuracy,misspelled
+          }]
+        }
+      }]
+    ))
     return setUserData({
       correct,keystrokes,wpm,accuracy,misspelled
     })
@@ -291,6 +312,10 @@ useEffect(() => {
       setChallengeAreaBool(false);
       setSelectedWord(paragraphArray[0]);
       activeParagraphLoader();
+      if(localStorage.getItem("usersData"))
+          setUsersData(localStorage.getItem("usersData"));
+      else
+          localStorage.setItem("usersData",usersData)
     }, 700);
   }, [paragraphArray]);
 
@@ -302,10 +327,10 @@ useEffect(() => {
     <div className="h-screen">
      
        
-     <InitialModal modalIsOpen={modalIsOpen} modalHandler={modalHandler}/>
+     <InitialModal modalIsOpen={modalIsOpen} setUserNameFromInput={setUserNameFromInput} modalHandler={modalHandler}/>
        
     <div>
-        <Header />
+        <Header userName={userNameFromInput}/>
       </div>
       <div className="grid grid-cols-8 gap-2 bg-gray-600  mx-4 p-4 mt-4 challengeArea">
         <div style={{backGround:"rgb(218, 211, 211)"}} className="col-span-1 p-0  box-shadow">

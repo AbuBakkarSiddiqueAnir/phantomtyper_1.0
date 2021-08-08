@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 
-const InitialModal = ({ modalHandler, modalIsOpen }) => {
+const InitialModal = ({ modalHandler, modalIsOpen,setUserNameFromInput }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -13,12 +13,13 @@ const InitialModal = ({ modalHandler, modalIsOpen }) => {
         </h1>
 
         <input
+          onChange={(e) => setUserNameFromInput(e.target.value)}
           placeholder="Enter your name..."
           className="shadow-2xl bg-gray-200 w-3/4 h-12 outline-none p-4 text-center text-3xl font-semibold"
         ></input>
         <div className="pt-4">
           <button
-            onClick={modalHandler}
+            onClick={(e) => modalHandler(e)}
             className="w-80 text-gray-200 rounded-sm  bg-green-800 h-12 text-3xl font-bold shadow-2xl border-2 hover:border-gray-800"
           >
             Submit
