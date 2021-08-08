@@ -45,7 +45,7 @@ const TypingInputArea = ({
           </div>
       </animated.div>
      
-      )
+      
     
    </div>
   );

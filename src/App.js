@@ -181,6 +181,7 @@ const App = () => {
   };
 
 
+
   const counter = () => {
     setIncreasingTimeRecording((prevTime, nextTime) => {
       return prevTime + 1;
@@ -191,7 +192,10 @@ const App = () => {
   };
 
 
+
   const detailsAnimation = () => {};
+
+
 
   const userResultCardCreator = () => {
     setResultCardBool(true)
@@ -199,6 +203,9 @@ const App = () => {
       correct,keystrokes,wpm,accuracy,misspelled
     })
   };
+
+
+
 
   useEffect(() => {
     setWpm((prev, next) => {
@@ -263,13 +270,21 @@ const App = () => {
     if (timeRemaining < 1 && timeRemaining !== "") {
       setTimerStarted(false);
       userResultCardCreator();
-      if(!resultCardBool)
-          restartButtonHandler();
+      setResultCardBool(true)
+      restartButtonHandler();
     }
   }, [timeRemaining]);
 
 
+useEffect(() => {
+  if(resultCardBool){
+    const timeout = setTimeout(() => {
+      setResultCardBool(false)
+    },10000)
+    return () => clearTimeout(timeout)
+  }
 
+},[paragraphArray])
 
   useEffect(() => {
     setTimeout(() => {
