@@ -8,9 +8,9 @@ const ResultCard = ({ userData, resultCardBool }) => {
 
   const transitions = useTransition(resultCardBool, {
     from: { opacity: 0 ,marginLeft:-189},
-    enter: { opacity: 1 ,marginLeft:0},
+    enter: { opacity: 1 ,marginLeft:20},
     leave: { opacity: 0 ,marginLeft:789},
-    delay: 300,
+    delay: 200,
   })
 
 return transitions((styles, resultCardBool) => {
@@ -26,7 +26,7 @@ return transitions((styles, resultCardBool) => {
               <span>wpm</span>
             </div>
 
-            <div className="w-60 h-48 flex bg-blue-200 flex-col justify-around pl-8 ">
+            <div className="w-60 h-48 flex bg-green-500 flex-col justify-around pl-8 text-white ">
               <div>
                 <span>
                   {userData.keystrokes} <span>keyStrokes</span>

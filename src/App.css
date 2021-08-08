@@ -1,11 +1,11 @@
 .challengeArea{
     height:600px;
 }
-/* .min-width{
-    min-width:800px;
-    
-  
-} */
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 
 .input-field{
     background:rgb(226, 226, 226)

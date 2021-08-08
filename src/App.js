@@ -307,8 +307,8 @@ useEffect(() => {
     <div>
         <Header />
       </div>
-      <div className="grid grid-cols-8 gap-2  mx-4 p-4 mt-4 challengeArea">
-        <div className="col-span-1 p-0 bg-green-400 opacity-80 box-shadow">
+      <div className="grid grid-cols-8 gap-2 bg-gray-600  mx-4 p-4 mt-4 challengeArea">
+        <div style={{backGround:"rgb(218, 211, 211)"}} className="col-span-1 p-0  box-shadow">
           <Detailscontext.Provider
             value={{ correct, keystrokes, misspelled, wpm, accuracy, userData }}
           >
@@ -341,7 +341,7 @@ useEffect(() => {
             <TypingChallenge />
           </ParagraphContext.Provider>
         </div>
-        <div className="col-span-2 p-8 box-shadow  bg-green-400 opacity-80">
+        <div style={{backGround:"rgb(218, 211, 211)"}} className="col-span-2 p-8 box-shadow ">
           <HistoryBar />
         </div>
       </div>
