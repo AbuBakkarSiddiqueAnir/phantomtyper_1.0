@@ -41,6 +41,7 @@ const App = () => {
   const [usersData, setUsersData] = useState([]);
   const [userData, setUserData] = useState({});
   const [userNameFromInput, setUserNameFromInput] = useState("");
+  const [charCodes, setcharCodes] = useState([])
 
   const paragraphArraySetter = () => {
     setParagraphArray(
@@ -72,6 +73,7 @@ const App = () => {
     setWpm(0);
     setAccuracy(0);
     setFlameAnimationBoolean(false);
+    setcharCodes([])
 
     setIncreasingTimeRecording(0);
     setChallengeAreaBool(true);
@@ -92,11 +94,15 @@ const App = () => {
     setTimerStarted(true);
     if (event.charCode === 8) setInputTypingRestricted(false);
 
+      setcharCodes([...charCodes,{
+        "moment" : new Date().getTime(),
+        "charCode" : event.charCode
+      }])
+
     if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
 
-      if (timeRemaining <= 61) {
-      }
+    
 
       setTimerStarted(true);
       setTypingWord("");
@@ -225,7 +231,7 @@ const App = () => {
     }
 
     localStorage.setItem("usersData", JSON.stringify(currentUsersData))
-
+   console.log(charCodes)
     return setUserData({
       correct,
       keystrokes,

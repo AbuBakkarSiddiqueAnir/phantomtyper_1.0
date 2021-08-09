@@ -3,7 +3,7 @@ import Statistics from "../../Card/HistoryCard/Statistics"
 
 
 const HistoryBar = ({usersData, userNameFromInput}) => {
-    console.log(usersData)
+   
     return (
         <div style={{maxHeight:"37rem"}} className=" overflow-y-scroll">
            {
