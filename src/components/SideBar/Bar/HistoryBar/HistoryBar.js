@@ -2,7 +2,8 @@ import React from 'react';
 import Statistics from "../../Card/HistoryCard/Statistics"
 
 
-const HistoryBar = ({}) => {
+const HistoryBar = ({usersData}) => {
+    console.log(usersData)
     return (
         <div style={{maxHeight:"37rem"}} className=" overflow-y-scroll">
             <Statistics/>

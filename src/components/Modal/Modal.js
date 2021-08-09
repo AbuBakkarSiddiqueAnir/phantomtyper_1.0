@@ -5,7 +5,7 @@ const InitialModal = ({ modalHandler, modalIsOpen,setUserNameFromInput }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
-      className="blur-3xl opacity-90 justify-center items-center  flex bg-green-600 w-full h-full"
+      className=" justify-center items-center  flex bg-transparent w-full h-full"
     >
       <div className="w-3/4 h-3/4 bg-green-800 flex justify-center items-center shadow-2xl flex-col">
         <h1 className="text-6xl font-bold text-gray-200 mb-16">

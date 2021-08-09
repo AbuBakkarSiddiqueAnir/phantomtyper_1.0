@@ -48,7 +48,7 @@ const TypingParagraphTextArea = ({modalIsOpen, activeParagraph, wordIndex, chara
     return !modalIsOpen && (
       <div className="mt-8">
        
-      <animated.div style={styles} className="w-full p-4 shadow-inner text-3xl resize-none bg-gray-100 leading-normal">
+      <animated.div style={styles} className="w-full p-4 box-shadow text-3xl resize-none bg-gray-100 leading-normal">
       {apOnTextArea.length > 1? apOnTextArea: (
         <div>
           <h1 className="text-6xl font-bold">

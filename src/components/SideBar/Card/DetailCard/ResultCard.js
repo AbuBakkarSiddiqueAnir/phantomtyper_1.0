@@ -26,7 +26,7 @@ return transitions((styles, resultCardBool) => {
               <span className="text-lg">wpm</span>
             </div>
 
-            <div className="w-60 h-48 flex bg-green-500 flex-col justify-around pl-8 text-white text-lg ">
+            <div className="w-60 h-48 flex bg-green-500 flex-col font-semibold justify-around pl-8 text-white text-lg ">
               <div>
                 <span>
                   {userData.keystrokes} <span>keyStrokes</span>

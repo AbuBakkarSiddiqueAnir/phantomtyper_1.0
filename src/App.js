@@ -22,7 +22,7 @@ const App = () => {
   const [flameAnimationBoolean, setFlameAnimationBoolean] = useState(false);
   const [characterBoolean, setCharacterBoolean] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(true);
-  const [resultCardBool, setResultCardBool] = useState(false)
+  const [resultCardBool, setResultCardBool] = useState(false);
 
   const [timeRemaining, setTimeRemaining] = useState(60);
   const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0);
@@ -38,10 +38,9 @@ const App = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [slicerIndex, setSlicerIndex] = useState(0);
   const [selectedWord, setSelectedWord] = useState("");
-  const [usersData, setUsersData] = useState([])
+  const [usersData, setUsersData] = useState([]);
   const [userData, setUserData] = useState({});
-  const [userNameFromInput, setUserNameFromInput] = useState("")
-
+  const [userNameFromInput, setUserNameFromInput] = useState("");
 
   const paragraphArraySetter = () => {
     setParagraphArray(
@@ -56,9 +55,6 @@ const App = () => {
         })
     );
   };
-
-
-
 
   const restartButtonHandler = () => {
     setCorrect(0);
@@ -84,15 +80,9 @@ const App = () => {
     paragraphArraySetter();
   };
 
-
-
-
   const StatingParaLaoder = () => {
     paragraphArraySetter();
   };
-
-
-
 
   const onKeyPressWordMatch = (event) => {
     setKeystrokes((prevStroke, currStroke) => {
@@ -150,21 +140,10 @@ const App = () => {
     setActiveParagraph(slicedParagraph);
     setSlicerIndex(index);
   };
-  
-
-
-
 
   const modalHandler = () => {
-    
-    
-
-    if(userNameFromInput !== "")
-      setModalIsOpen(false)
-  }
-
-
-
+    if (userNameFromInput !== "") setModalIsOpen(false);
+  };
 
   const wordMatchHandler = (event) => {
     setTypingWord(event.target.value);
@@ -182,14 +161,11 @@ const App = () => {
     }
   };
 
-
   const timeRemainingInputHandler = (event) => {
     if (!isNaN(event.target.value) && event.target.value[0] !== "0") {
       setTimeRemaining(event.target.value);
     }
   };
-
-
 
   const counter = () => {
     setIncreasingTimeRecording((prevTime, nextTime) => {
@@ -200,33 +176,64 @@ const App = () => {
     });
   };
 
-
-
-  const detailsAnimation = () => {};
-
-
+ 
 
   const userResultCardCreator = () => {
-    console.log(localStorage.getItem('usersData'), usersData)
-    setResultCardBool(true)
-    
-    localStorage.setItem("usersData", JSON.stringify(
-      [...usersData, {
-        "user" : {
-          "username" : userNameFromInput,
-           "userdata" : [{
-            correct,keystrokes,wpm,accuracy,misspelled
-          }]
+    setResultCardBool(true);
+
+    let newUserBool = true;
+    let currentUsersData ;
+    let usersDataCopied = [...usersData];
+
+
+    if (usersDataCopied.length > 0) {  
+      currentUsersData = usersDataCopied.map((user) => {
+        if (user.username === userNameFromInput) {
+          newUserBool = false;
+          user.userdata.push({
+              correct,
+              keystrokes,
+              wpm,
+              accuracy,
+              misspelled,
+            });
+            return user;
         }
-      }]
-    ))
+        return user;
+      });
+      setUsersData(currentUsersData);
+    }
+
+    if (newUserBool) {
+      currentUsersData = [
+        ...usersDataCopied,
+        {
+          username: userNameFromInput,
+          userdata: [
+            {
+              correct,
+              keystrokes,
+              wpm,
+              accuracy,
+              misspelled,
+            },
+          ],
+        },
+      ];
+
+      setUsersData(currentUsersData);
+    }
+
+    localStorage.setItem("usersData", JSON.stringify(currentUsersData))
+
     return setUserData({
-      correct,keystrokes,wpm,accuracy,misspelled
-    })
+      correct,
+      keystrokes,
+      wpm,
+      accuracy,
+      misspelled,
+    });
   };
-
-
-
 
   useEffect(() => {
     setWpm((prev, next) => {
@@ -242,25 +249,15 @@ const App = () => {
     });
   }, [increasingTimeRecording]);
 
-
-
-
-
   useEffect(() => {
     if (wordIndex % 27 === 0 && wordIndex > 0) {
       activeParagraphLoader();
     }
   }, [wordIndex]);
 
-
-
-
   useEffect(() => {
     StatingParaLaoder();
   }, []);
-
-
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -272,9 +269,6 @@ const App = () => {
     return () => clearInterval(interval);
   }, [timerStarted]);
 
-
-
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
@@ -284,28 +278,23 @@ const App = () => {
     return () => clearInterval(interval);
   }, [timerStarted, timeRemaining]);
 
-
-
-
   useEffect(() => {
     if (timeRemaining < 1 && timeRemaining !== "") {
       setTimerStarted(false);
       userResultCardCreator();
-      setResultCardBool(true)
+      setResultCardBool(true);
       restartButtonHandler();
     }
   }, [timeRemaining]);
 
-
-useEffect(() => {
-  if(resultCardBool){
-    const timeout = setTimeout(() => {
-      setResultCardBool(false)
-    },10000)
-    return () => clearTimeout(timeout)
-  }
-
-},[paragraphArray])
+  useEffect(() => {
+    if (resultCardBool) {
+      const timeout = setTimeout(() => {
+        setResultCardBool(false);
+      }, 10000);
+      return () => clearTimeout(timeout);
+    }
+  }, [paragraphArray]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -313,34 +302,35 @@ useEffect(() => {
       setSelectedWord(paragraphArray[0]);
       activeParagraphLoader();
       if(localStorage.getItem("usersData"))
-          setUsersData(localStorage.getItem("usersData"));
+          setUsersData(JSON.parse(localStorage.getItem("usersData")));
       else
-          localStorage.setItem("usersData",usersData)
+          localStorage.setItem("usersData",JSON.stringify(usersData))
     }, 700);
   }, [paragraphArray]);
 
-
-
-
-
   return (
     <div className="h-screen">
-     
-       
-     <InitialModal modalIsOpen={modalIsOpen} setUserNameFromInput={setUserNameFromInput} modalHandler={modalHandler}/>
-       
-    <div>
-        <Header userName={userNameFromInput}/>
+      <InitialModal
+        modalIsOpen={modalIsOpen}
+        setUserNameFromInput={setUserNameFromInput}
+        modalHandler={modalHandler}
+      />
+
+      <div>
+        <Header userName={userNameFromInput} />
       </div>
-      <div className="grid grid-cols-8 gap-2 bg-gray-600  mx-4 p-4 mt-4 challengeArea">
-        <div style={{backGround:"rgb(218, 211, 211)"}} className="col-span-1 p-0  box-shadow">
+      <div
+        style={{ backGround: "#F3F2EF" }}
+        className="grid grid-cols-8 gap-2 bgwhite  mx-4 p-4 mt-4 challengeArea"
+      >
+        <div className="col-span-1 p-0 bg-transparent ">
           <Detailscontext.Provider
             value={{ correct, keystrokes, misspelled, wpm, accuracy, userData }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
-        <div className="col-span-5 min-width bg-green-500  pt-8 box-shadow ">
+        <div className="col-span-5 min-width bg-green-500  pt-8 ">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
@@ -360,20 +350,20 @@ useEffect(() => {
               flameAnimationBoolean,
               modalIsOpen,
               userData,
-              resultCardBool
+              resultCardBool,
             }}
           >
             <TypingChallenge />
           </ParagraphContext.Provider>
         </div>
-        <div style={{backGround:"rgb(218, 211, 211)"}} className="col-span-2 p-8 box-shadow ">
-          <HistoryBar />
+        <div className="col-span-2 p-8 bg-transparent">
+          <HistoryBar usersData={usersData} />
         </div>
       </div>
       <div className=" mx-4 p-4">
         <Footer>{}</Footer>
-      </div></div>
-  
+      </div>
+    </div>
   );
 };
 
