@@ -31,7 +31,7 @@
     height: 120px;
     background-position: left top;
     background-size: cover;
-    background-image: url("chart.webp");
+    background-image: url("bar-area34.png");
     overflow: hidden;
     position: relative;
     transition: background-position 3s ease 0s;
@@ -41,7 +41,7 @@
 }
 .user-data-area{
     box-shadow: rgb(0 0 0 / 15%) 0px 1px 4px 0px;
-    background-color: rgb(255, 255, 255);
+    
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     box-sizing: border-box;

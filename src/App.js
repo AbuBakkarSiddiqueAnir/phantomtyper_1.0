@@ -357,7 +357,7 @@ const App = () => {
           </ParagraphContext.Provider>
         </div>
         <div className="col-span-2 p-8 bg-transparent">
-          <HistoryBar usersData={usersData} />
+          <HistoryBar usersData={usersData} userNameFromInput={userNameFromInput}/>
         </div>
       </div>
       <div className=" mx-4 p-4">

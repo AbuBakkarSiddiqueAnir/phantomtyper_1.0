@@ -2,18 +2,19 @@ import React from 'react';
 
 
 
-const Statistics = () => {
+const Statistics = ({user, userNameFromInput}) => {
+    
     return (
         <div>
            <div className="card-statistics">
-               <div className="statistics">Hellow card</div>
-               <div className="user-data-area">
+               <div className="statistics pl-2 pt-2">Poor result</div>
+               <div className="user-data-area" className={user.username === userNameFromInput ? "user-data-area bg-green-500" : "user-data-area bg-white"} >
                    <div className="statistics-title">
                        <div>Typing Statistics</div>
                        <div className="graph-link">stat</div>
                    </div>
                    <div>
-                       <div className="name-area"> Aniruzzaman</div>
+                       <div className="name-area"> {user.username}</div>
                    </div>
 
                    
