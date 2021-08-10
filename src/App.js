@@ -93,7 +93,7 @@ const App = () => {
 
   const chartBuilderHandler = (user) => {
     setTimerStarted(false)
-    console.log(user);
+ 
     let sumOfAccuracy = 0,
       avgAccuracy,
       sumOfCorrect = 0,
@@ -441,14 +441,14 @@ const App = () => {
         
         <UserChart userStat={userStat} momentsArray={momentsArray} charCodesArray={charCodesArray} chartBool={chartBool} chartCloseHandler={chartCloseHandler}/>
 
-        <div className="col-span-1 p-0 bg-transparent ">
+        <div className="col-span-2 md:col-span-1 p-0 bg-transparent ">
           <Detailscontext.Provider
             value={{ correct, keystrokes, misspelled, wpm, accuracy, userData }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
-        <div className="col-span-5 min-width bg-green-500  pt-8 ">
+        <div className="col-span-6 md:col-span-5 min-width bg-green-500  pt-8 ">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
@@ -474,13 +474,14 @@ const App = () => {
             <TypingChallenge />
           </ParagraphContext.Provider>
         </div>
-        <div className="col-span-2 p-8 bg-transparent">
+        <div className="hidden md:block md:col-span-2 p-8 bg-transparent">
           <HistoryBar
             chartBuilderHandler={chartBuilderHandler}
             chartInfos={chartInfos}
             setChartInfos={setChartInfos}
             usersData={usersData}
             userNameFromInput={userNameFromInput}
+            timerStarted={timerStarted}
           />
         </div>
       </div>
