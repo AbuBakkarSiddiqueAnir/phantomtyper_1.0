@@ -42,6 +42,7 @@ const App = () => {
   const [userData, setUserData] = useState({});
   const [userNameFromInput, setUserNameFromInput] = useState("");
   const [charCodes, setcharCodes] = useState([]);
+  const [prevMoment, setPrevMoment] = useState(0)
   const [chartInfos, setChartInfos] = useState({});
 
   const paragraphArraySetter = () => {
@@ -79,9 +80,11 @@ const App = () => {
     setIncreasingTimeRecording(0);
     setChallengeAreaBool(true);
     setInputTypingRestricted(false);
+    setPrevMoment(0)
 
     paragraphArraySetter();
   };
+
 
   const chartBuilderHandler = (user) => {
     console.log(user);
@@ -97,7 +100,7 @@ const App = () => {
       avgMisspelled,
       arrayOfAllCharCodes = [];
 
-    user.userdata.map((datam, index) => {
+    user.userdata.map((datam) => {
       sumOfAccuracy += datam.accuracy;
       sumOfCorrect += datam.correct;
       sumOfKeyStrokes += datam.keystrokes;
@@ -115,6 +118,8 @@ const App = () => {
     console.log(avgAccuracy,avgCorrect,avgMisspelled,avgKeystrokes,avgWpm,arrayOfAllCharCodes)
   };
 
+
+
   const StatingParaLaoder = () => {
     paragraphArraySetter();
   };
@@ -127,13 +132,20 @@ const App = () => {
     setTimerStarted(true);
     if (event.charCode === 8) setInputTypingRestricted(false);
 
-    setcharCodes([
-      ...charCodes,
-      {
-        moment: new Date().getTime(),
-        charCode: event.charCode,
-      },
-    ]);
+    if(prevMoment>1){
+        setcharCodes([
+          ...charCodes,
+          {
+            moment: new Date().getTime() - prevMoment,
+            charCode: event.charCode,
+          },
+        ]);  
+      setPrevMoment(0)
+    }else{
+      setPrevMoment(new Date().getTime());
+    }
+    
+   
 
     if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
@@ -301,6 +313,7 @@ const App = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
+       
         counter();
       }
     }, 1000);
