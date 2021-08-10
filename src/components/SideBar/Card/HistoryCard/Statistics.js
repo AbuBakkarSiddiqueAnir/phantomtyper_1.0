@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-const Statistics = ({user, userNameFromInput}) => {
+const Statistics = ({user, userNameFromInput, chartBuilderHandler}) => {
     
     return (
         <div>
@@ -11,7 +11,7 @@ const Statistics = ({user, userNameFromInput}) => {
                <div className="user-data-area" className={user.username === userNameFromInput ? "user-data-area bg-green-500" : "user-data-area bg-white"} >
                    <div className="statistics-title">
                        <div>Typing Statistics</div>
-                       <div className="graph-link">stat</div>
+                       <button onClick={() => chartBuilderHandler(user)} className="graph-link">stat</button>
                    </div>
                    <div>
                        <div className="name-area"> {user.username}</div>

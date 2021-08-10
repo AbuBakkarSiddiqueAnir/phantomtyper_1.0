@@ -13,13 +13,6 @@ const TypingParagraphTextArea = ({modalIsOpen, activeParagraph, wordIndex, chara
 
 
   useEffect(() => {
-   console.log(modalIsOpen)
-  },[modalIsOpen]);
-
-
-
-
-  useEffect(() => {
     setApOnTextArea(
       activeParagraph.map((word, index) => {
         if (parseInt(word.key) === wordIndex) {

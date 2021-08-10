@@ -41,7 +41,8 @@ const App = () => {
   const [usersData, setUsersData] = useState([]);
   const [userData, setUserData] = useState({});
   const [userNameFromInput, setUserNameFromInput] = useState("");
-  const [charCodes, setcharCodes] = useState([])
+  const [charCodes, setcharCodes] = useState([]);
+  const [chartInfos, setChartInfos] = useState({});
 
   const paragraphArraySetter = () => {
     setParagraphArray(
@@ -73,13 +74,45 @@ const App = () => {
     setWpm(0);
     setAccuracy(0);
     setFlameAnimationBoolean(false);
-    setcharCodes([])
+    setcharCodes([]);
 
     setIncreasingTimeRecording(0);
     setChallengeAreaBool(true);
     setInputTypingRestricted(false);
 
     paragraphArraySetter();
+  };
+
+  const chartBuilderHandler = (user) => {
+    console.log(user);
+    let sumOfAccuracy = 0,
+      avgAccuracy,
+      sumOfCorrect = 0,
+      avgCorrect,
+      sumOfKeyStrokes = 0,
+      avgKeystrokes,
+      sumOfWpm = 0,
+      avgWpm,
+      sumOfMisspelled = 0,
+      avgMisspelled,
+      arrayOfAllCharCodes = [];
+
+    user.userdata.map((datam, index) => {
+      sumOfAccuracy += datam.accuracy;
+      sumOfCorrect += datam.correct;
+      sumOfKeyStrokes += datam.keystrokes;
+      sumOfWpm += datam.wpm;
+      sumOfMisspelled += datam.misspelled;
+      arrayOfAllCharCodes = [...arrayOfAllCharCodes,datam.charCodes]
+    });
+
+    avgAccuracy = sumOfAccuracy / user.userdata.length;
+    avgCorrect = sumOfCorrect / user.userdata.length;
+    avgMisspelled = sumOfMisspelled / user.userdata.length;
+    avgKeystrokes = sumOfKeyStrokes / user.userdata.length;
+    avgWpm = sumOfWpm / user.userdata.length;
+
+    console.log(avgAccuracy,avgCorrect,avgMisspelled,avgKeystrokes,avgWpm,arrayOfAllCharCodes)
   };
 
   const StatingParaLaoder = () => {
@@ -94,25 +127,25 @@ const App = () => {
     setTimerStarted(true);
     if (event.charCode === 8) setInputTypingRestricted(false);
 
-      setcharCodes([...charCodes,{
-        "moment" : new Date().getTime(),
-        "charCode" : event.charCode
-      }])
+    setcharCodes([
+      ...charCodes,
+      {
+        moment: new Date().getTime(),
+        charCode: event.charCode,
+      },
+    ]);
 
     if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
-
-    
 
       setTimerStarted(true);
       setTypingWord("");
       setSelectedWord(paragraphArray[wordIndex + 1]);
 
       setAccuracy((prevAcc, nextAcc) => {
-        console.log(correct, misspelled);
         if (correct > 0) {
           let total = parseInt(misspelled) + parseInt(correct);
-          console.log(parseInt(correct) / total);
+
           return Math.ceil((parseInt(correct) / total) * 100);
         } else return 0;
       });
@@ -182,28 +215,26 @@ const App = () => {
     });
   };
 
- 
-
   const userResultCardCreator = () => {
     setResultCardBool(true);
 
     let newUserBool = true;
-    let currentUsersData ;
+    let currentUsersData;
     let usersDataCopied = [...usersData];
 
-
-    if (usersDataCopied.length > 0) {  
-      currentUsersData = usersDataCopied.map((user) => {
+    if (usersDataCopied.length > 0) {
+      currentUsersData = usersDataCopied.map((user, index) => {
         if (user.username === userNameFromInput) {
           newUserBool = false;
           user.userdata.push({
-              correct,
-              keystrokes,
-              wpm,
-              accuracy,
-              misspelled,
-            });
-            return user;
+            correct,
+            keystrokes,
+            wpm,
+            accuracy,
+            misspelled,
+            charCodes,
+          });
+          return user;
         }
         return user;
       });
@@ -222,6 +253,7 @@ const App = () => {
               wpm,
               accuracy,
               misspelled,
+              charCodes,
             },
           ],
         },
@@ -230,8 +262,9 @@ const App = () => {
       setUsersData(currentUsersData);
     }
 
-    localStorage.setItem("usersData", JSON.stringify(currentUsersData))
-   console.log(charCodes)
+    localStorage.setItem("usersData", JSON.stringify(currentUsersData));
+    console.log(charCodes);
+
     return setUserData({
       correct,
       keystrokes,
@@ -307,10 +340,9 @@ const App = () => {
       setChallengeAreaBool(false);
       setSelectedWord(paragraphArray[0]);
       activeParagraphLoader();
-      if(localStorage.getItem("usersData"))
-          setUsersData(JSON.parse(localStorage.getItem("usersData")));
-      else
-          localStorage.setItem("usersData",JSON.stringify(usersData))
+      if (localStorage.getItem("usersData"))
+        setUsersData(JSON.parse(localStorage.getItem("usersData")));
+      else localStorage.setItem("usersData", JSON.stringify(usersData));
     }, 700);
   }, [paragraphArray]);
 
@@ -363,7 +395,13 @@ const App = () => {
           </ParagraphContext.Provider>
         </div>
         <div className="col-span-2 p-8 bg-transparent">
-          <HistoryBar usersData={usersData} userNameFromInput={userNameFromInput}/>
+          <HistoryBar
+            chartBuilderHandler={chartBuilderHandler}
+            chartInfos={chartInfos}
+            setChartInfos={setChartInfos}
+            usersData={usersData}
+            userNameFromInput={userNameFromInput}
+          />
         </div>
       </div>
       <div className=" mx-4 p-4">
