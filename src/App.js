@@ -7,7 +7,7 @@ import DetailsBar from "./components/SideBar/Bar/DetailBar/DetailBar";
 import HistoryBar from "./components/SideBar/Bar/HistoryBar/HistoryBar";
 import TryAgain from "./components/TestContainer/TryAgain/TryAgain";
 import TypingChallenge from "./components/TestContainer/TypingChallenge/TypingChallenge";
-import Chart from "./components/Chart/Chart"
+import UserChart from "./components/Chart/UserChart"
 import randomSelector from "./helper/randomSelector";
 import typingTestData from "./data/exampleText";
 import ParagraphContext from "./contexts/paragraphContext";
@@ -429,7 +429,9 @@ const App = () => {
         style={{ backGround: "#F3F2EF" }}
         className="grid grid-cols-8 gap-2 bgwhite  mx-4 p-4 mt-4 challengeArea"
       >
-        <Chart momentsArray={momentsArray} charCodesArray={charCodesArray} chartBool={chartBool} chartCloseHandler={chartCloseHandler}/>
+        
+        <UserChart momentsArray={momentsArray} charCodesArray={charCodesArray} chartBool={chartBool} chartCloseHandler={chartCloseHandler}/>
+
         <div className="col-span-1 p-0 bg-transparent ">
           <Detailscontext.Provider
             value={{ correct, keystrokes, misspelled, wpm, accuracy, userData }}
