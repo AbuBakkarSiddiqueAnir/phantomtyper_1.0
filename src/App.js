@@ -41,9 +41,12 @@ const App = () => {
   const [usersData, setUsersData] = useState([]);
   const [userData, setUserData] = useState({});
   const [userNameFromInput, setUserNameFromInput] = useState("");
+
   const [charCodes, setcharCodes] = useState([]);
-  const [prevMoment, setPrevMoment] = useState(0)
+  const [prevMoment, setPrevMoment] = useState(0);
   const [chartInfos, setChartInfos] = useState({});
+  const [momentsArray, setMomentsArray] = useState([]);
+  const [charCodesArray, setCharCodesArray] = useState([]);
 
   const paragraphArraySetter = () => {
     setParagraphArray(
@@ -80,11 +83,10 @@ const App = () => {
     setIncreasingTimeRecording(0);
     setChallengeAreaBool(true);
     setInputTypingRestricted(false);
-    setPrevMoment(0)
+    setPrevMoment(0);
 
     paragraphArraySetter();
   };
-
 
   const chartBuilderHandler = (user) => {
     console.log(user);
@@ -101,8 +103,9 @@ const App = () => {
       arrayOfCharCodes = [],
       arrayOfAllCharCodes = [],
       avgMomentsArrayOfAllCharCodes = [],
-      uniqueCharCodeArray = [];
-
+      uniqueCharCodeArray = [],
+      momentsArr = [],
+      charCodesArr = [];
 
     user.userdata.map((datam) => {
       sumOfAccuracy += datam.accuracy;
@@ -110,7 +113,7 @@ const App = () => {
       sumOfKeyStrokes += datam.keystrokes;
       sumOfWpm += datam.wpm;
       sumOfMisspelled += datam.misspelled;
-      arrayOfCharCodes = [...arrayOfCharCodes,datam.charCodes]
+      arrayOfCharCodes = [...arrayOfCharCodes, datam.charCodes];
     });
 
     avgAccuracy = sumOfAccuracy / user.userdata.length;
@@ -120,37 +123,45 @@ const App = () => {
     avgWpm = sumOfWpm / user.userdata.length;
 
     arrayOfCharCodes.map((arr) => {
-        arr.map((momentObj) => {
-          arrayOfAllCharCodes.push(momentObj)
-        })
-    })
+      arr.map((momentObj) => {
+        arrayOfAllCharCodes.push(momentObj);
+      });
+    });
     arrayOfAllCharCodes.map((momentObj) => {
-          uniqueCharCodeArray.push(momentObj.charCode)
-    })
+      uniqueCharCodeArray.push(momentObj.charCode);
+    });
     uniqueCharCodeArray = [...new Set(uniqueCharCodeArray)];
-     
-   
+
     uniqueCharCodeArray.map((charCode) => {
-      let sumOfMoments=0,charCounts=0;
+      let sumOfMoments = 0,
+        charCounts = 0;
 
       arrayOfAllCharCodes.map((momentObj) => {
-        if(charCode === momentObj.charCode){
-           charCounts++;
-           sumOfMoments += momentObj.moment;
-        }  
-      }) 
-      
+        if (charCode === momentObj.charCode) {
+          charCounts++;
+          sumOfMoments += momentObj.moment;
+        }
+      });
+
       avgMomentsArrayOfAllCharCodes.push({
-        "charCode" : charCode,
-         "avgMoment" : Math.ceil(sumOfMoments/charCounts)
-      })
+        charCode: charCode,
+        avgMoment: Math.ceil(sumOfMoments / charCounts),
+      });
+    });
 
-     })  
+    avgMomentsArrayOfAllCharCodes.sort((a, b) => {
+      return a.charCode - b.charCode;
+    });
 
-    console.log(uniqueCharCodeArray,arrayOfAllCharCodes,avgMomentsArrayOfAllCharCodes)
+    avgMomentsArrayOfAllCharCodes.map((momentObj) => {
+      momentsArr.push(momentObj.avgMoment);
+      charCodesArr.push(String.fromCharCode(momentObj.charCode));
+    });
+    setMomentsArray(momentsArr);
+    setCharCodesArray(charCodesArr);
+
+    console.log(momentsArr, charCodesArr);
   };
-
-
 
   const StatingParaLaoder = () => {
     paragraphArraySetter();
@@ -164,18 +175,18 @@ const App = () => {
     setTimerStarted(true);
     if (event.charCode === 8) setInputTypingRestricted(false);
 
-    if(prevMoment>1){
+    if (prevMoment > 1) {
       setcharCodes([
         ...charCodes,
         {
           moment: new Date().getTime() - prevMoment,
           charCode: event.charCode,
         },
-      ]); 
-      setPrevMoment(0)  
+      ]);
+      setPrevMoment(0);
     }
-    
-    setPrevMoment(new Date().getTime()); 
+
+    setPrevMoment(new Date().getTime());
 
     if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
@@ -344,7 +355,6 @@ const App = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
-       
         counter();
       }
     }, 1000);
