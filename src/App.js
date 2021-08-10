@@ -42,6 +42,7 @@ const App = () => {
   const [selectedWord, setSelectedWord] = useState("");
   const [usersData, setUsersData] = useState([]);
   const [userData, setUserData] = useState({});
+  const [userStat, setUserStat] = useState({})
   const [userNameFromInput, setUserNameFromInput] = useState("");
 
   const [charCodes, setcharCodes] = useState([]);
@@ -91,6 +92,7 @@ const App = () => {
   };
 
   const chartBuilderHandler = (user) => {
+    setTimerStarted(false)
     console.log(user);
     let sumOfAccuracy = 0,
       avgAccuracy,
@@ -124,14 +126,20 @@ const App = () => {
     avgKeystrokes = sumOfKeyStrokes / user.userdata.length;
     avgWpm = sumOfWpm / user.userdata.length;
 
+    setUserStat({
+      avgKeystrokes,avgCorrect,avgWpm,avgMisspelled,avgAccuracy
+    })
+
     arrayOfCharCodes.map((arr) => {
       arr.map((momentObj) => {
         arrayOfAllCharCodes.push(momentObj);
       });
     });
+
     arrayOfAllCharCodes.map((momentObj) => {
       uniqueCharCodeArray.push(momentObj.charCode);
     });
+
     uniqueCharCodeArray = [...new Set(uniqueCharCodeArray)];
 
     uniqueCharCodeArray.map((charCode) => {
@@ -173,6 +181,7 @@ const App = () => {
 
   const chartCloseHandler = () => {
     setChartBool(false);
+    setTimerStarted(true)
   }
 
 
@@ -427,10 +436,10 @@ const App = () => {
       </div>
       <div
         style={{ backGround: "#F3F2EF" }}
-        className="grid grid-cols-8 gap-2 bgwhite  mx-4 p-4 mt-4 challengeArea"
+        className="grid grid-cols-8 gap-2 bgwhite  mx-4 p-4 mt-12 challengeArea"
       >
         
-        <UserChart momentsArray={momentsArray} charCodesArray={charCodesArray} chartBool={chartBool} chartCloseHandler={chartCloseHandler}/>
+        <UserChart userStat={userStat} momentsArray={momentsArray} charCodesArray={charCodesArray} chartBool={chartBool} chartCloseHandler={chartCloseHandler}/>
 
         <div className="col-span-1 p-0 bg-transparent ">
           <Detailscontext.Provider

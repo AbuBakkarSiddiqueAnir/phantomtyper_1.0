@@ -17,12 +17,12 @@ const TypingInputArea = ({
     delay: 700,
   })
 
-  const flameAnimation = (
-    <span className="p-8 animation-container bg-green-500">
-      {" "}
-      <span className="flame"> </span>
-    </span>
-  );
+  // const flameAnimation = (
+  //   <span className="p-8 animation-container bg-green-500">
+  //     {" "}
+  //     <span className="flame"> </span>
+  //   </span>
+  // );
   return transitions((styles, modalIsOpen) => {
     return !modalIsOpen && (
       <div>
@@ -31,7 +31,7 @@ const TypingInputArea = ({
       <animated.div>
         <div className="flex justify-center mt-12">
 
-          {flameAnimationBoolean ? flameAnimation : null}
+ 
 
           <animated.input
             style={styles}
@@ -41,7 +41,7 @@ const TypingInputArea = ({
             className="shadow-3xl w-3/5 h-12 outline-none p-4 text-center text-3xl font-semibold"
           />
 
-          {flameAnimationBoolean ? flameAnimation : null}
+         
 
         </div>
     </animated.div>
