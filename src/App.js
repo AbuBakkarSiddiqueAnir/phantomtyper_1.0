@@ -98,7 +98,11 @@ const App = () => {
       avgWpm,
       sumOfMisspelled = 0,
       avgMisspelled,
-      arrayOfAllCharCodes = [];
+      arrayOfCharCodes = [],
+      arrayOfAllCharCodes = [],
+      avgMomentsArrayOfAllCharCodes = [],
+      uniqueCharCodeArray = [];
+
 
     user.userdata.map((datam) => {
       sumOfAccuracy += datam.accuracy;
@@ -106,7 +110,7 @@ const App = () => {
       sumOfKeyStrokes += datam.keystrokes;
       sumOfWpm += datam.wpm;
       sumOfMisspelled += datam.misspelled;
-      arrayOfAllCharCodes = [...arrayOfAllCharCodes,datam.charCodes]
+      arrayOfCharCodes = [...arrayOfCharCodes,datam.charCodes]
     });
 
     avgAccuracy = sumOfAccuracy / user.userdata.length;
@@ -115,7 +119,35 @@ const App = () => {
     avgKeystrokes = sumOfKeyStrokes / user.userdata.length;
     avgWpm = sumOfWpm / user.userdata.length;
 
-    console.log(avgAccuracy,avgCorrect,avgMisspelled,avgKeystrokes,avgWpm,arrayOfAllCharCodes)
+    arrayOfCharCodes.map((arr) => {
+        arr.map((momentObj) => {
+          arrayOfAllCharCodes.push(momentObj)
+        })
+    })
+    arrayOfAllCharCodes.map((momentObj) => {
+          uniqueCharCodeArray.push(momentObj.charCode)
+    })
+    uniqueCharCodeArray = [...new Set(uniqueCharCodeArray)];
+     
+   
+    uniqueCharCodeArray.map((charCode) => {
+      let sumOfMoments=0,charCounts=0;
+
+      arrayOfAllCharCodes.map((momentObj) => {
+        if(charCode === momentObj.charCode){
+           charCounts++;
+           sumOfMoments += momentObj.moment;
+        }  
+      }) 
+      
+      avgMomentsArrayOfAllCharCodes.push({
+        "charCode" : charCode,
+         "avgMoment" : Math.ceil(sumOfMoments/charCounts)
+      })
+
+     })  
+
+    console.log(uniqueCharCodeArray,arrayOfAllCharCodes,avgMomentsArrayOfAllCharCodes)
   };
 
 
@@ -133,19 +165,17 @@ const App = () => {
     if (event.charCode === 8) setInputTypingRestricted(false);
 
     if(prevMoment>1){
-        setcharCodes([
-          ...charCodes,
-          {
-            moment: new Date().getTime() - prevMoment,
-            charCode: event.charCode,
-          },
-        ]);  
-      setPrevMoment(0)
-    }else{
-      setPrevMoment(new Date().getTime());
+      setcharCodes([
+        ...charCodes,
+        {
+          moment: new Date().getTime() - prevMoment,
+          charCode: event.charCode,
+        },
+      ]); 
+      setPrevMoment(0)  
     }
     
-   
+    setPrevMoment(new Date().getTime()); 
 
     if (event.charCode === 32) {
       setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
@@ -275,6 +305,7 @@ const App = () => {
     }
 
     localStorage.setItem("usersData", JSON.stringify(currentUsersData));
+
     console.log(charCodes);
 
     return setUserData({
