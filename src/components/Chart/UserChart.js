@@ -27,7 +27,7 @@ const UserChart = ({
               labels: charCodesArray,
               datasets: [
                 {
-                  label: "Time expense",
+                  label: "Time expense in miliseconds",
                   data: momentsArray,
                   backgroundColor: [
                     "black",

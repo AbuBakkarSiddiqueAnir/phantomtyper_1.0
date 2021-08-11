@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 
-const InitialModal = ({ modalHandler, modalIsOpen,setUserNameFromInput }) => {
+const LoginModal = ({ modalHandler, modalIsOpen,setUserNameFromInput }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -30,4 +30,4 @@ const InitialModal = ({ modalHandler, modalIsOpen,setUserNameFromInput }) => {
   );
 };
 
-export default InitialModal;
+export default LoginModal;

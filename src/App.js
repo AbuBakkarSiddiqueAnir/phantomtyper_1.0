@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Spring, { useSpring, animated } from "react-spring";
-import InitialModal from "./components/Modal/Modal";
+import LoginModal from "./components/Modal/Modal";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import DetailsBar from "./components/SideBar/Bar/DetailBar/DetailBar";
 import HistoryBar from "./components/SideBar/Bar/HistoryBar/HistoryBar";
-import TryAgain from "./components/TestContainer/TryAgain/TryAgain";
 import TypingChallenge from "./components/TestContainer/TypingChallenge/TypingChallenge";
 import UserChart from "./components/Chart/UserChart"
 import randomSelector from "./helper/randomSelector";
@@ -47,7 +45,6 @@ const App = () => {
 
   const [charCodes, setcharCodes] = useState([]);
   const [prevMoment, setPrevMoment] = useState(0);
-  const [chartInfos, setChartInfos] = useState({});
   const [momentsArray, setMomentsArray] = useState([]);
   const [charCodesArray, setCharCodesArray] = useState([]);
 
@@ -64,6 +61,7 @@ const App = () => {
         })
     );
   };
+
 
   const restartButtonHandler = () => {
     setCorrect(0);
@@ -82,14 +80,13 @@ const App = () => {
     setAccuracy(0);
     setFlameAnimationBoolean(false);
     setcharCodes([]);
-
     setIncreasingTimeRecording(0);
     setChallengeAreaBool(true);
     setInputTypingRestricted(false);
     setPrevMoment(0);
-
     paragraphArraySetter();
   };
+
 
   const chartBuilderHandler = (user) => {
     setTimerStarted(false)
@@ -175,9 +172,8 @@ const App = () => {
     setMomentsArray(momentsArr);
     setCharCodesArray(charCodesArr);
     setChartBool(true);
-
-    console.log(momentsArr, charCodesArr);
   };
+
 
   const chartCloseHandler = () => {
     setChartBool(false);
@@ -208,6 +204,7 @@ const App = () => {
   const StatingParaLaoder = () => {
     paragraphArraySetter();
   };
+
 
   const onKeyPressWordMatch = (event) => {
     setKeystrokes((prevStroke, currStroke) => {
@@ -258,15 +255,17 @@ const App = () => {
           return prevMisspelled + 1;
         });
 
-      if (paragraphArray.length - 2 < wordIndex) {
+      if (paragraphArray.length - 2 < wordIndex) 
         restartButtonHandler();
-      }
+      
     }
   };
+
 
   const activeParaHandler = () => {
     restartButtonHandler();
   };
+
 
   const activeParagraphLoader = () => {
     setWordBooleans([]);
@@ -275,9 +274,11 @@ const App = () => {
     setSlicerIndex(index);
   };
 
+
   const modalHandler = () => {
     if (userNameFromInput !== "") setModalIsOpen(false);
   };
+
 
   const wordMatchHandler = (event) => {
     setTypingWord(event.target.value);
@@ -295,11 +296,13 @@ const App = () => {
     }
   };
 
+
   const timeRemainingInputHandler = (event) => {
     if (!isNaN(event.target.value) && event.target.value[0] !== "0") {
       setTimeRemaining(event.target.value);
     }
   };
+
 
   const counter = () => {
     setIncreasingTimeRecording((prevTime, nextTime) => {
@@ -309,6 +312,7 @@ const App = () => {
       return prevtime - 1;
     });
   };
+
 
   const userResultCardCreator = () => {
     setResultCardBool(true);
@@ -370,6 +374,7 @@ const App = () => {
     });
   };
 
+
   useEffect(() => {
     setWpm((prev, next) => {
       if (increasingTimeRecording > 1) {
@@ -384,15 +389,18 @@ const App = () => {
     });
   }, [increasingTimeRecording]);
 
+
   useEffect(() => {
     if (wordIndex % 46 === 0 && wordIndex > 0) {
       activeParagraphLoader();
     }
   }, [wordIndex]);
 
+
   useEffect(() => {
     StatingParaLaoder();
   }, []);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -404,6 +412,7 @@ const App = () => {
     return () => clearInterval(interval);
   }, [timerStarted]);
 
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (timerStarted) {
@@ -412,6 +421,7 @@ const App = () => {
 
     return () => clearInterval(interval);
   }, [timerStarted, timeRemaining]);
+
 
   useEffect(() => {
     if (timeRemaining < 1 && timeRemaining !== "") {
@@ -422,6 +432,7 @@ const App = () => {
     }
   }, [timeRemaining]);
 
+
   useEffect(() => {
     if (resultCardBool) {
       const timeout = setTimeout(() => {
@@ -430,6 +441,7 @@ const App = () => {
       return () => clearTimeout(timeout);
     }
   }, [paragraphArray]);
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -442,9 +454,10 @@ const App = () => {
     }, 700);
   }, [paragraphArray]);
 
+  
   return (
-    <div className="h-screen">
-      <InitialModal
+    <div className="h-screen font-serif">
+      <LoginModal
         modalIsOpen={modalIsOpen}
         setUserNameFromInput={setUserNameFromInput}
         modalHandler={modalHandler}
@@ -463,7 +476,7 @@ const App = () => {
 
         <div className="col-span-2 lg:col-span-1 p-0 bg-transparent ">
           <Detailscontext.Provider
-            value={{ correct, keystrokes, misspelled, wpm, accuracy, userData,usersData,deleteUserName, userNameFromInput, chartInfos, chartBuilderHandler,timerStarted }}
+            value={{ correct, keystrokes, misspelled, wpm, accuracy, userData,usersData,deleteUserName, userNameFromInput, chartBuilderHandler,timerStarted }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
@@ -499,8 +512,6 @@ const App = () => {
         <div className="hidden lg:block lg:col-span-2 p-8 bg-transparent">
           <HistoryBar
             chartBuilderHandler={chartBuilderHandler}
-            chartInfos={chartInfos}
-            setChartInfos={setChartInfos}
             usersData={usersData}
             userNameFromInput={userNameFromInput}
             timerStarted={timerStarted}

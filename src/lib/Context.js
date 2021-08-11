@@ -3,12 +3,11 @@ class Context {
         this.value = value;
     }
 
-    //providers
     Provider = ({children, value}) => {
         this.value = value;
         return children;
     }
-    //consumer
+ 
     Consumer = ({children}) => {
         return children(this.value)
     }

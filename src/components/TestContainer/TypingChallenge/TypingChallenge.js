@@ -4,8 +4,7 @@ import TypingChalengeHeaderArea from './TypingChallengeHeaderArea/TypingChalleng
 
 
 
-const TypingChallenge = ({}) => {
-    
+const TypingChallenge = () => {
     return (
       <div>
         <TypingChalengeHeaderArea />
