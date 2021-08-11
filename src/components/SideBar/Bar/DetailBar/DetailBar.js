@@ -13,36 +13,36 @@ const DetailsBar = () => {
   return (
     <div>
       <Detailscontext.Consumer>
-        {({ keystrokes }) => (
-          <DetailCard cardDetail={"strokes"} scoreUpdatingValue={keystrokes} />
+        {({ KEY_STROKES }) => (
+          <DetailCard cardDetail={"strokes"} scoreUpdatingValue={KEY_STROKES} />
         )}
       </Detailscontext.Consumer>
 
       <Detailscontext.Consumer>
-        {({ wpm }) => (
-          <DetailCard cardDetail={"wpm"} scoreUpdatingValue={wpm} />
+        {({ WPM }) => (
+          <DetailCard cardDetail={"WPM"} scoreUpdatingValue={WPM} />
         )}
       </Detailscontext.Consumer>
       <Detailscontext.Consumer>
-        {({ accuracy }) => (
-          <DetailCard cardDetail={"accuracy"} scoreUpdatingValue={accuracy} />
+        {({ ACCURACY }) => (
+          <DetailCard cardDetail={"accuracy"} scoreUpdatingValue={ACCURACY} />
         )}
       </Detailscontext.Consumer>
       <div className="mt-4">
         {isSmallerThanlaptop && (
           <Detailscontext.Consumer>
             {({
-              usersData,
+              USERS_DATA,
               deleteUserName,
-              userNameFromInput,
+              USER_NAME_FROM_INPUT,
               chartBuilderHandler,
-              timerStarted,
+              TIMER_STARTED_BOOLEAN,
             }) => (
               <HistoryBar
                 height={"28rem"}
-                usersData={usersData}
-                userNameFromInput={userNameFromInput}
-                timerStarted={timerStarted}
+                USERS_DATA={USERS_DATA}
+                USER_NAME_FROM_INPUT={USER_NAME_FROM_INPUT}
+                TIMER_STARTED_BOOLEAN={TIMER_STARTED_BOOLEAN}
                 chartBuilderHandler={chartBuilderHandler}
                 deleteUserName={deleteUserName}
               />

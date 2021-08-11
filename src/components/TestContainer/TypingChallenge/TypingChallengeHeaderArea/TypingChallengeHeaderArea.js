@@ -8,10 +8,10 @@ const TypingChalengeHeaderArea = () => {
   return (
     <div className="flex justify-between mx-8">
       <paragraphContext.Consumer>
-        {({ timeRemaining, timeRemainingInputHandler }) => (
+        {({ TIME_REMAINING, timeRemainingInputHandler }) => (
           <TimeRemainingInput
             timeRemainingInputHandler={timeRemainingInputHandler}
-            timeRemaining={timeRemaining}
+            TIME_REMAINING={TIME_REMAINING}
           />
         )}
       </paragraphContext.Consumer>

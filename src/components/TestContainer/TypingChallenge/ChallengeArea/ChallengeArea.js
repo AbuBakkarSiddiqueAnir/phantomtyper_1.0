@@ -10,20 +10,20 @@ const ChallengeArea = () => {
       <div>
         <paragraphContext.Consumer>
           {({
-            activeParagraph,
-            wordIndex,
-            characterBoolean,
-            wordBooleans,
-            challengeAreaBool,
-            modalIsOpen,
+            ACTIVE_PARAGRAPH,
+            WORD_INDEX,
+            CHARACTER_BOOLEAN,
+            WORD_BOOLEANS,
+            CHALLENGE_AREA_BOOLEAN,
+            MODAL_IS_OPEN,
           }) => (
             <TypingParagraphTextArea
-              modalIsOpen={modalIsOpen}
-              challengeAreaBool={challengeAreaBool}
-              wordBooleans={wordBooleans}
-              characterBoolean={characterBoolean}
-              wordIndex={wordIndex}
-              activeParagraph={activeParagraph}
+              MODAL_IS_OPEN={MODAL_IS_OPEN}
+              CHALLENGE_AREA_BOOLEAN={CHALLENGE_AREA_BOOLEAN}
+              WORD_BOOLEANS={WORD_BOOLEANS}
+              CHARACTER_BOOLEAN={CHARACTER_BOOLEAN}
+              WORD_INDEX={WORD_INDEX}
+              ACTIVE_PARAGRAPH={ACTIVE_PARAGRAPH}
             />
           )}
         </paragraphContext.Consumer>
@@ -32,14 +32,14 @@ const ChallengeArea = () => {
         <paragraphContext.Consumer>
           {({
             wordMatchHandler,
-            typingWord,
+            TYPING_WORD,
             onKeyPressWordMatch,
-            modalIsOpen,
+            MODAL_IS_OPEN,
           }) => (
             <TypingInputArea
-              modalIsOpen={modalIsOpen}
+              MODAL_IS_OPEN={MODAL_IS_OPEN}
               wordMatchHandler={wordMatchHandler}
-              typingWord={typingWord}
+              TYPING_WORD={TYPING_WORD}
               onKeyPressWordMatch={onKeyPressWordMatch}
             />
           )}
@@ -47,8 +47,8 @@ const ChallengeArea = () => {
       </div>
       <div className=" h-52 flex items-center">
         <paragraphContext.Consumer>
-          {({ resultCardBool, userData }) => (
-            <ResultCard userData={userData} resultCardBool={resultCardBool} />
+          {({ RESULT_CARD_BOOLEAN, USER_DATA }) => (
+            <ResultCard USER_DATA={USER_DATA} RESULT_CARD_BOOLEAN={RESULT_CARD_BOOLEAN} />
           )}
         </paragraphContext.Consumer>
       </div>

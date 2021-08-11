@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 
 const Statistics = ({
   user,
-  userNameFromInput,
+  USER_NAME_FROM_INPUT,
   chartBuilderHandler,
-  timerStarted,
+  TIMER_STARTED_BOOLEAN,
   deleteUserName
 }) => {
   const [userAvgStat, setUserAvgStat] = useState({});
@@ -30,7 +30,7 @@ const Statistics = ({
       avgAccuracy,
       noOfChallenge,
     });
-  }, [timerStarted]);
+  }, [TIMER_STARTED_BOOLEAN]);
 
   return (
     <div>
@@ -50,7 +50,7 @@ const Statistics = ({
         <div
           className="user-data-area"
           className={
-            user.username === userNameFromInput
+            user.username === USER_NAME_FROM_INPUT
               ? "user-data-area bg-green-500"
               : "user-data-area bg-white"
           }
@@ -68,7 +68,7 @@ const Statistics = ({
             <div className="user-name-area text-xl">
                 <span> {user.username}</span> 
                 {
-                    user.username === userNameFromInput ? (
+                    user.username === USER_NAME_FROM_INPUT ? (
                         <button onClick={() => deleteUserName(user)} className="text-red-600 underline mt-1"><i className="delete icon text-xl"></i></button>
                     ) : null
                 }

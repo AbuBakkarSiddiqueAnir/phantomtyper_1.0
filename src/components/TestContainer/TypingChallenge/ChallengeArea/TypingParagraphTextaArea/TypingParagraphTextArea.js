@@ -2,16 +2,16 @@ import React, { useState, useEffect, fragment } from "react";
 import {useTransition, animated } from "react-spring";
 
 const TypingParagraphTextArea = ({
-  modalIsOpen,
-  activeParagraph,
-  wordIndex,
-  characterBoolean,
-  wordBooleans,
-  challengeAreaBool,
+  MODAL_IS_OPEN,
+  ACTIVE_PARAGRAPH,
+  WORD_INDEX,
+  CHARACTER_BOOLEAN,
+  WORD_BOOLEANS,
+  CHALLENGE_AREA_BOOLEAN,
 }) => {
   const [apOnTextArea, setApOnTextArea] = useState("");
 
-  const transitions = useTransition(modalIsOpen, {
+  const transitions = useTransition(MODAL_IS_OPEN, {
     from: { opacity: 0, marginTop: 190, minHeight: "5px" },
     enter: { opacity: 1, marginTop: 0, minHeight: "145px" },
     delay: 500,
@@ -19,13 +19,13 @@ const TypingParagraphTextArea = ({
 
   useEffect(() => {
     setApOnTextArea(
-      activeParagraph.map((word, index) => {
-        if (parseInt(word.key) === wordIndex) {
+      ACTIVE_PARAGRAPH.map((word, index) => {
+        if (parseInt(word.key) === WORD_INDEX) {
           return (
             <span
               key={index}
               className={
-                characterBoolean
+                CHARACTER_BOOLEAN
                   ? "font-normal bg-green-400 bg-opacity-50 px-1 rounded-md"
                   : "font-normal bg-red-600 bg-opacity-60 px-1 rounded-md"
               }
@@ -38,7 +38,7 @@ const TypingParagraphTextArea = ({
           <span
             key={index}
             className={
-              wordBooleans[index] === false
+              WORD_BOOLEANS[index] === false
                 ? "font-normal px-1 rounded-lg opacity-90  text-red-600"
                 : "px-1 bg-transparent font-normal"
             }
@@ -48,11 +48,11 @@ const TypingParagraphTextArea = ({
         );
       })
     );
-  }, [activeParagraph, wordIndex, characterBoolean, wordBooleans]);
+  }, [ACTIVE_PARAGRAPH, WORD_INDEX, CHARACTER_BOOLEAN, WORD_BOOLEANS]);
 
-  return transitions((styles, modalIsOpen) => {
+  return transitions((styles, MODAL_IS_OPEN) => {
     return (
-      !modalIsOpen && (
+      !MODAL_IS_OPEN && (
         <div className="mt-8">
           <animated.div
             style={styles}

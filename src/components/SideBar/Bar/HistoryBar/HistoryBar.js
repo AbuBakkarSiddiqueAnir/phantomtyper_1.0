@@ -3,27 +3,27 @@ import Statistics from "../../Card/HistoryCard/Statistics";
 
 const HistoryBar = ({
   height,
-  usersData,
+  USERS_DATA,
   deleteUserName,
-  userNameFromInput,
+  USER_NAME_FROM_INPUT,
   chartInfos,
   chartBuilderHandler,
-  timerStarted,
+  TIMER_STARTED_BOOLEAN,
 }) => {
   return (
     <div>
-      {usersData.length > 0 ? (
+      {USERS_DATA.length > 0 ? (
         <div style={{ maxHeight: height }} className=" overflow-y-scroll">
-          {usersData?.map((user) => (
+          {USERS_DATA?.map((user) => (
             <Statistics
               key={user.username}
               deleteUserName={deleteUserName}
-              timerStarted={timerStarted}
+              TIMER_STARTED_BOOLEAN={TIMER_STARTED_BOOLEAN}
               chartBuilderHandler={chartBuilderHandler}
               key={user.username}
               chartInfos={chartInfos}
               user={user}
-              userNameFromInput={userNameFromInput}
+              USER_NAME_FROM_INPUT={USER_NAME_FROM_INPUT}
             />
           ))}
         </div>

@@ -3,15 +3,15 @@ import Modal from "react-modal";
 import { Bar } from "react-chartjs-2";
 
 const UserChart = ({
-  chartBool,
-  momentsArray,
-  charCodesArray,
+  CHART_IS_OPEN,
+  MOMENTS_ARRAY,
+  CHAR_CODES_ARRAY,
   chartCloseHandler,
-  userStat,
+  USER_STAT,
 }) => {
   return (
     <Modal
-      isOpen={chartBool}
+      isOpen={CHART_IS_OPEN}
       className="relative glass-blur justify-center items-center  flex  w-full h-full"
     >
       <button
@@ -24,11 +24,11 @@ const UserChart = ({
         <div className="h-full col-span-6">
           <Bar
             data={{
-              labels: charCodesArray,
+              labels: CHAR_CODES_ARRAY,
               datasets: [
                 {
                   label: "Time expense in miliseconds",
-                  data: momentsArray,
+                  data: MOMENTS_ARRAY,
                   backgroundColor: [
                     "black",
                     "rgba(255, 99, 132)",
@@ -67,24 +67,24 @@ const UserChart = ({
             per challenge :{">"}
           </div>
           <div className="text-3xl mt-8 font-semibold">
-            {Math.ceil(userStat.avgWpm)}
+            {Math.ceil(USER_STAT.avgWpm)}
           </div>
           <div className="text-2xl">Wpm</div>
           <div className="text-3xl mt-4 font-semibold">
-            {parseInt(userStat.avgAccuracy)}
+            {parseInt(USER_STAT.avgAccuracy)}
             {""}%
           </div>
           <div className="text-2xl">Accuracy</div>
           <div className="text-3xl mt-4 font-semibold">
-            {parseInt(userStat.avgCorrect)}
+            {parseInt(USER_STAT.avgCorrect)}
           </div>
           <div className="text-2xl">Correct</div>
           <div className="text-3xl mt-4 font-semibold">
-            {parseInt(userStat.avgMisspelled)}
+            {parseInt(USER_STAT.avgMisspelled)}
           </div>
           <div className="text-2xl">Misspelled</div>
           <div className="text-3xl mt-4 font-semibold">
-            {parseInt(userStat.avgKeystrokes)}
+            {parseInt(USER_STAT.avgKeystrokes)}
           </div>
           <div className="text-2xl">Keystrokes</div>
         </div>

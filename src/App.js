@@ -15,41 +15,40 @@ import wordMatchChecker from "./helper/wordMatchChecker";
 import "./App.css";
 
 const App = () => {
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [challengeAreaBool, setChallengeAreaBool] = useState(true);
-  const [inputTypingRestricted, setInputTypingRestricted] = useState(false);
-  const [flameAnimationBoolean, setFlameAnimationBoolean] = useState(false);
-  const [characterBoolean, setCharacterBoolean] = useState(true);
-  const [modalIsOpen, setModalIsOpen] = useState(true);
-  const [resultCardBool, setResultCardBool] = useState(false);
-  const [chartBool,setChartBool] = useState(false);
+  const [TIMER_STARTED_BOOLEAN, setTIMER_STARTED_BOOLEAN] = useState(false);
+  const [CHALLENGE_AREA_BOOLEAN, setCHALLENGE_AREA_BOOLEAN] = useState(true);
+  const [CHARACTER_BOOLEAN, setCHARACTER_BOOLEAN] = useState(true);
+  const [MODAL_IS_OPEN, setMODAL_IS_OPEN] = useState(true);
+  const [RESULT_CARD_BOOLEAN, setRESULT_CARD_BOOLEAN] = useState(false);
+  const [CHART_IS_OPEN,setCHART_IS_OPEN] = useState(false);
 
-  const [timeRemaining, setTimeRemaining] = useState(60);
-  const [increasingTimeRecording, setIncreasingTimeRecording] = useState(0);
-  const [wpm, setWpm] = useState(0);
-  const [keystrokes, setKeystrokes] = useState(0);
-  const [accuracy, setAccuracy] = useState(0);
-  const [correct, setCorrect] = useState(0);
-  const [misspelled, setMisspelled] = useState(0);
-  const [paragraphArray, setParagraphArray] = useState([]);
-  const [activeParagraph, setActiveParagraph] = useState([]);
-  const [wordBooleans, setWordBooleans] = useState([]);
-  const [typingWord, setTypingWord] = useState("");
-  const [wordIndex, setWordIndex] = useState(0);
-  const [slicerIndex, setSlicerIndex] = useState(0);
-  const [selectedWord, setSelectedWord] = useState("");
-  const [usersData, setUsersData] = useState([]);
-  const [userData, setUserData] = useState({});
-  const [userStat, setUserStat] = useState({})
-  const [userNameFromInput, setUserNameFromInput] = useState("");
+  const [TIME_REMAINING, setTIME_REMAINING] = useState(60);
+  const [RECORD_INCREASE, setRECORD_INCREASE] = useState(0);
+  const [WPM, setWPM] = useState(0);
 
-  const [charCodes, setcharCodes] = useState([]);
-  const [prevMoment, setPrevMoment] = useState(0);
-  const [momentsArray, setMomentsArray] = useState([]);
-  const [charCodesArray, setCharCodesArray] = useState([]);
+  const [KEY_STROKES, setKEY_STROKES] = useState(0);
+  const [ACCURACY, setACCURACY] = useState(0);
+  const [CORRECT, setCORRECT] = useState(0);
+  const [MISSPELLED, setMISSPELLED] = useState(0);
+  const [PARAGRAPH_ARRAY, setPARAGRAPH_ARRAY] = useState([]);
+  const [ACTIVE_PARAGRAPH, setACTIVE_PARAGRAPH] = useState([]);
+  const [WORD_BOOLEANS, setWORD_BOOLEANS] = useState([]);
+  const [TYPING_WORD, setTYPING_WORD] = useState("");
+  const [WORD_INDEX, setWORD_INDEX] = useState(0);
+  const [SLICER_INDEX, setSLICER_INDEX] = useState(0);
+  const [SELECTED_WORD, setSELECTED_WORD] = useState("");
+  const [USERS_DATA, setUSERS_DATA] = useState([]);
+  const [USER_DATA, setUSER_DATA] = useState({});
+  const [USER_STAT, setUSER_STAT] = useState({})
+  const [USER_NAME_FROM_INPUT, setUSER_NAME_FROM_INPUT] = useState("");
+
+  const [CHAR_CODES, setCHAR_CODES] = useState([]);
+  const [PREV_MOMENT, setPREV_MOMENT] = useState(0);
+  const [MOMENTS_ARRAY, setMOMENTS_ARRAY] = useState([]);
+  const [CHAR_CODES_ARRAY, setCHAR_CODES_ARRAY] = useState([]);
 
   const paragraphArraySetter = () => {
-    setParagraphArray(
+    setPARAGRAPH_ARRAY(
       randomSelector(typingTestData)
         .split(" ")
         .map((word, index) => {
@@ -64,32 +63,31 @@ const App = () => {
 
 
   const restartButtonHandler = () => {
-    setCorrect(0);
-    setActiveParagraph([]);
-    setTypingWord("");
-    setParagraphArray([]);
-    setSlicerIndex(0);
-    setSelectedWord("");
-    setWordIndex(0);
-    setTimerStarted(false);
-    setTimeRemaining(60);
-    setWordBooleans([]);
-    setKeystrokes(0);
-    setMisspelled(0);
-    setWpm(0);
-    setAccuracy(0);
-    setFlameAnimationBoolean(false);
-    setcharCodes([]);
-    setIncreasingTimeRecording(0);
-    setChallengeAreaBool(true);
-    setInputTypingRestricted(false);
-    setPrevMoment(0);
+    setCORRECT(0);
+    setACTIVE_PARAGRAPH([]);
+    setTYPING_WORD("");
+    setPARAGRAPH_ARRAY([]);
+    setSLICER_INDEX(0);
+    setSELECTED_WORD("");
+    setWORD_INDEX(0);
+    setTIMER_STARTED_BOOLEAN(false);
+    setTIME_REMAINING(60);
+    setWORD_BOOLEANS([]);
+    setKEY_STROKES(0);
+    setMISSPELLED(0);
+    setWPM(0);
+    setACCURACY(0);
+    setCHAR_CODES([]);
+    setRECORD_INCREASE(0);
+    setCHALLENGE_AREA_BOOLEAN(true);
+
+    setPREV_MOMENT(0);
     paragraphArraySetter();
   };
 
 
   const chartBuilderHandler = (user) => {
-    setTimerStarted(false)
+    setTIMER_STARTED_BOOLEAN(false)
  
     let sumOfAccuracy = 0,
       avgAccuracy,
@@ -123,7 +121,7 @@ const App = () => {
     avgKeystrokes = sumOfKeyStrokes / user.userdata.length;
     avgWpm = sumOfWpm / user.userdata.length;
 
-    setUserStat({
+    setUSER_STAT({
       avgKeystrokes,avgCorrect,avgWpm,avgMisspelled,avgAccuracy
     })
 
@@ -169,15 +167,15 @@ const App = () => {
       }
       
     });
-    setMomentsArray(momentsArr);
-    setCharCodesArray(charCodesArr);
-    setChartBool(true);
+    setMOMENTS_ARRAY(momentsArr);
+    setCHAR_CODES_ARRAY(charCodesArr);
+    setCHART_IS_OPEN(true);
   };
 
 
   const chartCloseHandler = () => {
-    setChartBool(false);
-    setTimerStarted(true)
+    setCHART_IS_OPEN(false);
+    setTIMER_STARTED_BOOLEAN(true)
   }
 
 
@@ -194,7 +192,7 @@ const App = () => {
         }
         newUsersData.push(userObj)
       })
-      setUsersData(newUsersData);
+      setUSERS_DATA(newUsersData);
       localStorage.setItem("usersData", JSON.stringify(newUsersData)); 
     }
     
@@ -207,55 +205,55 @@ const App = () => {
 
 
   const onKeyPressWordMatch = (event) => {
-    setKeystrokes((prevStroke, currStroke) => {
+    setKEY_STROKES((prevStroke, currStroke) => {
       return prevStroke + 1;
     });
 
-    setTimerStarted(true);
-    if (event.charCode === 8) setInputTypingRestricted(false);
+    setTIMER_STARTED_BOOLEAN(true);
+   
 
-    if (prevMoment > 1) {
-      setcharCodes([
-        ...charCodes,
+    if (PREV_MOMENT > 1) {
+      setCHAR_CODES([
+        ...CHAR_CODES,
         {
-          moment: new Date().getTime() - prevMoment,
+          moment: new Date().getTime() - PREV_MOMENT,
           charCode: event.charCode,
         },
       ]);
-      setPrevMoment(0);
+      setPREV_MOMENT(0);
     }
 
-    setPrevMoment(new Date().getTime());
+    setPREV_MOMENT(new Date().getTime());
 
     if (event.charCode === 32) {
-      setWordIndex((prevIndex, currnetIndex) => prevIndex + 1);
+      setWORD_INDEX((prevIndex, currnetIndex) => prevIndex + 1);
 
-      setTimerStarted(true);
-      setTypingWord("");
-      setSelectedWord(paragraphArray[wordIndex + 1]);
+      setTIMER_STARTED_BOOLEAN(true);
+      setTYPING_WORD("");
+      setSELECTED_WORD(PARAGRAPH_ARRAY[WORD_INDEX + 1]);
 
-      setAccuracy((prevAcc, nextAcc) => {
-        if (correct > 0) {
-          let total = parseInt(misspelled) + parseInt(correct);
+      setACCURACY((prevAcc, nextAcc) => {
+        if (CORRECT > 0) {
+          let total = parseInt(MISSPELLED) + parseInt(CORRECT);
 
-          return Math.ceil((parseInt(correct) / total) * 100);
+          return Math.ceil((parseInt(CORRECT) / total) * 100);
         } else return 0;
       });
 
-      let matchingIssues = wordMatchChecker(selectedWord, typingWord);
+      let matchingIssues = wordMatchChecker(SELECTED_WORD, TYPING_WORD);
 
-      setWordBooleans([...wordBooleans, matchingIssues]);
+      setWORD_BOOLEANS([...WORD_BOOLEANS, matchingIssues]);
 
       if (matchingIssues)
-        setCorrect(
+        setCORRECT(
           (prevCorrect, nextCorrect) => (nextCorrect = prevCorrect + 1)
         );
       else
-        setMisspelled((prevMisspelled, nextMisspelled) => {
+        setMISSPELLED((prevMisspelled, nextMisspelled) => {
           return prevMisspelled + 1;
         });
 
-      if (paragraphArray.length - 2 < wordIndex) 
+      if (PARAGRAPH_ARRAY.length - 2 < WORD_INDEX) 
         restartButtonHandler();
       
     }
@@ -268,30 +266,28 @@ const App = () => {
 
 
   const activeParagraphLoader = () => {
-    setWordBooleans([]);
-    let [slicedParagraph, index] = paraSlicer(paragraphArray, slicerIndex);
-    setActiveParagraph(slicedParagraph);
-    setSlicerIndex(index);
+    setWORD_BOOLEANS([]);
+    let [slicedParagraph, index] = paraSlicer(PARAGRAPH_ARRAY, SLICER_INDEX);
+    setACTIVE_PARAGRAPH(slicedParagraph);
+    setSLICER_INDEX(index);
   };
 
 
   const modalHandler = () => {
-    if (userNameFromInput !== "") setModalIsOpen(false);
+    if (USER_NAME_FROM_INPUT !== "") setMODAL_IS_OPEN(false);
   };
 
 
   const wordMatchHandler = (event) => {
-    setTypingWord(event.target.value);
+    setTYPING_WORD(event.target.value);
 
-    if (selectedWord) {
-      let aa = selectedWord.props.children[0];
+    if (SELECTED_WORD) {
+      let aa = SELECTED_WORD.props.children[0];
       let aaa = event.target.value.replace(/\s+/g, "");
       if (aaa !== aa.substring(0, aaa.length)) {
-        setCharacterBoolean(false);
-        setInputTypingRestricted(false);
+        setCHARACTER_BOOLEAN(false);
       } else {
-        setCharacterBoolean(true);
-        setInputTypingRestricted(true);
+        setCHARACTER_BOOLEAN(true);
       }
     }
   };
@@ -299,102 +295,99 @@ const App = () => {
 
   const timeRemainingInputHandler = (event) => {
     if (!isNaN(event.target.value) && event.target.value[0] !== "0") {
-      setTimeRemaining(event.target.value);
+      setTIME_REMAINING(event.target.value);
     }
   };
 
 
   const counter = () => {
-    setIncreasingTimeRecording((prevTime, nextTime) => {
+    setRECORD_INCREASE((prevTime, nextTime) => {
       return prevTime + 1;
     });
-    setTimeRemaining((prevtime, nexttime) => {
+    setTIME_REMAINING((prevtime, nexttime) => {
       return prevtime - 1;
     });
   };
 
 
   const userResultCardCreator = () => {
-    setResultCardBool(true);
+    setRESULT_CARD_BOOLEAN(true);
 
     let newUserBool = true;
     let currentUsersData;
-    let usersDataCopied = [...usersData];
+    let usersDataCopied = [...USERS_DATA];
 
     if (usersDataCopied.length > 0) {
       currentUsersData = usersDataCopied.map((user, index) => {
-        if (user.username === userNameFromInput) {
+        if (user.username === USER_NAME_FROM_INPUT) {
           newUserBool = false;
           user.userdata.push({
-            correct,
-            keystrokes,
-            wpm,
-            accuracy,
-            misspelled,
-            charCodes,
+            CORRECT,
+            KEY_STROKES,
+            WPM,
+            ACCURACY,
+            MISSPELLED,
+            CHAR_CODES,
           });
           return user;
         }
         return user;
       });
-      setUsersData(currentUsersData);
+      setUSERS_DATA(currentUsersData);
     }
 
     if (newUserBool) {
       currentUsersData = [
         ...usersDataCopied,
         {
-          username: userNameFromInput,
+          username: USER_NAME_FROM_INPUT,
           userdata: [
             {
-              correct,
-              keystrokes,
-              wpm,
-              accuracy,
-              misspelled,
-              charCodes,
+              CORRECT,
+              KEY_STROKES,
+              WPM,
+              ACCURACY,
+              MISSPELLED,
+              CHAR_CODES,
             },
           ],
         },
       ];
 
-      setUsersData(currentUsersData);
+      setUSERS_DATA(currentUsersData);
     }
 
     localStorage.setItem("usersData", JSON.stringify(currentUsersData));
 
-    console.log(charCodes);
+    console.log(CHAR_CODES);
 
-    return setUserData({
-      correct,
-      keystrokes,
-      wpm,
-      accuracy,
-      misspelled,
+    return setUSER_DATA({
+      CORRECT,
+      KEY_STROKES,
+      WPM,
+      ACCURACY,
+      MISSPELLED,
     });
   };
 
 
   useEffect(() => {
-    setWpm((prev, next) => {
-      if (increasingTimeRecording > 1) {
-        let timeRemainingMinFraction = parseInt(increasingTimeRecording) / 60;
+    setWPM((prev, next) => {
+      if (RECORD_INCREASE > 1) {
+        let timeRemainingMinFraction = parseInt(RECORD_INCREASE) / 60;
 
-        if (accuracy > 94 && wpm > 40) setFlameAnimationBoolean(true);
-        else setFlameAnimationBoolean(false);
-
-        return parseInt(correct ? correct / timeRemainingMinFraction : 0);
+        return parseInt(CORRECT ? CORRECT / timeRemainingMinFraction : 0);
       }
       return 0;
     });
-  }, [increasingTimeRecording]);
+  }, [RECORD_INCREASE]);
 
 
   useEffect(() => {
-    if (wordIndex % 46 === 0 && wordIndex > 0) {
+    if (WORD_INDEX % 46 === 0 && WORD_INDEX > 0) {
       activeParagraphLoader();
     }
-  }, [wordIndex]);
+  }, [WORD_INDEX]);
 
 
   useEffect(() => {
@@ -404,67 +397,67 @@ const App = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (timerStarted) {
+      if (TIMER_STARTED_BOOLEAN) {
         counter();
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timerStarted]);
+  }, [TIMER_STARTED_BOOLEAN]);
 
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (timerStarted) {
+      if (TIMER_STARTED_BOOLEAN) {
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timerStarted, timeRemaining]);
+  }, [TIMER_STARTED_BOOLEAN, TIME_REMAINING]);
 
 
   useEffect(() => {
-    if (timeRemaining < 1 && timeRemaining !== "") {
-      setTimerStarted(false);
+    if (TIME_REMAINING < 1 && TIME_REMAINING !== "") {
+      setTIMER_STARTED_BOOLEAN(false);
       userResultCardCreator();
-      setResultCardBool(true);
+      setRESULT_CARD_BOOLEAN(true);
       restartButtonHandler();
     }
-  }, [timeRemaining]);
+  }, [TIME_REMAINING]);
 
 
   useEffect(() => {
-    if (resultCardBool) {
+    if (RESULT_CARD_BOOLEAN) {
       const timeout = setTimeout(() => {
-        setResultCardBool(false);
+        setRESULT_CARD_BOOLEAN(false);
       }, 10000);
       return () => clearTimeout(timeout);
     }
-  }, [paragraphArray]);
+  }, [PARAGRAPH_ARRAY]);
 
 
   useEffect(() => {
     setTimeout(() => {
-      setChallengeAreaBool(false);
-      setSelectedWord(paragraphArray[0]);
+      setCHALLENGE_AREA_BOOLEAN(false);
+      setSELECTED_WORD(PARAGRAPH_ARRAY[0]);
       activeParagraphLoader();
       if (localStorage.getItem("usersData"))
-        setUsersData(JSON.parse(localStorage.getItem("usersData")));
-      else localStorage.setItem("usersData", JSON.stringify(usersData));
+        setUSERS_DATA(JSON.parse(localStorage.getItem("usersData")));
+      else localStorage.setItem("usersData", JSON.stringify(USERS_DATA));
     }, 700);
-  }, [paragraphArray]);
+  }, [PARAGRAPH_ARRAY]);
 
   
   return (
     <div className="h-screen font-serif">
       <LoginModal
-        modalIsOpen={modalIsOpen}
-        setUserNameFromInput={setUserNameFromInput}
+        MODAL_IS_OPEN={MODAL_IS_OPEN}
+        setUSER_NAME_FROM_INPUT={setUSER_NAME_FROM_INPUT}
         modalHandler={modalHandler}
       />
 
       <div>
-        <Header userName={userNameFromInput} />
+        <Header userName={USER_NAME_FROM_INPUT} />
       </div>
 
       <div
@@ -472,11 +465,11 @@ const App = () => {
         className="grid grid-cols-8 gap-2 bgwhite  mx-4 p-4 mt-12 challengeArea"
       >
         
-        <UserChart userStat={userStat} momentsArray={momentsArray} charCodesArray={charCodesArray} chartBool={chartBool} chartCloseHandler={chartCloseHandler}/>
+        <UserChart USER_STAT={USER_STAT} MOMENTS_ARRAY={MOMENTS_ARRAY} CHAR_CODES_ARRAY={CHAR_CODES_ARRAY} CHART_IS_OPEN={CHART_IS_OPEN} chartCloseHandler={chartCloseHandler}/>
 
         <div className="col-span-2 lg:col-span-1 p-0 bg-transparent ">
           <Detailscontext.Provider
-            value={{ correct, keystrokes, misspelled, wpm, accuracy, userData,usersData,deleteUserName, userNameFromInput, chartBuilderHandler,timerStarted }}
+            value={{ CORRECT, KEY_STROKES, MISSPELLED, WPM, ACCURACY, USER_DATA,USERS_DATA,deleteUserName, USER_NAME_FROM_INPUT, chartBuilderHandler,TIMER_STARTED_BOOLEAN }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
@@ -486,23 +479,21 @@ const App = () => {
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
-              typingWord,
+              TYPING_WORD,
               wordMatchHandler,
-              activeParagraph,
+              ACTIVE_PARAGRAPH,
               activeParaHandler,
-              wordIndex,
-              timeRemaining,
+              WORD_INDEX,
+              TIME_REMAINING,
               timeRemainingInputHandler,
-              characterBoolean,
-              wordBooleans,
-              selectedWord,
-              challengeAreaBool,
-              inputTypingRestricted,
-              accuracy,
-              flameAnimationBoolean,
-              modalIsOpen,
-              userData,
-              resultCardBool,
+              CHARACTER_BOOLEAN,
+              WORD_BOOLEANS,
+              SELECTED_WORD,
+              CHALLENGE_AREA_BOOLEAN,
+              ACCURACY,
+              MODAL_IS_OPEN,
+              USER_DATA,
+              RESULT_CARD_BOOLEAN,
             }}
           >
             <TypingChallenge />
@@ -512,9 +503,9 @@ const App = () => {
         <div className="hidden lg:block lg:col-span-2 p-8 bg-transparent">
           <HistoryBar
             chartBuilderHandler={chartBuilderHandler}
-            usersData={usersData}
-            userNameFromInput={userNameFromInput}
-            timerStarted={timerStarted}
+            USERS_DATA={USERS_DATA}
+            USER_NAME_FROM_INPUT={USER_NAME_FROM_INPUT}
+            TIMER_STARTED_BOOLEAN={TIMER_STARTED_BOOLEAN}
             deleteUserName={deleteUserName}
             height={"45rem"}
           />

@@ -1,6 +1,6 @@
 
-const paraSlicer = (paragraph,slicerIndex) => {
-    return [paragraph.slice(slicerIndex,slicerIndex+46), slicerIndex+46]
+const paraSlicer = (paragraph,SLICER_INDEX) => {
+    return [paragraph.slice(SLICER_INDEX,SLICER_INDEX+46), SLICER_INDEX+46]
 
 }
 
