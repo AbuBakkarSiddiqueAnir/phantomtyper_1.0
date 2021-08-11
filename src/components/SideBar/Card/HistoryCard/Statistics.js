@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 const Statistics = ({
   user,
   USER_NAME_FROM_INPUT,
-  chartBuilderHandler,
+  ChartDataBuilder,
   TIMER_STARTED_BOOLEAN,
-  deleteUserName
+  DeleteUserNameHandler
 }) => {
   const [userAvgStat, setUserAvgStat] = useState({});
 
@@ -17,8 +17,8 @@ const Statistics = ({
       noOfChallenge = 0;
 
     user.userdata.map((datam) => {
-      sumOfAccuracy += datam.accuracy;
-      sumOfWpm += datam.wpm;
+      sumOfAccuracy += datam.ACCURACY;
+      sumOfWpm += datam.WPM;
       noOfChallenge++;
     });
 
@@ -58,7 +58,7 @@ const Statistics = ({
           <div className="statistics-title">
             <div>Statistics</div>
             <button
-              onClick={() => chartBuilderHandler(user)}
+              onClick={() => ChartDataBuilder(user)}
               className="graph-link  bg-green-500 shadow-xl underline bg rounded-md px-1"
             >
               Stat
@@ -69,7 +69,7 @@ const Statistics = ({
                 <span> {user.username}</span> 
                 {
                     user.username === USER_NAME_FROM_INPUT ? (
-                        <button onClick={() => deleteUserName(user)} className="text-red-600 underline mt-1"><i className="delete icon text-xl"></i></button>
+                        <button onClick={() => DeleteUserNameHandler(user)} className="text-red-600 underline mt-1"><i className="delete icon text-xl"></i></button>
                     ) : null
                 }
                

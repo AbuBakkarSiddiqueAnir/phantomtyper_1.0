@@ -17,8 +17,8 @@ const TypingChalengeHeaderArea = () => {
       </paragraphContext.Consumer>
 
       <paragraphContext.Consumer>
-        {({ activeParaHandler }) => (
-          <RestartButton activeParaHandler={activeParaHandler} />
+        {({ ActiveParaHandler }) => (
+          <RestartButton ActiveParaHandler={ActiveParaHandler} />
         )}
       </paragraphContext.Consumer>
     </div>

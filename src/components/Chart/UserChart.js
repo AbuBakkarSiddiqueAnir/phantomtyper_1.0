@@ -6,7 +6,7 @@ const UserChart = ({
   CHART_IS_OPEN,
   MOMENTS_ARRAY,
   CHAR_CODES_ARRAY,
-  chartCloseHandler,
+  ChartCloseHandler,
   USER_STAT,
 }) => {
   return (
@@ -16,7 +16,7 @@ const UserChart = ({
     >
       <button
         className="absolute text-red-800 top-3.5 right-8 text-3xl font-semibold"
-        onClick={chartCloseHandler}
+        onClick={ChartCloseHandler}
       >
         <i class="close icon text-5xl"></i>
       </button>

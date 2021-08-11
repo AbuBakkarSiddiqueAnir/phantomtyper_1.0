@@ -4,10 +4,10 @@ import Statistics from "../../Card/HistoryCard/Statistics";
 const HistoryBar = ({
   height,
   USERS_DATA,
-  deleteUserName,
+  DeleteUserNameHandler,
   USER_NAME_FROM_INPUT,
   chartInfos,
-  chartBuilderHandler,
+  ChartDataBuilder,
   TIMER_STARTED_BOOLEAN,
 }) => {
   return (
@@ -17,9 +17,9 @@ const HistoryBar = ({
           {USERS_DATA?.map((user) => (
             <Statistics
               key={user.username}
-              deleteUserName={deleteUserName}
+              DeleteUserNameHandler={DeleteUserNameHandler}
               TIMER_STARTED_BOOLEAN={TIMER_STARTED_BOOLEAN}
-              chartBuilderHandler={chartBuilderHandler}
+              ChartDataBuilder={ChartDataBuilder}
               key={user.username}
               chartInfos={chartInfos}
               user={user}

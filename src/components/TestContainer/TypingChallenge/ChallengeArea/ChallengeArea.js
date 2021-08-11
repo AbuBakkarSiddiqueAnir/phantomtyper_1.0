@@ -33,14 +33,14 @@ const ChallengeArea = () => {
           {({
             wordMatchHandler,
             TYPING_WORD,
-            onKeyPressWordMatch,
+            OnKeyPressHandler,
             MODAL_IS_OPEN,
           }) => (
             <TypingInputArea
               MODAL_IS_OPEN={MODAL_IS_OPEN}
               wordMatchHandler={wordMatchHandler}
               TYPING_WORD={TYPING_WORD}
-              onKeyPressWordMatch={onKeyPressWordMatch}
+              OnKeyPressHandler={OnKeyPressHandler}
             />
           )}
         </paragraphContext.Consumer>

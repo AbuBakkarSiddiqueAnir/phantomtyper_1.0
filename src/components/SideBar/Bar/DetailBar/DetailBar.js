@@ -33,9 +33,9 @@ const DetailsBar = () => {
           <Detailscontext.Consumer>
             {({
               USERS_DATA,
-              deleteUserName,
+              DeleteUserName,
               USER_NAME_FROM_INPUT,
-              chartBuilderHandler,
+              ChartDataBuilder,
               TIMER_STARTED_BOOLEAN,
             }) => (
               <HistoryBar
@@ -43,8 +43,8 @@ const DetailsBar = () => {
                 USERS_DATA={USERS_DATA}
                 USER_NAME_FROM_INPUT={USER_NAME_FROM_INPUT}
                 TIMER_STARTED_BOOLEAN={TIMER_STARTED_BOOLEAN}
-                chartBuilderHandler={chartBuilderHandler}
-                deleteUserName={deleteUserName}
+                ChartDataBuilder={ChartDataBuilder}
+                DeleteUserName={DeleteUserName}
               />
             )}
           </Detailscontext.Consumer>
