@@ -188,16 +188,20 @@ const App = () => {
   // deleting logged in user
 
   const deleteUserName = (user) => {
-    let prevUsersData = [...JSON.parse(localStorage.getItem("usersData"))];
-    let newUsersData = []
-    prevUsersData.map((userObj,index) => {
-      if(user.username === userObj.username){
-        return 
-      }
-      newUsersData.push(userObj)
-    })
-    setUsersData(newUsersData);
-    localStorage.setItem("usersData", JSON.stringify(newUsersData)); 
+    let userPermission = prompt("To delete your statistics, type 'yes'.")
+    if(userPermission === "yes"){
+      let prevUsersData = [...JSON.parse(localStorage.getItem("usersData"))];
+      let newUsersData = []
+      prevUsersData.map((userObj,index) => {
+        if(user.username === userObj.username){
+          return 
+        }
+        newUsersData.push(userObj)
+      })
+      setUsersData(newUsersData);
+      localStorage.setItem("usersData", JSON.stringify(newUsersData)); 
+    }
+    
   }
 
 
