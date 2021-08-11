@@ -1,10 +1,18 @@
 import React from 'react';
 import DetailCard from "../../Card/DetailCard/DetailCard";
 
-import Detailscontext from "../../../../contexts/detailscontext"
+import Detailscontext from "../../../../contexts/detailscontext";
+import HistoryBar from "../../Bar/HistoryBar/HistoryBar";
+import { useMediaQuery } from 'react-responsive'
 
 
-const DetailsBar = ({}) => {
+const DetailsBar = () => {
+
+    const isSmallerThanlaptop = useMediaQuery({
+        query: '(max-width: 1024px)'
+      })
+
+
     return (
         <div>
             <Detailscontext.Consumer>
@@ -14,21 +22,7 @@ const DetailsBar = ({}) => {
                 )
             }
           </Detailscontext.Consumer>
-            {/* <Detailscontext.Consumer>
-            {
-                ({correct}) => (
-                    <DetailCard cardDetail={"Correct"} scoreUpdatingValue={correct}/>
-                )
-            }
-          </Detailscontext.Consumer> */}
           
-          {/* <Detailscontext.Consumer>
-            {
-                ({misspelled}) => (
-                    <DetailCard cardDetail={"Wrong"} scoreUpdatingValue={misspelled}/>
-                )
-            }
-          </Detailscontext.Consumer> */}
           <Detailscontext.Consumer>
             {
                 ({wpm}) => (
@@ -43,6 +37,24 @@ const DetailsBar = ({}) => {
                 )
             }
           </Detailscontext.Consumer>
+          <div className="mt-4">
+              {
+                  isSmallerThanlaptop && (
+                    <Detailscontext.Consumer>
+                    {
+                        ({usersData,deleteUserName, userNameFromInput, chartInfos, chartBuilderHandler,timerStarted})=>(
+                          <HistoryBar height={"26rem"} usersData={usersData} userNameFromInput={userNameFromInput} timerStarted={timerStarted} chartBuilderHandler={chartBuilderHandler} deleteUserName={deleteUserName}/>
+                        )
+                    }
+                </Detailscontext.Consumer>
+                  )
+              }
+         
+          </div>
+      
+         
+         
+
            
         </div>
     )

@@ -449,6 +449,7 @@ const App = () => {
       <div>
         <Header userName={userNameFromInput} />
       </div>
+
       <div
         style={{ backGround: "#F3F2EF" }}
         className="grid grid-cols-8 gap-2 bgwhite  mx-4 p-4 mt-12 challengeArea"
@@ -458,11 +459,12 @@ const App = () => {
 
         <div className="col-span-2 lg:col-span-1 p-0 bg-transparent ">
           <Detailscontext.Provider
-            value={{ correct, keystrokes, misspelled, wpm, accuracy, userData }}
+            value={{ correct, keystrokes, misspelled, wpm, accuracy, userData,usersData,deleteUserName, userNameFromInput, chartInfos, chartBuilderHandler,timerStarted }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
+
         <div className="col-span-6 lg:col-span-5 min-width bg-green-500  pt-8 ">
           <ParagraphContext.Provider
             value={{
@@ -489,6 +491,7 @@ const App = () => {
             <TypingChallenge />
           </ParagraphContext.Provider>
         </div>
+
         <div className="hidden lg:block lg:col-span-2 p-8 bg-transparent">
           <HistoryBar
             chartBuilderHandler={chartBuilderHandler}
@@ -498,8 +501,10 @@ const App = () => {
             userNameFromInput={userNameFromInput}
             timerStarted={timerStarted}
             deleteUserName={deleteUserName}
+            height={"45rem"}
           />
         </div>
+
       </div>
       <div className=" mx-4 p-4">
         <Footer>{}</Footer>

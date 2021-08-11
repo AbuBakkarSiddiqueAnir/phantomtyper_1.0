@@ -40,8 +40,8 @@ const Statistics = ({
             ? "Good"
             : "Poor"}
 
-          <div className="pl-12 text-lg font-semibold pt-4">
-            <div>{userAvgStat.noOfChallenge} challenges</div>
+          <div className="pl-8 text-lg font-semibold pt-4">
+            <div>{userAvgStat.noOfChallenge} times</div>
             <div>accuracy: {userAvgStat.avgAccuracy}</div>
             <div>wpm: {userAvgStat.avgWpm}</div>
           </div>
@@ -67,7 +67,12 @@ const Statistics = ({
           
             <div className="user-name-area text-xl">
                 <span> {user.username}</span> 
-                <button onClick={() => deleteUserName(user)} className="text-red-600 underline mt-1"><i className="delete icon text-xl"></i></button>
+                {
+                    user.username === userNameFromInput ? (
+                        <button onClick={() => deleteUserName(user)} className="text-red-600 underline mt-1"><i className="delete icon text-xl"></i></button>
+                    ) : null
+                }
+               
                 
             </div>
 
