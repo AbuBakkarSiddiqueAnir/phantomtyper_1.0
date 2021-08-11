@@ -185,6 +185,21 @@ const App = () => {
   }
 
 
+  // deleting logged in user
+
+  const deleteUserName = (user) => {
+    let prevUsersData = [...JSON.parse(localStorage.getItem("usersData"))];
+    let newUsersData = []
+    prevUsersData.map((userObj,index) => {
+      if(user.username === userObj.username){
+        return 
+      }
+      newUsersData.push(userObj)
+    })
+    setUsersData(newUsersData);
+    localStorage.setItem("usersData", JSON.stringify(newUsersData)); 
+  }
+
 
   const StatingParaLaoder = () => {
     paragraphArraySetter();
@@ -441,14 +456,14 @@ const App = () => {
         
         <UserChart userStat={userStat} momentsArray={momentsArray} charCodesArray={charCodesArray} chartBool={chartBool} chartCloseHandler={chartCloseHandler}/>
 
-        <div className="col-span-2 md:col-span-1 p-0 bg-transparent ">
+        <div className="col-span-2 lg:col-span-1 p-0 bg-transparent ">
           <Detailscontext.Provider
             value={{ correct, keystrokes, misspelled, wpm, accuracy, userData }}
           >
             <DetailsBar />
           </Detailscontext.Provider>
         </div>
-        <div className="col-span-6 md:col-span-5 min-width bg-green-500  pt-8 ">
+        <div className="col-span-6 lg:col-span-5 min-width bg-green-500  pt-8 ">
           <ParagraphContext.Provider
             value={{
               onKeyPressWordMatch,
@@ -474,7 +489,7 @@ const App = () => {
             <TypingChallenge />
           </ParagraphContext.Provider>
         </div>
-        <div className="hidden md:block md:col-span-2 p-8 bg-transparent">
+        <div className="hidden lg:block lg:col-span-2 p-8 bg-transparent">
           <HistoryBar
             chartBuilderHandler={chartBuilderHandler}
             chartInfos={chartInfos}
@@ -482,6 +497,7 @@ const App = () => {
             usersData={usersData}
             userNameFromInput={userNameFromInput}
             timerStarted={timerStarted}
+            deleteUserName={deleteUserName}
           />
         </div>
       </div>

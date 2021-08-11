@@ -29,7 +29,7 @@
 
 .statistics{
     max-width: 270px;
-    height: 120px;
+    height: 150px;
     background-position: left top;
     background-size: cover;
   
@@ -72,6 +72,7 @@
     justify-content: space-between;
     -webkit-box-align: center;
     align-items: center;
+   
 
 }
 
