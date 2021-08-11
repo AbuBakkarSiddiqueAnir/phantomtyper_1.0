@@ -385,7 +385,7 @@ const App = () => {
   }, [increasingTimeRecording]);
 
   useEffect(() => {
-    if (wordIndex % 27 === 0 && wordIndex > 0) {
+    if (wordIndex % 46 === 0 && wordIndex > 0) {
       activeParagraphLoader();
     }
   }, [wordIndex]);

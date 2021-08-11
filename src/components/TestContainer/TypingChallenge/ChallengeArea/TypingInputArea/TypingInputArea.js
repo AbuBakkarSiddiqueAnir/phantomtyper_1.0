@@ -17,12 +17,6 @@ const TypingInputArea = ({
     delay: 700,
   });
 
-  // const flameAnimation = (
-  //   <span className="p-8 animation-container bg-green-500">
-  //     {" "}
-  //     <span className="flame"> </span>
-  //   </span>
-  // );
   return transitions((styles, modalIsOpen) => {
     return (
       !modalIsOpen && (

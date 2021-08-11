@@ -8,7 +8,7 @@ const TypingParagraphTextArea = ({modalIsOpen, activeParagraph, wordIndex, chara
     from: { opacity: 0, marginTop: 190 ,minHeight:"5px"},
     enter: { opacity: 1, marginTop: 0 ,minHeight:"145px" },
    
-    delay: 700,
+    delay: 500,
   })
 
 

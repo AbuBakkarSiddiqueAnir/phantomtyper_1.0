@@ -7,7 +7,7 @@ const InitialModal = ({ modalHandler, modalIsOpen,setUserNameFromInput }) => {
       isOpen={modalIsOpen}
       className=" justify-center items-center glass-blur flex w-full h-full"
     >
-      <div className="w-3/5 h-3/5 glass bg-green-700 flex justify-center items-center shadow-2xl flex-col">
+      <div className="w-3/5 h-3/5 glass bg-green-500 flex justify-center items-center shadow-2xl flex-col">
         <h1 className="text-6xl font-bold text-gray-200 mb-16">
           Phantom Typer
         </h1>

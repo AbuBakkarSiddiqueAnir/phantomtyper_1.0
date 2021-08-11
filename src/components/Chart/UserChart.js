@@ -12,15 +12,15 @@ const UserChart = ({
   return (
     <Modal
       isOpen={chartBool}
-      className="relative justify-center items-center  flex  w-full h-full"
+      className="relative glass-blur justify-center items-center  flex  w-full h-full"
     >
       <button
         className="absolute text-red-800 top-3.5 right-8 text-3xl font-semibold"
         onClick={chartCloseHandler}
       >
-         <i class="close icon text-5xl"></i>
+        <i class="close icon text-5xl"></i>
       </button>
-      <div className="w-5/6 h-5/6 bg-gray-50 grid grid-cols-8 shadow-2xl">
+      <div className="w-5/6 glass h-5/6 bg-gray-50 grid grid-cols-8 shadow-2xl">
         <div className="h-full col-span-6">
           <Bar
             data={{
@@ -30,21 +30,16 @@ const UserChart = ({
                   label: "Time expense",
                   data: momentsArray,
                   backgroundColor: [
-                    'rgba(255, 99, 132)',
-                    'rgba(54, 162, 235)',
-                    'rgba(255, 206, 86)',
-                    'rgba(75, 192, 192)',
-                    'rgba(153, 102, 255)',
-                    'rgba(255, 159, 64)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                    "black",
+                    "rgba(255, 99, 132)",
+                    "rgba(54, 162, 235)",
+                    "rgba(255, 206, 86)",
+                    "rgba(75, 192, 192)",
+                    "rgba(153, 102, 255)",
+                    "rgba(255, 159, 64)",
+                  ],
+                  borderColor: ["rgba(255, 206, 86, 1)"],
+                  borderWidth: "1px",
                   hoverOffset: 4,
                 },
               ],
@@ -54,21 +49,22 @@ const UserChart = ({
             options={{
               maintainAspectRatio: false,
               scales: {
-                yAxes: [
-                  {
-                    ticks: {
-                      beginAtZero: true,
+                r: {
+                  ticks: {
+                    backdropPadding: {
+                      x: 10,
+                      y: 45,
                     },
                   },
-                ],
+                },
               },
             }}
           />
         </div>
 
         <div className="col-span-2 flex flex-col justify-center items-center">
-        <div className="text-4xl mt-8 font-semibold">
-             per challenge :{">"}
+          <div className="text-4xl mt-8 font-semibold">
+            per challenge :{">"}
           </div>
           <div className="text-3xl mt-8 font-semibold">
             {Math.ceil(userStat.avgWpm)}
