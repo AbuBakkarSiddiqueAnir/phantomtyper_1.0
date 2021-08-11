@@ -5,9 +5,9 @@ const InitialModal = ({ modalHandler, modalIsOpen,setUserNameFromInput }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
-      className=" justify-center items-center  flex bg-transparent w-full h-full"
+      className=" justify-center items-center glass-blur flex w-full h-full"
     >
-      <div className="w-3/4 h-3/4 bg-green-800 flex justify-center items-center shadow-2xl flex-col">
+      <div className="w-3/5 h-3/5 glass bg-green-700 flex justify-center items-center shadow-2xl flex-col">
         <h1 className="text-6xl font-bold text-gray-200 mb-16">
           Phantom Typer
         </h1>
@@ -20,7 +20,7 @@ const InitialModal = ({ modalHandler, modalIsOpen,setUserNameFromInput }) => {
         <div className="pt-4">
           <button
             onClick={(e) => modalHandler(e)}
-            className="w-80 text-gray-200 rounded-sm  bg-green-800 h-12 text-3xl font-bold shadow-2xl border-2 hover:border-gray-800"
+            className="w-80 text-gray-200 rounded-sm  bg-gray-700 h-12 text-3xl font-bold shadow-2xl border-2 hover:border-white border-gray-800"
           >
             Submit
           </button>
