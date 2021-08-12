@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Phantom-Typer/static/css/main.937a4c02.chunk.css",
-    "main.js": "/Phantom-Typer/static/js/main.cc1aedf6.chunk.js",
-    "main.js.map": "/Phantom-Typer/static/js/main.cc1aedf6.chunk.js.map",
+    "main.js": "/Phantom-Typer/static/js/main.e9a0cf39.chunk.js",
+    "main.js.map": "/Phantom-Typer/static/js/main.e9a0cf39.chunk.js.map",
     "runtime-main.js": "/Phantom-Typer/static/js/runtime-main.ecfadf94.js",
     "runtime-main.js.map": "/Phantom-Typer/static/js/runtime-main.ecfadf94.js.map",
     "static/js/2.4d0d19cd.chunk.js": "/Phantom-Typer/static/js/2.4d0d19cd.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.ecfadf94.js",
     "static/js/2.4d0d19cd.chunk.js",
     "static/css/main.937a4c02.chunk.css",
-    "static/js/main.cc1aedf6.chunk.js"
+    "static/js/main.e9a0cf39.chunk.js"
   ]
 }
