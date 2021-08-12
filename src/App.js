@@ -349,7 +349,7 @@ const App = () => {
             USER_NAME_FROM_INPUT={USER_NAME_FROM_INPUT}
             TIMER_STARTED_BOOLEAN={TIMER_STARTED_BOOLEAN}
             DeleteUserNameHandler={DeleteUserNameHandler}
-            height={"40rem"}
+            height={"43rem"}
           />
         </div>
       </div>

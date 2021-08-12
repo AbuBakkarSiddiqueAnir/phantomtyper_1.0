@@ -10,7 +10,7 @@ const TypingInputArea = ({
   const transitions = useTransition(MODAL_IS_OPEN, {
     from: { opacity: 0, marginTop: 190 },
     enter: { opacity: 1, marginTop: 0 },
-    delay: 700,
+    delay: 300,
   });
 
   return transitions((styles, MODAL_IS_OPEN) => {
