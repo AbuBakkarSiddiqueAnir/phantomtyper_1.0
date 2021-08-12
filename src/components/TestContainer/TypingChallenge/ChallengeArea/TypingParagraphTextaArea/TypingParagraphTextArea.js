@@ -14,7 +14,7 @@ const TypingParagraphTextArea = ({
   const transitions = useTransition(MODAL_IS_OPEN, {
     from: { opacity: 0, marginTop: 190, minHeight: "5px" },
     enter: { opacity: 1, marginTop: 0, minHeight: "145px" },
-    delay: 500,
+    delay: 300,
   });
 
   useEffect(() => {
@@ -56,13 +56,13 @@ const TypingParagraphTextArea = ({
         <div className="mt-8">
           <animated.div
             style={styles}
-            className="w-full p-4 box-shadow text-3xl resize-none bg-gray-100 leading-normal"
+            className="w-full p-4 box-shadow text-2xl resize-none bg-gray-100 leading-normal"
           >
             {apOnTextArea.length > 1 ? (
               apOnTextArea
             ) : (
               <div>
-                <h1 className="text-6xl font-normal">Loading...</h1>
+                <h1 className="text-5xl font-normal">Loading...</h1>
               </div>
             )}
           </animated.div>

@@ -26,7 +26,7 @@ const TypingInputArea = ({
                 value={TYPING_WORD}
                 onKeyPress={(e) => OnKeyPressHandler(e)}
                 onChange={wordMatchHandler}
-                className="shadow-3xl w-3/5 h-12 outline-none p-4 text-center text-3xl font-normal"
+                className="shadow-3xl w-3/5 h-12 outline-none p-4 text-center text-2xl font-normal"
               />
             </div>
           </animated.div>

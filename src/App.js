@@ -22,8 +22,8 @@ const App = () => {
 
   const [TIME_REMAINING, setTIME_REMAINING] = useState(60);
   const [RECORD_INCREASE, setRECORD_INCREASE] = useState(0);
-  const [WPM, setWPM] = useState(0);
 
+  const [WPM, setWPM] = useState(0);
   const [KEY_STROKES, setKEY_STROKES] = useState(0);
   const [ACCURACY, setACCURACY] = useState(0);
   const [CORRECT, setCORRECT] = useState(0);
@@ -287,7 +287,7 @@ const App = () => {
 
       <div
         style={{ backGround: "#F3F2EF" }}
-        className="grid grid-cols-8 gap-2 bgwhite  mx-4 p-4 mt-12 challengeArea"
+        className="grid grid-cols-8 gap-2 bgwhite  mx-4 p-4 mt-8 challengeArea"
       >
         <UserChart
           USER_STAT={USER_STAT}
@@ -349,11 +349,10 @@ const App = () => {
             USER_NAME_FROM_INPUT={USER_NAME_FROM_INPUT}
             TIMER_STARTED_BOOLEAN={TIMER_STARTED_BOOLEAN}
             DeleteUserNameHandler={DeleteUserNameHandler}
-            height={"45rem"}
+            height={"40rem"}
           />
         </div>
       </div>
-      
     </div>
   );
 };

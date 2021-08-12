@@ -20,7 +20,7 @@ const DetailsBar = () => {
 
       <Detailscontext.Consumer>
         {({ WPM }) => (
-          <DetailCard cardDetail={"WPM"} scoreUpdatingValue={WPM} />
+          <DetailCard cardDetail={"wpm"} scoreUpdatingValue={WPM} />
         )}
       </Detailscontext.Consumer>
       <Detailscontext.Consumer>

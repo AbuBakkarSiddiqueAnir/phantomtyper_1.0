@@ -35,12 +35,12 @@ const Statistics = ({
   return (
     <div>
       <div className="card-statistics ">
-        <div className="statistics bg-gray-200  text-lg pl-2 pt-2">
+        <div className="statistics bg-gray-200  text-sm pl-2 pt-2">
           {userAvgStat.avgAccuracy > 30 && userAvgStat.avgAccuracy > 90
             ? "Good"
             : "Poor"}
 
-          <div style={{paddingLeft:"20%"}} className=" text-lg font-semibold pt-4">
+          <div style={{paddingLeft:"20%"}} className=" text-sm font-semibold pt-4">
             <div>{userAvgStat.noOfChallenge} times</div>
             <div>accuracy: {userAvgStat.avgAccuracy}</div>
             <div>wpm: {userAvgStat.avgWpm}</div>
@@ -65,7 +65,7 @@ const Statistics = ({
             </button>
           </div>
           
-            <div className="user-name-area text-xl">
+            <div className="user-name-area text-lg">
                 <span> {user.username}</span> 
                 {
                     user.username === USER_NAME_FROM_INPUT ? (
