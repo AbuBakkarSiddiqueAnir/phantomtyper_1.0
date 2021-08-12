@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Phantom-Typer/static/css/main.90e59e2d.chunk.css",
+    "main.js": "/Phantom-Typer/static/js/main.d59f5bff.chunk.js",
+    "main.js.map": "/Phantom-Typer/static/js/main.d59f5bff.chunk.js.map",
+    "runtime-main.js": "/Phantom-Typer/static/js/runtime-main.ecfadf94.js",
+    "runtime-main.js.map": "/Phantom-Typer/static/js/runtime-main.ecfadf94.js.map",
+    "static/js/2.4d0d19cd.chunk.js": "/Phantom-Typer/static/js/2.4d0d19cd.chunk.js",
+    "static/js/2.4d0d19cd.chunk.js.map": "/Phantom-Typer/static/js/2.4d0d19cd.chunk.js.map",
+    "index.html": "/Phantom-Typer/index.html",
+    "static/css/main.90e59e2d.chunk.css.map": "/Phantom-Typer/static/css/main.90e59e2d.chunk.css.map",
+    "static/js/2.4d0d19cd.chunk.js.LICENSE.txt": "/Phantom-Typer/static/js/2.4d0d19cd.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ecfadf94.js",
+    "static/js/2.4d0d19cd.chunk.js",
+    "static/css/main.90e59e2d.chunk.css",
+    "static/js/main.d59f5bff.chunk.js"
+  ]
+}
