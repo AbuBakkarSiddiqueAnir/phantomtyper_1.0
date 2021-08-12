@@ -36,13 +36,18 @@ const helperMethods = {
 
   dataBuilder: ({
     user,
+    TIMER_STARTED_BOOLEAN,
     setTIMER_STARTED_BOOLEAN,
     setUSER_STAT,
     setCHAR_CODES_ARRAY,
     setMOMENTS_ARRAY,
     setCHART_IS_OPEN,
+    setTIMER_TRACKER_BOOLEAN
   }) => {
+
+    if(TIMER_STARTED_BOOLEAN) setTIMER_TRACKER_BOOLEAN(true);
     setTIMER_STARTED_BOOLEAN(false);
+
     let sumOfAccuracy = 0,
       avgAccuracy,
       sumOfCorrect = 0,

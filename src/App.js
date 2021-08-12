@@ -14,6 +14,7 @@ import "./App.css";
 
 const App = () => {
   const [TIMER_STARTED_BOOLEAN, setTIMER_STARTED_BOOLEAN] = useState(false);
+  const [TIMER_TRACKER_BOOLEAN, setTIMER_TRACKER_BOOLEAN] = useState(false);
   const [CHALLENGE_AREA_BOOLEAN, setCHALLENGE_AREA_BOOLEAN] = useState(true);
   const [CHARACTER_BOOLEAN, setCHARACTER_BOOLEAN] = useState(true);
   const [MODAL_IS_OPEN, setMODAL_IS_OPEN] = useState(true);
@@ -45,7 +46,7 @@ const App = () => {
   const [MOMENTS_ARRAY, setMOMENTS_ARRAY] = useState([]);
   const [CHAR_CODES_ARRAY, setCHAR_CODES_ARRAY] = useState([]);
 
-  
+
   const ChallengeRestartButtonHandler = () => {
     setCORRECT(0);
     setACTIVE_PARAGRAPH([]);
@@ -65,6 +66,7 @@ const App = () => {
     setRECORD_INCREASE(0);
     setCHALLENGE_AREA_BOOLEAN(true);
     setPREV_MOMENT(0);
+    setTIMER_TRACKER_BOOLEAN(false);
     helperMethods.paragraphArraySetter(
       setPARAGRAPH_ARRAY,
       helperMethods.randomParagraphSelector,
@@ -76,21 +78,25 @@ const App = () => {
   const ChartDataBuilder = (user) => {
     helperMethods.dataBuilder({
       user,
+      TIMER_STARTED_BOOLEAN,
       setTIMER_STARTED_BOOLEAN,
       setUSER_STAT,
       setCHAR_CODES_ARRAY,
       setMOMENTS_ARRAY,
       setCHART_IS_OPEN,
+      setTIMER_TRACKER_BOOLEAN
     });
   };
 
 
   const ChartCloseHandler = () => {
     setCHART_IS_OPEN(false);
+   if(TIMER_TRACKER_BOOLEAN){
     setTIMER_STARTED_BOOLEAN(true);
+    setTIMER_TRACKER_BOOLEAN(false);
+   } 
   };
 
-  // deleting logged in user
 
   const DeleteUserNameHandler = (user) => {
     helperMethods.deleteUser(user, setUSERS_DATA);
@@ -201,30 +207,29 @@ const App = () => {
 
 
 
-
-
-
-
   useEffect(() => {
-    setWPM((prev, next) => {
+    setWPM(() => {
       if (RECORD_INCREASE > 1) {
         let timeRemainingMinFraction = parseInt(RECORD_INCREASE) / 60;
-
         return parseInt(CORRECT ? CORRECT / timeRemainingMinFraction : 0);
       }
       return 0;
     });
   }, [RECORD_INCREASE]);
 
+
+  
   useEffect(() => {
     if (WORD_INDEX % 46 === 0 && WORD_INDEX > 0) {
       activeParagraphLoader();
     }
   }, [WORD_INDEX]);
 
+
   useEffect(() => {
     StatingParaLoader();
   }, []);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -232,18 +237,9 @@ const App = () => {
         counter();
       }
     }, 1000);
-
     return () => clearInterval(interval);
   }, [TIMER_STARTED_BOOLEAN]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (TIMER_STARTED_BOOLEAN) {
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [TIMER_STARTED_BOOLEAN, TIME_REMAINING]);
 
   useEffect(() => {
     if (TIME_REMAINING < 1 && TIME_REMAINING !== "") {
@@ -251,8 +247,10 @@ const App = () => {
       userResultCardCreator();
       setRESULT_CARD_BOOLEAN(true);
       ChallengeRestartButtonHandler();
+      setTIMER_TRACKER_BOOLEAN(false);
     }
   }, [TIME_REMAINING]);
+
 
   useEffect(() => {
     if (RESULT_CARD_BOOLEAN) {
@@ -262,6 +260,7 @@ const App = () => {
       return () => clearTimeout(timeout);
     }
   }, [PARAGRAPH_ARRAY]);
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -273,6 +272,7 @@ const App = () => {
       else localStorage.setItem("usersData", JSON.stringify(USERS_DATA));
     }, 700);
   }, [PARAGRAPH_ARRAY]);
+
 
   return (
     <div className="h-screen font-serif">
