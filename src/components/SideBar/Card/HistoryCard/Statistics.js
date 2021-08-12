@@ -40,7 +40,10 @@ const Statistics = ({
             ? "Good"
             : "Poor"}
 
-          <div style={{paddingLeft:"20%"}} className=" text-lg font-semibold pt-4">
+          <div
+            style={{ paddingLeft: "20%" }}
+            className=" text-lg font-semibold pt-4"
+          >
             <div>{userAvgStat.noOfChallenge} times</div>
             <div>accuracy: {userAvgStat.avgAccuracy}</div>
             <div>wpm: {userAvgStat.avgWpm}</div>
@@ -64,20 +67,18 @@ const Statistics = ({
               Stat
             </button>
           </div>
-          
-            <div className="user-name-area text-lg">
-                <span> {user.username}</span> 
-                {
-                    user.username === USER_NAME_FROM_INPUT ? (
-                        <button onClick={() => DeleteUserNameHandler(user)} className="text-red-600 underline mt-1"><i className="delete icon text-xl"></i></button>
-                    ) : null
-                }
-               
-                
-            </div>
 
-            
-          
+          <div className="user-name-area text-lg">
+            <span> {user.username}</span>
+            {user.username === USER_NAME_FROM_INPUT ? (
+              <button
+                onClick={() => DeleteUserNameHandler(user)}
+                className="text-red-600 underline mt-1"
+              >
+                <i className="delete icon text-xl"></i>
+              </button>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
