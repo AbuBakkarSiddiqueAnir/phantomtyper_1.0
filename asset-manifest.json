@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/Phantom-Typer/static/css/main.c610ff8d.chunk.css",
-    "main.js": "/Phantom-Typer/static/js/main.bdcf3fb9.chunk.js",
-    "main.js.map": "/Phantom-Typer/static/js/main.bdcf3fb9.chunk.js.map",
+    "main.css": "/Phantom-Typer/static/css/main.a2c3f5dc.chunk.css",
+    "main.js": "/Phantom-Typer/static/js/main.55bb84a3.chunk.js",
+    "main.js.map": "/Phantom-Typer/static/js/main.55bb84a3.chunk.js.map",
     "runtime-main.js": "/Phantom-Typer/static/js/runtime-main.ecfadf94.js",
     "runtime-main.js.map": "/Phantom-Typer/static/js/runtime-main.ecfadf94.js.map",
     "static/js/2.4d0d19cd.chunk.js": "/Phantom-Typer/static/js/2.4d0d19cd.chunk.js",
     "static/js/2.4d0d19cd.chunk.js.map": "/Phantom-Typer/static/js/2.4d0d19cd.chunk.js.map",
     "index.html": "/Phantom-Typer/index.html",
-    "static/css/main.c610ff8d.chunk.css.map": "/Phantom-Typer/static/css/main.c610ff8d.chunk.css.map",
+    "static/css/main.a2c3f5dc.chunk.css.map": "/Phantom-Typer/static/css/main.a2c3f5dc.chunk.css.map",
     "static/js/2.4d0d19cd.chunk.js.LICENSE.txt": "/Phantom-Typer/static/js/2.4d0d19cd.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ecfadf94.js",
     "static/js/2.4d0d19cd.chunk.js",
-    "static/css/main.c610ff8d.chunk.css",
-    "static/js/main.bdcf3fb9.chunk.js"
+    "static/css/main.a2c3f5dc.chunk.css",
+    "static/js/main.55bb84a3.chunk.js"
   ]
 }
