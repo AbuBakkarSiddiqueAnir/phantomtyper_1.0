@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LoginModal from "./components/Modal/Modal";
 import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
 import DetailsBar from "./components/SideBar/Bar/DetailBar/DetailBar";
 import HistoryBar from "./components/SideBar/Bar/HistoryBar/HistoryBar";
 import TypingChallenge from "./components/TestContainer/TypingChallenge/TypingChallenge";
@@ -354,9 +353,7 @@ const App = () => {
           />
         </div>
       </div>
-      <div className=" mx-4 p-4">
-        <Footer>{}</Footer>
-      </div>
+      
     </div>
   );
 };
