@@ -40,7 +40,7 @@ const Statistics = ({
             ? "Good"
             : "Poor"}
 
-          <div style={{paddingLeft:"20%"}} className=" text-sm font-semibold pt-4">
+          <div style={{paddingLeft:"20%"}} className=" text-lg font-semibold pt-4">
             <div>{userAvgStat.noOfChallenge} times</div>
             <div>accuracy: {userAvgStat.avgAccuracy}</div>
             <div>wpm: {userAvgStat.avgWpm}</div>

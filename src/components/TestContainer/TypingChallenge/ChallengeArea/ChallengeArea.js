@@ -45,7 +45,7 @@ const ChallengeArea = () => {
           )}
         </paragraphContext.Consumer>
       </div>
-      <div className=" h-52 flex items-center">
+      <div className="h-48 flex items-center">
         <paragraphContext.Consumer>
           {({ RESULT_CARD_BOOLEAN, USER_DATA }) => (
             <ResultCard USER_DATA={USER_DATA} RESULT_CARD_BOOLEAN={RESULT_CARD_BOOLEAN} />

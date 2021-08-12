@@ -19,7 +19,7 @@ const ResultCard = ({ USER_DATA, RESULT_CARD_BOOLEAN }) => {
       RESULT_CARD_BOOLEAN && (
         <animated.div
           style={styles}
-          className="w-80 h-48 mt-8  bg-gray-100 box-shadow"
+          className="w-80 h-48 mt-12  bg-gray-100 box-shadow"
         >
           <div className="flex gap-2">
             <div className="h-48 w-40 bg-blue-400 flex justify-center flex-col items-center">

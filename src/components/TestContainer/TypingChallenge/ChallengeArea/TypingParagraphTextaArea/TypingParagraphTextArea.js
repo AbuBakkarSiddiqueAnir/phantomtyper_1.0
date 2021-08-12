@@ -12,9 +12,9 @@ const TypingParagraphTextArea = ({
   const [apOnTextArea, setApOnTextArea] = useState("");
 
   const transitions = useTransition(MODAL_IS_OPEN, {
-    from: { opacity: 0, marginTop: 190, minHeight: "5px" },
+    from: { opacity: 0, marginTop: -100, minHeight: "10px" },
     enter: { opacity: 1, marginTop: 0, minHeight: "145px" },
-    delay: 300,
+    delay: 400,
   });
 
   useEffect(() => {

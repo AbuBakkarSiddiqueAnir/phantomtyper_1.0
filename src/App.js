@@ -317,7 +317,7 @@ const App = () => {
           </Detailscontext.Provider>
         </div>
 
-        <div className="col-span-6 lg:col-span-5 min-width bg-green-500  pt-8 ">
+        <div style={{height:"620px"}} className="col-span-6 lg:col-span-5 bg-green-500 pt-8 ">
           <ParagraphContext.Provider
             value={{
               OnKeyPressHandler,
@@ -349,7 +349,7 @@ const App = () => {
             USER_NAME_FROM_INPUT={USER_NAME_FROM_INPUT}
             TIMER_STARTED_BOOLEAN={TIMER_STARTED_BOOLEAN}
             DeleteUserNameHandler={DeleteUserNameHandler}
-            height={"43rem"}
+            height={"42rem"}
           />
         </div>
       </div>
