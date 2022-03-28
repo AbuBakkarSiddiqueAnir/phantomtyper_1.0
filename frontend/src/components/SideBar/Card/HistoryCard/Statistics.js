@@ -51,7 +51,7 @@ const Statistics = ({
         </div>
 
         <div
-          className="user-data-area"
+         
           className={
             user.username === USER_NAME_FROM_INPUT
               ? "user-data-area bg-green-500"
