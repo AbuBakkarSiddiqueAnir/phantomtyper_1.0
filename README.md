@@ -2,7 +2,7 @@
 
 Phantom Typer is an open-source project that enables you to easily integrate animations into your React applications using Tailwind CSS classes. This project is built with Vite and comes with a set of pre-built animations that you can use right away.
 
- - Live :
+ - Live : https://phantomtyper.netlify.app
 
 ## Getting Started
 
