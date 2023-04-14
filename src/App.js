@@ -16,7 +16,7 @@ const App = () => {
   const [TIMER_TRACKER_BOOLEAN, setTIMER_TRACKER_BOOLEAN] = useState(false);
   const [CHALLENGE_AREA_BOOLEAN, setCHALLENGE_AREA_BOOLEAN] = useState(true);
   const [CHARACTER_BOOLEAN, setCHARACTER_BOOLEAN] = useState(true);
-  const [MODAL_IS_OPEN, setMODAL_IS_OPEN] = useState(true);
+  const [MODAL_IS_OPEN, setMODAL_IS_OPEN] = useState(false);
   const [RESULT_CARD_BOOLEAN, setRESULT_CARD_BOOLEAN] = useState(false);
   const [CHART_IS_OPEN, setCHART_IS_OPEN] = useState(false);
 
@@ -38,12 +38,13 @@ const App = () => {
   const [USERS_DATA, setUSERS_DATA] = useState([]);
   const [USER_DATA, setUSER_DATA] = useState({});
   const [USER_STAT, setUSER_STAT] = useState({});
-  const [USER_NAME_FROM_INPUT, setUSER_NAME_FROM_INPUT] = useState("");
+  const [USER_NAME_FROM_INPUT, setUSER_NAME_FROM_INPUT] = useState("Alex");
 
   const [CHAR_CODES, setCHAR_CODES] = useState([]);
   const [PREV_MOMENT, setPREV_MOMENT] = useState(0);
   const [MOMENTS_ARRAY, setMOMENTS_ARRAY] = useState([]);
   const [CHAR_CODES_ARRAY, setCHAR_CODES_ARRAY] = useState([]);
+
 
 
   const ChallengeRestartButtonHandler = () => {
@@ -93,7 +94,7 @@ const App = () => {
    if(TIMER_TRACKER_BOOLEAN){
     setTIMER_STARTED_BOOLEAN(true);
     setTIMER_TRACKER_BOOLEAN(false);
-   } 
+   }
   };
 
 
@@ -217,7 +218,7 @@ const App = () => {
   }, [RECORD_INCREASE]);
 
 
-  
+
   useEffect(() => {
     if (WORD_INDEX % 46 === 0 && WORD_INDEX > 0) {
       activeParagraphLoader();
@@ -317,7 +318,7 @@ const App = () => {
           </Detailscontext.Provider>
         </div>
 
-        <div style={{height:"620px"}} className="col-span-6 lg:col-span-5 bg-green-500 pt-8 ">
+        <div style={{height:"600px", backgroundColor:'#B9EDDD'}} className="col-span-6 px-4 mx-3 rounded-xl lg:col-span-5 bg-[#F9F5EB] pt-8 ">
           <ParagraphContext.Provider
             value={{
               OnKeyPressHandler,

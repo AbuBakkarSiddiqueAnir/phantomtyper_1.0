@@ -14,18 +14,18 @@ const DetailsBar = () => {
     <div>
       <Detailscontext.Consumer>
         {({ KEY_STROKES }) => (
-          <DetailCard cardDetail={"strokes"} scoreUpdatingValue={KEY_STROKES} />
+          <DetailCard cardDetail={"STROKES"} scoreUpdatingValue={KEY_STROKES} />
         )}
       </Detailscontext.Consumer>
 
       <Detailscontext.Consumer>
         {({ WPM }) => (
-          <DetailCard cardDetail={"wpm"} scoreUpdatingValue={WPM} />
+          <DetailCard cardDetail={"WPM"} scoreUpdatingValue={WPM} />
         )}
       </Detailscontext.Consumer>
       <Detailscontext.Consumer>
         {({ ACCURACY }) => (
-          <DetailCard cardDetail={"accuracy"} scoreUpdatingValue={ACCURACY} />
+          <DetailCard cardDetail={"ACCURACY"} scoreUpdatingValue={ACCURACY} />
         )}
       </Detailscontext.Consumer>
       <div className="mt-4">

@@ -3,10 +3,13 @@ import React from 'react';
 
 const RestartButton = ({ActiveParaHandler}) => {
     return (
-        <div className="">
-            <button onClick={ActiveParaHandler} className="w-60 h-12 button rounded hover:bg-gray-100 text-2xl">
+        <div className="bor">
+            <button onClick={ActiveParaHandler} className="w-60 h-12 button rounded border-cc text-2xl">
+                <span className='rotation'>
                 <i className="icon sync"></i>
-                Restart 
+                </span>
+
+                Restart
             </button>
         </div>
     )

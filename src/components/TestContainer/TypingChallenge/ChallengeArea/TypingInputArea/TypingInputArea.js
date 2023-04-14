@@ -22,11 +22,11 @@ const TypingInputArea = ({
               <animated.input
                 placeHolder=".....start....typing"
                 autoFocus
-                style={styles}
+                style={{...styles,background:'#B9EDDD'}}
                 value={TYPING_WORD}
                 onKeyPress={(e) => OnKeyPressHandler(e)}
                 onChange={wordMatchHandler}
-                className="shadow-3xl w-3/5 h-12 outline-none p-4 text-center text-2xl font-normal"
+                className=" w-3/5 h-12 outline-none p-4 border-cc text-center text-2xl font-normal"
               />
             </div>
           </animated.div>

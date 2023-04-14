@@ -37,8 +37,8 @@ const Statistics = ({
       <div className="card-statistics ">
         <div className="statistics bg-gray-200  text-sm pl-2 pt-2">
           {userAvgStat.avgAccuracy > 30 && userAvgStat.avgAccuracy > 90
-            ? "Good"
-            : "Poor"}
+            ? "You are good"
+            : "You will do great"}
 
           <div
             style={{ paddingLeft: "20%" }}
@@ -51,7 +51,8 @@ const Statistics = ({
         </div>
 
         <div
-         
+        style={{background:'#B9EDDD'}}
+
           className={
             user.username === USER_NAME_FROM_INPUT
               ? "user-data-area bg-green-500"
@@ -62,7 +63,7 @@ const Statistics = ({
             <div>Statistics</div>
             <button
               onClick={() => ChartDataBuilder(user)}
-              className="graph-link  bg-green-500 shadow-xl underline bg rounded-md px-1"
+              className="graph-link underline bg rounded-md px-1"
             >
               Stat
             </button>

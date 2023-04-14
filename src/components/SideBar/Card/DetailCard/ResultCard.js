@@ -18,16 +18,16 @@ const ResultCard = ({ USER_DATA, RESULT_CARD_BOOLEAN }) => {
     return (
       RESULT_CARD_BOOLEAN && (
         <animated.div
-          style={styles}
+          style={{...styles,background:'#B9EDDD'}}
           className="w-80 h-48 mt-12  bg-gray-100 box-shadow"
         >
           <div className="flex gap-2">
-            <div className="h-48 w-40 bg-blue-400 flex justify-center flex-col items-center">
+            <div style={{background:'#87CBB9'}} className="h-48 w-40 bg-blue-400 flex justify-center flex-col items-center">
               <span className="text-6xl">{USER_DATA.WPM}</span>
               <span className="text-lg">wpm</span>
             </div>
 
-            <div className="w-60 h-48 flex bg-green-500 flex-col font-semibold justify-around pl-8 text-gray-800 text-lg ">
+            <div style={{background:'#87CBB9'}}  className="w-60 h-48 flex bg-green-500 flex-col font-semibold justify-around pl-8 text-dark text-lg ">
               <div>
                 <span>
                   {USER_DATA.KEY_STROKES} <span>keyStrokes</span>

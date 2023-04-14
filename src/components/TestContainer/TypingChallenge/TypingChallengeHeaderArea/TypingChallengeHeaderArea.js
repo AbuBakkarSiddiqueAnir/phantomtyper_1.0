@@ -6,7 +6,7 @@ import paragraphContext from "../../../../contexts/paragraphContext"
 
 const TypingChalengeHeaderArea = () => {
   return (
-    <div className="flex justify-between mx-8">
+    <div className="flex justify-between mx-8 bg-[#F9F5EB]">
       <paragraphContext.Consumer>
         {({ TIME_REMAINING, timeRemainingInputHandler }) => (
           <TimeRemainingInput

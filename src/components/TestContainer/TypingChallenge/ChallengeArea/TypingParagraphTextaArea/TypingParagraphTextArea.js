@@ -56,7 +56,7 @@ const TypingParagraphTextArea = ({
         <div className="mt-8">
           <animated.div
             style={styles}
-            className="w-full p-4 box-shadow text-2xl resize-none bg-gray-100 leading-normal"
+            className="w-full p-4  text-2xl resize-none  leading-normal"
           >
             {apOnTextArea.length > 1 ? (
               apOnTextArea

@@ -2,7 +2,7 @@ import React from "react";
 
 const Header = ({ userName }) => {
   return (
-    <div className="bg-green-500 flex mx-4 p-3 box-shadow">
+    <div className="bg-[#F6F1F1] flex mx-4 p-3 ">
       <div className="flex-1 flex">
         <span className="text-4xl text-gray-800">
           <i className="keyboard icon"></i>

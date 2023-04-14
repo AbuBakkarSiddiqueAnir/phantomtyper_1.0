@@ -35,7 +35,7 @@
     color: rgb(22, 21, 20);
     position: relative;
     text-align: left;
-    
+
 }
 
 
@@ -44,17 +44,14 @@
     height: 135px;
     background-position: left top;
     background-size: cover;
-  
+
     overflow: hidden;
     position: relative;
     transition: background-position 3s ease 0s;
-    box-shadow: rgb(0 0 0 / 15%) 0px 1px 4px 0px;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
 }
 .user-data-area{
-    box-shadow: rgb(0 0 0 / 15%) 0px 1px 4px 0px;
-    
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
     box-sizing: border-box;
@@ -84,7 +81,7 @@
     justify-content: space-between;
     -webkit-box-align: center;
     align-items: center;
-   
+
 
 }
 
@@ -93,7 +90,7 @@
     display: block;
     color:rgb(22,21,20);
     text-align: left;
-   
+
 }
 
 

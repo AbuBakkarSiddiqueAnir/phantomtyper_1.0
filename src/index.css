@@ -7,11 +7,16 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background:#F3F2EF;
   }
-  
+
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+
+.border-cc{
+  border:1px solid #3C486B
+}
+
 
 @tailwind base;
 @tailwind components;
